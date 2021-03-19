@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BIPapp">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".ActivitySingIn"
+            android:label="@string/sing_in_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
         </activity>
     </application>
 
