@@ -3,17 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.UserFragment"
-    android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".ui.user.FragmentUser"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_user"
+        android:id="@+id/text_fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="20sp"
-        tools:text="user">
+        tools:text="fullname">
     </TextView>
+
+    <TextView
+        android:id="@+id/text_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="age">
+    </TextView>
+
+    <TextView
+        android:id="@+id/text_biography"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="biography">
+    </TextView>
+
+    <TextView
+        android:id="@+id/text_skills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="skills">
+    </TextView>
+
+    <TextView
+        android:id="@+id/text_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="skills">
+    </TextView>
+
 
 </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_user">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/navigation_user"
-        android:name="com.example.bipapp.ui.user.UserFragment"
+        android:name="com.example.bipapp.ui.user.FragmentUser"
         android:label="@string/title_user"
         tools:layout="@layout/fragment_user">
     </fragment>

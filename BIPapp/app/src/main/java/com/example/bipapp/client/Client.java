@@ -1,5 +1,7 @@
 package com.example.bipapp.client;
 
+import android.util.Log;
+
 import com.example.bipapp.api.API;
 import com.example.bipapp.api.EStatusCode;
 
@@ -15,6 +17,8 @@ public class Client extends Thread {
     private final List<Packet> mOutPackets;
     private boolean isRun;
 
+    //TODO divide to interface for sing and for main
+
     public Client(IClientCallback clientCallback) {
         isRun = true;
         mClientCallback = clientCallback;
@@ -24,8 +28,6 @@ public class Client extends Thread {
 
     @Override
     public void run() {
-        //TODO send/receive, lists to send/receive packets
-
         while (isRun) {
             sendAndHandlePackets();
             try {
@@ -37,7 +39,9 @@ public class Client extends Thread {
     }
 
     private void sendAndHandlePackets() {
-        for (int i = 0; i < mOutPackets.size(); i++) {
+        int i = mOutPackets.size() -1;
+
+        for (; i >= 0; --i) {
             try {
                 Packet outPacket = mOutPackets.get(i);
                 if (outPacket.getTypePacket() == ETypePacket.BAD) {
@@ -45,9 +49,10 @@ public class Client extends Thread {
                     continue;
                 }
                 handleInPacket(API.sendPacket(outPacket));
+                mOutPackets.remove(i);
             } catch (IOException | JSONException e) {
-                mClientCallback.showMessage("Error", e.toString());
                 e.printStackTrace();
+                mClientCallback.showMessage("Error", e.toString());
             }
         }
 
@@ -56,6 +61,7 @@ public class Client extends Thread {
 
     private void handleInPacket(Packet packet) throws JSONException {
         JSONObject jsonObject = packet.getJsonObject();
+        Log.v("Test", jsonObject.toString());
         EStatusCode statusCode = EStatusCode.getStatusCode(jsonObject.getString("status"));
         if (statusCode == EStatusCode.OK) {
             ETypePacket typePacket = packet.getTypePacket();
@@ -67,6 +73,9 @@ public class Client extends Thread {
                     return;
                 case SING_UP:
                     mClientCallback.showMessage("SingUp", "Ok");
+                    return;
+                case GET_USER_INFO:
+                    mClientCallback.showUserInfo(jsonObject.getJSONObject("data"));
                     return;
 //                case BAD:
 //                    mClientCallback.showError("Error", e.toString());
@@ -83,5 +92,9 @@ public class Client extends Thread {
 
     public void singIn(String login, String password) {
         mOutPackets.add(API.singIn(login, password));
+    }
+
+    public void getUserInfo(){
+        mOutPackets.add(API.getUserInfo());
     }
 }

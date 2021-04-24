@@ -25,6 +25,7 @@ public class API {
     private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
+    private final static String ACTION_GET_USER_INFO = "get_user_info/";
 
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
@@ -93,6 +94,33 @@ public class API {
         return packet;
     }
 
+    public static Packet getUserInfo() {
+        Packet packet = new Packet(ETypePacket.BAD);
+
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("token", sToken);
+            packet.setJsonObject(jsonObject);
+            packet.setTypePacket(ETypePacket.GET_USER_INFO);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (packet.getTypePacket() == ETypePacket.BAD) {
+            return packet;
+        }
+
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_GET_USER_INFO));
+        } catch (MalformedURLException e) {
+            packet.setTypePacket(ETypePacket.BAD);
+        }
+
+        Log.v(TAG, packet.getJsonObject().toString());
+
+        return packet;
+    }
+
     private static Packet sing(String login, String password) {
         Packet packet = new Packet(ETypePacket.BAD);
         if (login.length() <= 0 || password.length() <= 0) {
@@ -106,9 +134,8 @@ public class API {
         }
 
         packet.setTypePacket(ETypePacket.TMP);
-        
-        try {
 
+        try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("username", login);
             jsonObject.put("password", password);
@@ -203,7 +230,7 @@ public class API {
         JSONObject response = getResponseFromConnection(connection);
         connection.disconnect();
 
-        return new Packet(packet.getTypePacket(), new URL(""), response);
+        return new Packet(packet.getTypePacket(), null, response);
     }
 
     private static HttpURLConnection createConnection(URL url) throws IOException {
