@@ -6,6 +6,7 @@ public enum ETypePacket {
     SING_UP,
 
     GET_USER_INFO,
+    CHANGE_USER_INFO,
 
     TMP,
     BAD;

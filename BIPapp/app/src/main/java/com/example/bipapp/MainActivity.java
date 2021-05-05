@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,14 +17,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.bipapp.api.API;
-import com.example.bipapp.client.Client;
-import com.example.bipapp.client.IClientCallback;
+import com.example.bipapp.client.ClientMain;
+import com.example.bipapp.client.IClientMainCallback;
+import com.example.bipapp.models.User;
 import com.example.bipapp.ui.user.FragmentUser;
 
-import org.json.JSONObject;
-
-public class MainActivity extends AppCompatActivity implements IClientCallback {
-    private Client mClient;
+public class MainActivity extends AppCompatActivity implements IClientMainCallback {
+    private ClientMain mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements IClientCallback {
 
         SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
         API.setPreferences(preferences);
-        mClient = new Client(this);
+        mClient = new ClientMain(this);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
@@ -48,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements IClientCallback {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mClient.stopClient();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 //        SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements IClientCallback {
 //        mClient = new Client(this);
     }
 
-    public Client getClient() {
+    public ClientMain getClientMain() {
 //        if(mClient == null){
 //            mClient = new Client(this);
 //        }
@@ -83,18 +87,13 @@ public class MainActivity extends AppCompatActivity implements IClientCallback {
     }
 
     @Override
-    public void singIn() {
-
-    }
-
-    @Override
-    public void showUserInfo(JSONObject data) {
+    public void showUserInfo() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
         Log.v("test", fragment.getClass().getName());
+
         if (fragment instanceof FragmentUser) {
-            ((FragmentUser) fragment).showUserInfo(data);
+            ((FragmentUser) fragment).showUserInfo();
         }
-//        Log.v("test", data.toString());
     }
 }

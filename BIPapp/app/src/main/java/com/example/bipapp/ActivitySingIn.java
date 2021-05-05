@@ -5,26 +5,30 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.bipapp.api.API;
 import com.example.bipapp.client.Client;
-import com.example.bipapp.client.IClientCallback;
+import com.example.bipapp.client.ClientSing;
+import com.example.bipapp.client.IClientSingCallback;
 
 import org.json.JSONObject;
 
-public class ActivitySingIn extends AppCompatActivity implements IClientCallback {
-    private Client mClient;
+public class ActivitySingIn extends AppCompatActivity implements IClientSingCallback {
+    private ClientSing mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_in);
+
 
         EditText editLogin = findViewById(R.id.edit_login);
         EditText editPassword = findViewById(R.id.edit_password);
@@ -46,29 +50,36 @@ public class ActivitySingIn extends AppCompatActivity implements IClientCallback
             }
         });
 
+        SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
+        API.setPreferences(preferences);
 
-        //TODO
-//        if token exist
-        //        then check active maybe refresh
-        //        if check then go mainActivity
-        //        else show error dialog
+        if (API.isTokenExist()) {
+            if (API.isTokenActive()) {
+                singIn();
+            } else {
+                if (!API.refreshToken()) {
+                    Toast.makeText(this, R.string.bad_token, Toast.LENGTH_LONG).show();
+                } else {
+                    singIn();
+                }
+            }
+        }
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
-        API.setPreferences(preferences);
 
-        mClient = new Client(this);
+        mClient = new ClientSing(this);
     }
 
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        Log.v("maA", "onRestart");
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mClient.stopClient();
+    }
+
 
     @Override
     public void showMessage(String title, String message) {
@@ -96,7 +107,13 @@ public class ActivitySingIn extends AppCompatActivity implements IClientCallback
     }
 
     @Override
-    public void showUserInfo(JSONObject data) {
-        Log.v("kek", "kek");
+    public void singUp() {
+        //TODO call create user date activity
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((Button) findViewById(R.id.button_sing_in)).performClick();
+            }
+        });
     }
 }

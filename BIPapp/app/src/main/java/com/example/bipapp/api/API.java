@@ -26,6 +26,7 @@ public class API {
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
     private final static String ACTION_GET_USER_INFO = "get_user_info/";
+    private final static String ACTION_CHANGE_USER_INFO = "change_user_info/";
 
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
@@ -116,7 +117,7 @@ public class API {
             packet.setTypePacket(ETypePacket.BAD);
         }
 
-        Log.v(TAG, packet.getJsonObject().toString());
+//        Log.v(TAG, packet.getJsonObject().toString());
 
         return packet;
     }
@@ -144,6 +145,19 @@ public class API {
             e.printStackTrace();
         }
 
+        return packet;
+    }
+
+    public static Packet changeUserInfo(JSONObject jsonObject) {
+        Packet packet = new Packet(ETypePacket.CHANGE_USER_INFO);
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_CHANGE_USER_INFO));
+            jsonObject.put("token", sToken);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
         return packet;
     }
 
@@ -246,6 +260,7 @@ public class API {
     }
 
     private static void addJsonToConnection(HttpURLConnection connection, JSONObject jsonObject) throws IOException {
+        Log.v(TAG, jsonObject.toString());
         OutputStream outputStream = connection.getOutputStream();
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         outputStreamWriter.write(jsonObject.toString());
@@ -283,4 +298,5 @@ public class API {
 
         return jsonObject;
     }
+
 }

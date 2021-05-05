@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.FragmentUserEdit"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/image_button_select_photo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:contentDescription="@string/description_select_photo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/test_photo">
+    </ImageButton>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="8">
+
+        <EditText
+            android:id="@+id/edit_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_fullname"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textSize="20sp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/edit_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_age"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="20sp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/edit_biography"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="@string/hint_biography"
+            android:inputType="textImeMultiLine"
+            android:textAlignment="center"
+            android:textSize="20sp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/edit_skills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:hint="@string/hint_skills"
+            tools:text="skills">
+        </EditText>
+
+        <Button
+            android:id="@+id/button_save_edit_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_save_edit_user">
+        </Button>
+    </LinearLayout>
+
+
+</LinearLayout>

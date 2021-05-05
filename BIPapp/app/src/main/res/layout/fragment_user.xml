@@ -1,55 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.FragmentUser"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.user.FragmentUser">
 
-    <TextView
-        android:id="@+id/text_fullname"
+    <FrameLayout
+        android:id="@+id/frame_container_user"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit_user"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:text="fullname">
-    </TextView>
-
-    <TextView
-        android:id="@+id/text_age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:text="age">
-    </TextView>
-
-    <TextView
-        android:id="@+id/text_biography"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:text="biography">
-    </TextView>
-
-    <TextView
-        android:id="@+id/text_skills"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:text="skills">
-    </TextView>
-
-    <TextView
-        android:id="@+id/text_photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:text="skills">
-    </TextView>
-
-
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_baseline_edit_124"
+        android:contentDescription="@string/description_fab_edit_user">
+    </android.support.design.widget.FloatingActionButton>
+</RelativeLayout>
