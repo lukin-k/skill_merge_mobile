@@ -27,6 +27,7 @@ public class API {
     private final static String ACTION_LOGIN = "login/";
     private final static String ACTION_GET_USER_INFO = "get_user_info/";
     private final static String ACTION_CHANGE_USER_INFO = "change_user_info/";
+    private final static String ACTION_CREATE_PROJECT = "create_project/";
 
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
@@ -152,6 +153,19 @@ public class API {
         Packet packet = new Packet(ETypePacket.CHANGE_USER_INFO);
         try {
             packet.setUrl(new URL(SERVER_URL + ACTION_CHANGE_USER_INFO));
+            jsonObject.put("token", sToken);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet createProject(JSONObject jsonObject) {
+        Packet packet = new Packet(ETypePacket.CREATE_PROJECT);
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_CREATE_PROJECT));
             jsonObject.put("token", sToken);
         } catch (MalformedURLException | JSONException e) {
             e.printStackTrace();
@@ -298,5 +312,4 @@ public class API {
 
         return jsonObject;
     }
-
 }

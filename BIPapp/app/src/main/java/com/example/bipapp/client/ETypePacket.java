@@ -7,6 +7,7 @@ public enum ETypePacket {
 
     GET_USER_INFO,
     CHANGE_USER_INFO,
+    CREATE_PROJECT,
 
     TMP,
     BAD;

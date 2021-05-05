@@ -43,18 +43,17 @@ public abstract class Client extends Thread {
                     continue;
                 }
                 handleInPacket(API.sendPacket(outPacket));
-                mOutPackets.remove(i);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
                 mClientCallback.showMessage("Error", e.toString());
             }
+            mOutPackets.remove(i);
         }
-
-//        mOutPackets.clear();
     }
 
-    public void stopClient(){
+    public void stopClient() {
         isRun = false;
     }
+
     abstract protected void handleInPacket(Packet packet) throws JSONException;
 }

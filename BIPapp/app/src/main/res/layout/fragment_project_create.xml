@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.projects.FragmentProjectCreate">
+
+    <EditText
+        android:id="@+id/edit_project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_project_name"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="20sp">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/edit_project_description"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/hint_project_description"
+        android:inputType="textImeMultiLine"
+        android:textAlignment="center"
+        android:textSize="20sp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/edit_project_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_project_tags"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        tools:text="Open Source">
+    </EditText>
+
+    <Button
+        android:id="@+id/button_create_project"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_create_project">
+    </Button>
+
+</LinearLayout>

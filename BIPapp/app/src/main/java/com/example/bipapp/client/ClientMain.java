@@ -1,5 +1,7 @@
 package com.example.bipapp.client;
 
+import android.util.Log;
+
 import com.example.bipapp.api.API;
 import com.example.bipapp.api.EStatusCode;
 import com.example.bipapp.models.User;
@@ -32,6 +34,10 @@ public class ClientMain extends Client {
                 case CHANGE_USER_INFO:
                     getUserInfo();
                     return;
+                case CREATE_PROJECT:
+                    Log.v("ClientMain", jsonObject.toString());
+                    Log.v("ClientMain", jsonObject.getJSONObject("data").toString());
+                    return;
             }
         } else {
             mClientMainCallback.showMessage("Error", jsonObject.getString("message"));
@@ -39,19 +45,24 @@ public class ClientMain extends Client {
     }
 
 
-    public void getUserInfo(){
+    public void getUserInfo() {
         mOutPackets.add(API.getUserInfo());
     }
 
-    public void changeUserInfo(JSONObject jsonObject){
+    public void changeUserInfo(JSONObject jsonObject) {
         mOutPackets.add(API.changeUserInfo(jsonObject));
     }
 
-    public boolean isUserExist(){
+    public void createProject(JSONObject jsonObject) {
+        mOutPackets.add(API.createProject(jsonObject));
+    }
+
+    public boolean isUserExist() {
         return mUser != null;
     }
 
     public User getUser() {
         return mUser;
     }
+
 }

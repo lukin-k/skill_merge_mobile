@@ -10,7 +10,7 @@
     <string name="app_name">BIPapp</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_projects">Projects</string>
     <string name="title_user">User</string>
 
     <string name="description_fab_edit_user">Edit user</string>
@@ -22,6 +22,12 @@
     <string name="hint_biography">Biography</string>
     <string name="hint_skills">Skills</string>
     <string name="description_select_photo">Select new photo</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="description_fab_create_project">Create project</string>
+
+    <string name="button_create_project">Create</string>
+
+    <string name="hint_project_name">Project name</string>
+    <string name="hint_project_description">Project description</string>
+    <string name="hint_project_tags">Project tags</string>
 </resources>

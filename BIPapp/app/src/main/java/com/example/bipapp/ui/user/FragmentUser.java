@@ -27,6 +27,7 @@ public class FragmentUser extends Fragment {
         mFragmentUserInfo.setClient(mClient);
         mFragmentManager = getChildFragmentManager();
 
+        //TODO gone fab when edit and visible when info
         FloatingActionButton fab = view.findViewById(R.id.fab_edit_user);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
