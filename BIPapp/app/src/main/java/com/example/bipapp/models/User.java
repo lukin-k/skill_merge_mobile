@@ -1,20 +1,25 @@
 package com.example.bipapp.models;
 
+import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class User {
     private String mUserName;
     private String mFullName;
     private short mAge;
     private String mBiography;
-    private ArrayList<String> mUserSkills;
+    private ArrayList<Skill> mSkills;
     //TODO set suitable type for photo
     private byte[] mPhoto;
 
     public User(JSONObject jsonObject) {
+        mSkills = new ArrayList<>();
         update(jsonObject);
     }
 
@@ -39,7 +44,17 @@ public class User {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//TODO            mUserSkills = jsonObject.getString("user_skills");
+
+        try {
+            JSONArray jsonArray = jsonObject.getJSONArray("user_skills");
+            for (int i = 0; i < jsonArray.length(); ++i){
+                JSONObject map = jsonArray.getJSONObject(i);
+                mSkills.add(new Skill(map));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 //TODO            mPhoto = jsonObject.getString("photo_id");
     }
 
@@ -55,7 +70,7 @@ public class User {
         return mBiography;
     }
 
-    public ArrayList<String> getUserSkills() {
-        return mUserSkills;
+    public ArrayList<Skill> getSkills() {
+        return mSkills;
     }
 }

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
         API.setPreferences(preferences);
         mClient = new ClientMain(this);
+        mClient.getAllSkillsRequest();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 

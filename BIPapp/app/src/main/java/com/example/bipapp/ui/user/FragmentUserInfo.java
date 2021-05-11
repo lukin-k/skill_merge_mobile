@@ -2,18 +2,23 @@ package com.example.bipapp.ui.user;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bipapp.MainActivity;
 import com.example.bipapp.R;
+import com.example.bipapp.adapters.AdapterRecyclerSkills;
+import com.example.bipapp.adapters.ViewHolderSkill;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.User;
 
 public class FragmentUserInfo extends Fragment {
     private ClientMain mClient;
+    private AdapterRecyclerSkills mAdapterRecyclerSkills;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,11 @@ public class FragmentUserInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
+        RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerSkills.setLayoutManager(layoutManager);
+        mAdapterRecyclerSkills = new AdapterRecyclerSkills();
+        recyclerSkills.setAdapter(mAdapterRecyclerSkills);
         return view;
     }
 
@@ -50,6 +60,9 @@ public class FragmentUserInfo extends Fragment {
         TextView textBiography = view.findViewById(R.id.text_biography);
         textBiography.setText(user.getBiography());
 
-        //TODO show skills and photo
+        mAdapterRecyclerSkills.setSkills(user.getSkills());
+        mAdapterRecyclerSkills.notifyDataSetChanged();
+
+        //TODO show photo
     }
 }

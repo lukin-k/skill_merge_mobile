@@ -25,6 +25,7 @@ public class API {
     private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
+    private final static String ACTION_GET_ALL_SKILLS = "get_all_skills/";
     private final static String ACTION_GET_USER_INFO = "get_user_info/";
     private final static String ACTION_CHANGE_USER_INFO = "change_user_info/";
     private final static String ACTION_CREATE_PROJECT = "create_project/";
@@ -96,6 +97,32 @@ public class API {
         return packet;
     }
 
+    private static Packet sing(String login, String password) {
+        Packet packet = new Packet(ETypePacket.BAD);
+        if (login.length() <= 0 || password.length() <= 0) {
+            try {
+                packet.setJsonObject(createError("Empty login or password"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return packet;
+        }
+
+        packet.setTypePacket(ETypePacket.TMP);
+
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username", login);
+            jsonObject.put("password", password);
+            packet.setJsonObject(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return packet;
+    }
+
     public static Packet getUserInfo() {
         Packet packet = new Packet(ETypePacket.BAD);
 
@@ -123,32 +150,6 @@ public class API {
         return packet;
     }
 
-    private static Packet sing(String login, String password) {
-        Packet packet = new Packet(ETypePacket.BAD);
-        if (login.length() <= 0 || password.length() <= 0) {
-            try {
-                packet.setJsonObject(createError("Empty login or password"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return packet;
-        }
-
-        packet.setTypePacket(ETypePacket.TMP);
-
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("username", login);
-            jsonObject.put("password", password);
-            packet.setJsonObject(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return packet;
-    }
-
     public static Packet changeUserInfo(JSONObject jsonObject) {
         Packet packet = new Packet(ETypePacket.CHANGE_USER_INFO);
         try {
@@ -172,6 +173,21 @@ public class API {
         }
 
         packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet getAllSkills(){
+        Packet packet = new Packet(ETypePacket.BAD);
+        try {
+            packet.setTypePacket(ETypePacket.GET_ALL_SKILLS);
+            packet.setUrl(new URL(SERVER_URL + ACTION_GET_ALL_SKILLS));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("token", sToken);
+            packet.setJsonObject(jsonObject);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
         return packet;
     }
 

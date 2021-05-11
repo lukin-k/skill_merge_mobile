@@ -54,15 +54,8 @@
             android:textSize="20sp">
         </EditText>
 
-        <EditText
-            android:id="@+id/edit_skills"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:hint="@string/hint_skills"
-            tools:text="skills">
-        </EditText>
+        <include layout="@layout/panel_skills"/>
+
 
         <Button
             android:id="@+id/button_save_edit_user"

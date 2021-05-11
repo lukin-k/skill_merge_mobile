@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:layout_gravity="center"
         android:contentDescription="@string/description_select_photo"
         android:scaleType="fitCenter"
         android:src="@drawable/test_photo">
@@ -50,14 +49,8 @@
             tools:text="biography">
         </TextView>
 
-        <TextView
-            android:id="@+id/text_skills"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            tools:text="skills">
-        </TextView>
+        <include layout="@layout/panel_skills"/>
+
     </LinearLayout>
 
 </LinearLayout>

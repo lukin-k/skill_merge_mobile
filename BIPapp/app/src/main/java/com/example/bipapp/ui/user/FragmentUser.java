@@ -1,5 +1,6 @@
 package com.example.bipapp.ui.user;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ public class FragmentUser extends Fragment {
     private ClientMain mClient;
     private FragmentUserInfo mFragmentUserInfo;
     private FragmentManager mFragmentManager;
+    private FloatingActionButton mFab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,12 +30,14 @@ public class FragmentUser extends Fragment {
         mFragmentManager = getChildFragmentManager();
 
         //TODO gone fab when edit and visible when info
-        FloatingActionButton fab = view.findViewById(R.id.fab_edit_user);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab = view.findViewById(R.id.fab_edit_user);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
                 FragmentUserEdit fragmentUserEdit = new FragmentUserEdit();
                 fragmentUserEdit.setClient(mClient);
+                mFab.setVisibility(View.GONE);
 
                 mFragmentManager.beginTransaction()
                         .replace(R.id.frame_container_user, fragmentUserEdit)
@@ -44,7 +48,14 @@ public class FragmentUser extends Fragment {
         return view;
     }
 
+    @SuppressLint("RestrictedApi")
     private void setFragmentUserInfo() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mFab.setVisibility(View.VISIBLE);
+            }
+        });
         mFragmentManager.beginTransaction()
                 .replace(R.id.frame_container_user, mFragmentUserInfo)
                 .commit();
