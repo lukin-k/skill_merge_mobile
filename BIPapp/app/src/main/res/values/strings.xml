@@ -8,7 +8,7 @@
     <string name="bad_token">Pleas sing in</string>
 
     <string name="app_name">BIPapp</string>
-    <string name="title_home">Home</string>
+    <string name="title_search_project">Search project</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_projects">Projects</string>
     <string name="title_user">User</string>
@@ -30,4 +30,6 @@
     <string name="hint_project_name">Project name</string>
     <string name="hint_project_description">Project description</string>
     <string name="hint_project_tags">Project tags</string>
+
+    <string name="description_user_photo">Photo of user</string>
 </resources>

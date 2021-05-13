@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.bipapp.api.API;
 import com.example.bipapp.api.EStatusCode;
+import com.example.bipapp.models.Project;
 import com.example.bipapp.models.Skill;
 import com.example.bipapp.models.User;
 
@@ -19,6 +20,8 @@ public class ClientMain extends Client {
 
     private User mUser;
     private ArrayList<Skill> mAllSkills;
+    private ArrayList<String> mAllProjectTags;
+    private ArrayList<Project> mFindProjects;
 
     private final IClientMainCallback mClientMainCallback;
 
@@ -26,6 +29,8 @@ public class ClientMain extends Client {
         super(clientCallback);
         mClientMainCallback = clientCallback;
         mAllSkills = new ArrayList<>();
+        mAllProjectTags = new ArrayList<>();
+        mFindProjects = new ArrayList<>();
     }
 
 
@@ -46,14 +51,33 @@ public class ClientMain extends Client {
                 case CHANGE_USER_INFO:
                     getUserInfo();
                     return;
+                case GET_ALL_PROJECT_TAGS:
+                    saveAllProjectTags(jsonObject.getJSONObject("data").getJSONArray("tags"));
+                    return;
                 case CREATE_PROJECT:
-                    //TODO do something
-                    Log.v(TAG, jsonObject.toString());
-                    Log.v(TAG, jsonObject.getJSONObject("data").toString());
+                    mClientMainCallback.showMyProjects();
+                    return;
+                case GET_MY_PROJECTS:
+                    saveFindProjects(jsonObject.getJSONArray("data"));
+                    return;
+                case SEARCH_PROJECTS:
+                    Log.v(TAG, "SEARCH_PROJECTS " + jsonObject.toString());
+                    saveFindProjects(jsonObject.getJSONArray("data"));
                     return;
             }
         } else {
             mClientMainCallback.showMessage("Error", jsonObject.getString("message"));
+        }
+    }
+
+    private void saveFindProjects(JSONArray projects) {
+        mFindProjects.clear();
+        for (int i = 0; i < projects.length(); ++i) {
+            try {
+                mFindProjects.add(new Project(projects.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,13 +92,35 @@ public class ClientMain extends Client {
         }
     }
 
+    private void saveAllProjectTags(JSONArray tags) {
+        mAllProjectTags.clear();
+        for (int i = 0; i < tags.length(); ++i) {
+            try {
+                mAllProjectTags.add(tags.getString(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void getAllSkillsRequest() {
-//        Log.v(TAG, "getAllSkills");
         mOutPackets.add(API.getAllSkills());
     }
 
     public ArrayList<Skill> getAllSkillsList() {
         return mAllSkills;
+    }
+
+    public void getAllProjectTagsRequest() {
+        mOutPackets.add(API.getAllProjectTags());
+    }
+
+    public ArrayList<String> getAllProjectTagsList() {
+        return mAllProjectTags;
+    }
+
+    public ArrayList<Project> getFindProjects() {
+        return mFindProjects;
     }
 
     public void getUserInfo() {
@@ -87,6 +133,16 @@ public class ClientMain extends Client {
 
     public void createProject(JSONObject jsonObject) {
         mOutPackets.add(API.createProject(jsonObject));
+    }
+
+    public void searchProjects(JSONObject jsonObject) {
+        mOutPackets.add(API.searchProject(jsonObject));
+    }
+
+    public void getMyProjects(JSONObject jsonObject) {
+        Packet packet = API.searchProject(jsonObject);
+        packet.setTypePacket(ETypePacket.GET_MY_PROJECTS);
+        mOutPackets.add(packet);
     }
 
     public boolean isUserExist() {

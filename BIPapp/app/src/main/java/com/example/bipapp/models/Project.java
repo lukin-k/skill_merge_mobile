@@ -1,48 +1,73 @@
 package com.example.bipapp.models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Project {
-    private String mProjectName;
-    private long mProjectId;
-    private String mProjectDescription;
-//TODO set suitable types
-//    private int mInitiator;
-//    private int mParticipants;
-//    private int mVolunteer;
-//    private int mProjectSkills;
-    private String mProjectTags;
+    private String mName;
+    private String mId;
+    private String mDescription;
+    private User mInitiator;
+    private ArrayList<User> mParticipants;
+    private ArrayList<User> mVolunteer;
+    private ArrayList<Skill> mSkills;
+    private String mTag;
 
     public Project(JSONObject jsonObject) {
+        mParticipants = new ArrayList<>();
+        mVolunteer = new ArrayList<>();
+        mSkills = new ArrayList<>();
         update(jsonObject);
     }
 
+    //TODO test update
     public void update(JSONObject jsonObject) {
         try {
-            mProjectName = jsonObject.getString("project_name");
+            mName = jsonObject.getString("project_name");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            mProjectId = jsonObject.getLong("project_id");
+            mId = jsonObject.getString("project_id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            mProjectDescription = jsonObject.getString("project_description");
+            mDescription = jsonObject.getString("project_description");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            mProjectTags = jsonObject.getString("project_tags");
+            mInitiator = new User(jsonObject.getJSONObject("initiator"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-//TODO mInitiator
-//mParticipants
-//mVolunteer
-//mProjectSkills
+        try {
+            JSONArray jsonArray = jsonObject.getJSONArray("participants");
+            for (int i = 0; i<jsonArray.length(); ++i){
+                mParticipants.add(new User(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jsonArray = jsonObject.getJSONArray("project_skills");
+            for (int i = 0; i<jsonArray.length(); ++i){
+                mSkills.add(new Skill(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mTag = jsonObject.getString("project_tags");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,6 +2,9 @@ package com.example.bipapp.ui.projects;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +12,42 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.bipapp.R;
+import com.example.bipapp.adapters.AdapterRecyclerProjectTags;
+import com.example.bipapp.adapters.AdapterRecyclerSkills;
 import com.example.bipapp.client.ClientMain;
+import com.example.bipapp.models.Skill;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class FragmentProjectCreate extends Fragment {
     private ClientMain mClient;
+    private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;
+    private AdapterRecyclerSkills mAdapterRecyclerSkills;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_project_create, container, false);
+
+        RecyclerView recyclerTags = view.findViewById(R.id.recycler_project_tags);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerTags.setLayoutManager(layoutManager);
+        mAdapterRecyclerProjectTags = new AdapterRecyclerProjectTags();
+        mAdapterRecyclerProjectTags.setTags(mClient.getAllProjectTagsList());
+        recyclerTags.setAdapter(mAdapterRecyclerProjectTags);
+
+        RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerSkills.setLayoutManager(layoutManager);
+        mAdapterRecyclerSkills = new AdapterRecyclerSkills();
+        mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
+        recyclerSkills.setAdapter(mAdapterRecyclerSkills);
 
         Button buttonCreate = view.findViewById(R.id.button_create_project);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
@@ -29,18 +55,24 @@ public class FragmentProjectCreate extends Fragment {
             public void onClick(View v) {
                 EditText editProjectName = view.findViewById(R.id.edit_project_name);
                 EditText editProjectDescription = view.findViewById(R.id.edit_project_description);
-                EditText editProjectTags = view.findViewById(R.id.edit_project_tags);
+//                EditText editProjectTags = view.findViewById(R.id.edit_project_tags);
                 //TODO get other fields
 
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("project_name", editProjectName.getText().toString());
                     jsonObject.put("project_description", editProjectDescription.getText().toString());
-                    jsonObject.put("tags", editProjectTags.getText().toString());
+//                    jsonObject.put("tags", getSelectedTags());
+                    //TODO tag may be only one?!
+                    jsonObject.put("tags", "Advanced team");
+                    jsonObject.put("skills", getSelectedSkills());
+
                     //TODO set other fields
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                Log.v("ProCre", jsonObject.toString());
 
                 mClient.createProject(jsonObject);
             }
@@ -51,5 +83,33 @@ public class FragmentProjectCreate extends Fragment {
 
     public void setClient(ClientMain client) {
         mClient = client;
+    }
+
+    private JSONArray getSelectedTags() {
+        JSONArray jsonArray = new JSONArray();
+        ArrayList<String> tags = mAdapterRecyclerProjectTags.getTags();
+        boolean[] selectedTags = mAdapterRecyclerProjectTags.getSelectedTags();
+
+        for (int i = 0; i < selectedTags.length; i++) {
+            if (selectedTags[i]) {
+                jsonArray.put(tags.get(i));
+            }
+        }
+
+        return jsonArray;
+    }
+
+    private JSONArray getSelectedSkills(){
+        JSONArray jsonArray = new JSONArray();
+        ArrayList<Skill> skills = mAdapterRecyclerSkills.getSkills();
+        boolean[] selectedSkills = mAdapterRecyclerSkills.getSelectedSkills();
+
+        for (int i = 0; i < selectedSkills.length; i++) {
+            if(selectedSkills[i]){
+                jsonArray.put(skills.get(i).getJsonSkill());
+            }
+        }
+
+        return jsonArray;
     }
 }

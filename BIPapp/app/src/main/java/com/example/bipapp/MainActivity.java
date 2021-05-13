@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.bipapp.api.API;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.client.IClientMainCallback;
+import com.example.bipapp.ui.projects.FragmentProjects;
 import com.example.bipapp.ui.user.FragmentUser;
 
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
@@ -33,11 +34,12 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         API.setPreferences(preferences);
         mClient = new ClientMain(this);
         mClient.getAllSkillsRequest();
+        mClient.getAllProjectTagsRequest();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_projects, R.id.navigation_user)
+                R.id.navigation_search_project, R.id.navigation_dashboard, R.id.navigation_projects, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -83,10 +85,19 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     public void showUserInfo() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
-        Log.v("test", fragment.getClass().getName());
 
         if (fragment instanceof FragmentUser) {
             ((FragmentUser) fragment).showUserInfo();
+        }
+    }
+
+    @Override
+    public void showMyProjects() {
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+
+        if (fragment instanceof FragmentProjects) {
+            ((FragmentProjects) fragment).showProjects();
         }
     }
 }

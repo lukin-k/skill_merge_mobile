@@ -28,15 +28,10 @@
         android:textSize="20sp">
     </EditText>
 
-    <EditText
-        android:id="@+id/edit_project_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_project_tags"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:text="Open Source">
-    </EditText>
+    <include layout="@layout/panel_project_tags"/>
+
+    <include layout="@layout/panel_skills"/>
+
 
     <Button
         android:id="@+id/button_create_project"

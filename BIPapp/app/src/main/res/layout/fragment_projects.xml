@@ -12,6 +12,12 @@
         android:layout_height="match_parent">
     </FrameLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_projects"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_create_project"
         android:layout_width="wrap_content"

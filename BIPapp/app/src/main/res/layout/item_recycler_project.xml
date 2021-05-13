@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/text_project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Name">
+    </TextView>
+
+    <TextView
+        android:id="@+id/text_project_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Description">
+    </TextView>
+
+    <include layout="@layout/item_recycler_mini_user"
+        android:id="@+id/project_initiator">
+    </include>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_project_participants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    <include layout="@layout/panel_skills"/>
+    <include layout="@layout/panel_project_tags"/>
+
+
+</LinearLayout>

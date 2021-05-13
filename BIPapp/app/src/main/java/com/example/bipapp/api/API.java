@@ -25,10 +25,14 @@ public class API {
     private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
+
     private final static String ACTION_GET_ALL_SKILLS = "get_all_skills/";
     private final static String ACTION_GET_USER_INFO = "get_user_info/";
     private final static String ACTION_CHANGE_USER_INFO = "change_user_info/";
+
+    private final static String ACTION_GET_ALL_PROJECT_TAGS = "get_all_project_tags/";
     private final static String ACTION_CREATE_PROJECT = "create_project/";
+    private final static String ACTION_SEARCH_PROJECTS = "search_projects/";
 
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
@@ -188,6 +192,34 @@ public class API {
             e.printStackTrace();
         }
 
+        return packet;
+    }
+
+    public static Packet getAllProjectTags(){
+        Packet packet = new Packet(ETypePacket.BAD);
+        try {
+            packet.setTypePacket(ETypePacket.GET_ALL_PROJECT_TAGS);
+            packet.setUrl(new URL(SERVER_URL + ACTION_GET_ALL_PROJECT_TAGS));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("token", sToken);
+            packet.setJsonObject(jsonObject);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return packet;
+    }
+
+    public static Packet searchProject(JSONObject jsonObject) {
+        Packet packet = new Packet(ETypePacket.SEARCH_PROJECTS);
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_SEARCH_PROJECTS));
+            jsonObject.put("token", sToken);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
         return packet;
     }
 

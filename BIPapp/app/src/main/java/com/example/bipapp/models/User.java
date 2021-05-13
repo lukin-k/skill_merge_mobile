@@ -58,6 +58,10 @@ public class User {
 //TODO            mPhoto = jsonObject.getString("photo_id");
     }
 
+    public String getUserName() {
+        return mUserName;
+    }
+
     public String getFullName() {
         return mFullName;
     }

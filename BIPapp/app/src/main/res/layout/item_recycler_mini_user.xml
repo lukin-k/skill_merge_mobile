@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.user.FragmentUserInfo"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="2"
         android:contentDescription="@string/description_user_photo"
         android:scaleType="fitCenter"
@@ -16,8 +15,8 @@
     </ImageView>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="8"
         android:orientation="vertical">
 
@@ -25,32 +24,17 @@
             android:id="@+id/text_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            tools:text="fullname">
+            tools:text="User full name">
         </TextView>
 
         <TextView
             android:id="@+id/text_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
             tools:text="age">
         </TextView>
 
-        <TextView
-            android:id="@+id/text_biography"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            tools:text="biography">
-        </TextView>
-
         <include layout="@layout/panel_skills"/>
-
     </LinearLayout>
 
 </LinearLayout>
