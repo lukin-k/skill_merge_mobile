@@ -15,10 +15,14 @@ import com.example.bipapp.MainActivity;
 import com.example.bipapp.R;
 import com.example.bipapp.adapters.AdapterRecyclerSkills;
 import com.example.bipapp.client.ClientMain;
+import com.example.bipapp.models.Skill;
 import com.example.bipapp.models.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 //TODO back button go to show info
 
@@ -45,14 +49,16 @@ public class FragmentUserEdit extends Fragment {
                 EditText editFullName = view.findViewById(R.id.edit_fullname);
                 EditText editAge = view.findViewById(R.id.edit_age);
                 EditText editBiography = view.findViewById(R.id.edit_biography);
-                //TODO get skills and photo
+                //TODO get photo
 
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("fullname", editFullName.getText().toString());
                     jsonObject.put("age", Integer.parseInt(editAge.getText().toString()));
                     jsonObject.put("biography", editBiography.getText().toString());
-                    //TODO set skills and photo
+                    jsonObject.put("skills", getSelectedSkills());
+
+                    //TODO set photo
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -90,5 +96,19 @@ public class FragmentUserEdit extends Fragment {
 
     public void setClient(ClientMain client) {
         mClient = client;
+    }
+
+    private JSONArray getSelectedSkills(){
+        JSONArray jsonArray = new JSONArray();
+        ArrayList<Skill> skills = mAdapterRecyclerSkills.getSkills();
+        boolean[] selectedSkills = mAdapterRecyclerSkills.getSelectedSkills();
+
+        for (int i = 0; i < selectedSkills.length; i++) {
+            if(selectedSkills[i]){
+                jsonArray.put(skills.get(i).getJsonSkill());
+            }
+        }
+
+        return jsonArray;
     }
 }

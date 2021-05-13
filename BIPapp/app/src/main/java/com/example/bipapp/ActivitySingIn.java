@@ -108,7 +108,7 @@ public class ActivitySingIn extends AppCompatActivity implements IClientSingCall
 
     @Override
     public void singUp() {
-        //TODO call create user date activity
+        //TODO call create user data activity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -17,13 +17,16 @@ import java.util.ArrayList;
 
 public class AdapterRecyclerSkills extends RecyclerView.Adapter<ViewHolderSkill> {
     private ArrayList<Skill> mSkills;
+    private boolean[] mSelectedSkills;
 
     public void setSkills(ArrayList<Skill> skills) {
         mSkills = skills;
+        mSelectedSkills = new boolean[skills.size()];
     }
 
     public AdapterRecyclerSkills() {
         mSkills = new ArrayList<>();
+        mSelectedSkills = new boolean[0];
     }
 
     @NonNull
@@ -37,8 +40,8 @@ public class AdapterRecyclerSkills extends RecyclerView.Adapter<ViewHolderSkill>
             public void onClickSkill() {
                 int i = getAdapterPosition();
                 Log.v("Skill", "click " + i);
-                //TODO set norm color
-                ((CardView) mView.findViewById(R.id.cv)).setCardBackgroundColor(Color.WHITE);
+                mSelectedSkills[i] = !mSelectedSkills[i];
+                changeColor(mSelectedSkills[i]);
             }
         };
         return viewHolderSkill;
@@ -46,11 +49,19 @@ public class AdapterRecyclerSkills extends RecyclerView.Adapter<ViewHolderSkill>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderSkill viewHolderSkill, int i) {
-        viewHolderSkill.onBind(mSkills.get(i));
+        viewHolderSkill.onBind(mSkills.get(i), mSelectedSkills[i]);
     }
 
     @Override
     public int getItemCount() {
         return mSkills.size();
+    }
+
+    public boolean[] getSelectedSkills() {
+        return mSelectedSkills;
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return mSkills;
     }
 }

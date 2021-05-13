@@ -36,7 +36,6 @@ public class ClientMain extends Client {
             ETypePacket typePacket = packet.getTypePacket();
             switch (typePacket) {
                 case GET_ALL_SKILLS:
-                    Log.v(TAG, "Skills " + jsonObject.toString());
                     saveAllSkills(jsonObject.getJSONArray("data"));
                     return;
                 case GET_USER_INFO:
