@@ -29,7 +29,6 @@ public class FragmentUser extends Fragment {
         mFragmentUserInfo.setClient(mClient);
         mFragmentManager = getChildFragmentManager();
 
-        //TODO gone fab when edit and visible when info
         mFab = view.findViewById(R.id.fab_edit_user);
         mFab.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
@@ -48,9 +47,9 @@ public class FragmentUser extends Fragment {
         return view;
     }
 
-    @SuppressLint("RestrictedApi")
     private void setFragmentUserInfo() {
         getActivity().runOnUiThread(new Runnable() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void run() {
                 mFab.setVisibility(View.VISIBLE);

@@ -1,6 +1,5 @@
 package com.example.bipapp.adapters;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,17 +13,19 @@ import java.util.ArrayList;
 
 public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderProjectTag> {
     private ArrayList<String> mTags;
-    private boolean[] mSelectedTags;
+    private int mSelectedTag;
 
     public void setTags(ArrayList<String> tags) {
         mTags = tags;
-        mSelectedTags = new boolean[tags.size()];
+        mSelectedTag = -1;
     }
 
     public AdapterRecyclerProjectTags() {
         mTags = new ArrayList<>();
-        mSelectedTags = new boolean[0];
+        mSelectedTag = -1;
     }
+
+    //TODO unselected last selected tag
 
     @NonNull
     @Override
@@ -32,13 +33,16 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_recycler_project_tag, viewGroup, false);
         ViewHolderProjectTag viewHolderProjectTag = new ViewHolderProjectTag(view) {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClickProjectTag() {
                 int i = getAdapterPosition();
                 Log.v("Tag", "click " + i);
-                mSelectedTags[i] = !mSelectedTags[i];
-                changeColor(mSelectedTags[i]);
+                if (mSelectedTag == i) {
+                    mSelectedTag = -1;
+                }else {
+                    mSelectedTag = i;
+                }
+                changeColor(mSelectedTag == i);
             }
         };
         return viewHolderProjectTag;
@@ -46,7 +50,7 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderProjectTag viewHolderProjectTag, int i) {
-        viewHolderProjectTag.onBind(mTags.get(i), mSelectedTags[i]);
+        viewHolderProjectTag.onBind(mTags.get(i), mSelectedTag == i);
     }
 
     @Override
@@ -54,11 +58,11 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
         return mTags.size();
     }
 
-    public boolean[] getSelectedTags() {
-        return mSelectedTags;
-    }
-
-    public ArrayList<String> getTags() {
-        return mTags;
+    public String getSelectedTag() {
+        if (mSelectedTag < 0) {
+            return "";
+        } else {
+            return mTags.get(mSelectedTag);
+        }
     }
 }

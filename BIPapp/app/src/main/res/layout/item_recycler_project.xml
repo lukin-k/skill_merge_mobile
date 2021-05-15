@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:elevation="15dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="15dp">
 
-    <TextView
-        android:id="@+id/text_project_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="Name">
-    </TextView>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_project_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text="Description">
-    </TextView>
+        <TextView
+            android:id="@+id/text_project_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="Name" />
 
-    <include layout="@layout/item_recycler_mini_user"
-        android:id="@+id/project_initiator">
-    </include>
+        <TextView
+            android:id="@+id/text_project_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="Description" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_project_participants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        <include
+            android:id="@+id/project_initiator"
+            layout="@layout/item_recycler_mini_user" />
 
-    <include layout="@layout/panel_skills"/>
-    <include layout="@layout/panel_project_tags"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_project_participants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <include layout="@layout/panel_skills"
+            android:id="@+id/project_skills"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/text_project_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

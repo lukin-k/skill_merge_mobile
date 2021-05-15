@@ -24,6 +24,10 @@ public class AdapterRecyclerSkills extends RecyclerView.Adapter<ViewHolderSkill>
         mSelectedSkills = new boolean[skills.size()];
     }
 
+    public void setSelectedSkills(ArrayList<Skill> selectedSkills){
+        //TODO fill mSelectedSkills
+    }
+
     public AdapterRecyclerSkills() {
         mSkills = new ArrayList<>();
         mSelectedSkills = new boolean[0];

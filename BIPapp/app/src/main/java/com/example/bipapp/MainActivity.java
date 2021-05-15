@@ -20,6 +20,7 @@ import com.example.bipapp.api.API;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.client.IClientMainCallback;
 import com.example.bipapp.ui.projects.FragmentProjects;
+import com.example.bipapp.ui.search_project.FragmentSearchProject;
 import com.example.bipapp.ui.user.FragmentUser;
 
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
@@ -81,11 +82,15 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         });
     }
 
-    @Override
-    public void showUserInfo() {
+    private Fragment getNowFragment(){
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+        return fragment;
+    }
 
+    @Override
+    public void showUserInfo() {
+        Fragment fragment = getNowFragment();
         if (fragment instanceof FragmentUser) {
             ((FragmentUser) fragment).showUserInfo();
         }
@@ -93,11 +98,17 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
 
     @Override
     public void showMyProjects() {
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
-
+        Fragment fragment = getNowFragment();
         if (fragment instanceof FragmentProjects) {
             ((FragmentProjects) fragment).showProjects();
+        }
+    }
+
+    @Override
+    public void showSearchResult() {
+        Fragment fragment = getNowFragment();
+        if (fragment instanceof FragmentSearchProject) {
+            ((FragmentSearchProject) fragment).showSearchResult();
         }
     }
 }

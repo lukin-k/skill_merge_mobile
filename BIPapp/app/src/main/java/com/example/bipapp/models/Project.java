@@ -70,4 +70,28 @@ public class Project {
             e.printStackTrace();
         }
     }
+
+    public String getName() {
+        return mName;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public User getInitiator() {
+        return mInitiator;
+    }
+
+    public ArrayList<User> getParticipants() {
+        return mParticipants;
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return mSkills;
+    }
+
+    public String getTag() {
+        return mTag;
+    }
 }

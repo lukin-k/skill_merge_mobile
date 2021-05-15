@@ -55,14 +55,24 @@ public class ClientMain extends Client {
                     saveAllProjectTags(jsonObject.getJSONObject("data").getJSONArray("tags"));
                     return;
                 case CREATE_PROJECT:
-                    mClientMainCallback.showMyProjects();
+//                    mClientMainCallback.showMyProjects();
+                    JSONObject jsonObjectInitiator = new JSONObject();
+                    try {
+                        jsonObjectInitiator.put("initiator", mUser.getUserName());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    getMyProjects(jsonObjectInitiator);
                     return;
                 case GET_MY_PROJECTS:
+                    Log.v(TAG, "GET_MY_PROJECTS " + jsonObject.toString());
                     saveFindProjects(jsonObject.getJSONArray("data"));
+                    mClientMainCallback.showMyProjects();
                     return;
                 case SEARCH_PROJECTS:
                     Log.v(TAG, "SEARCH_PROJECTS " + jsonObject.toString());
                     saveFindProjects(jsonObject.getJSONArray("data"));
+                    mClientMainCallback.showSearchResult();
                     return;
             }
         } else {

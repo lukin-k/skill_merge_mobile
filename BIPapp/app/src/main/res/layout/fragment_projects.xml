@@ -7,16 +7,10 @@
     tools:context=".ui.projects.FragmentProjects">
 
     <FrameLayout
-        android:id="@+id/frame_container_user"
+        android:id="@+id/frame_container_projects"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_projects"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_create_project"
@@ -25,8 +19,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_baseline_add_124"
-        android:contentDescription="@string/description_fab_create_project">
-    </android.support.design.widget.FloatingActionButton>
+        android:contentDescription="@string/description_fab_create_project"
+        app:srcCompat="@drawable/ic_baseline_add_124" />
 
 </RelativeLayout>

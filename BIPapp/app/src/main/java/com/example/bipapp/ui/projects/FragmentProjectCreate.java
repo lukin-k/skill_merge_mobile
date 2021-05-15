@@ -55,19 +55,13 @@ public class FragmentProjectCreate extends Fragment {
             public void onClick(View v) {
                 EditText editProjectName = view.findViewById(R.id.edit_project_name);
                 EditText editProjectDescription = view.findViewById(R.id.edit_project_description);
-//                EditText editProjectTags = view.findViewById(R.id.edit_project_tags);
-                //TODO get other fields
 
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("project_name", editProjectName.getText().toString());
                     jsonObject.put("project_description", editProjectDescription.getText().toString());
-//                    jsonObject.put("tags", getSelectedTags());
-                    //TODO tag may be only one?!
-                    jsonObject.put("tags", "Advanced team");
+                    jsonObject.put("tags", mAdapterRecyclerProjectTags.getSelectedTag());
                     jsonObject.put("skills", getSelectedSkills());
-
-                    //TODO set other fields
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -85,27 +79,13 @@ public class FragmentProjectCreate extends Fragment {
         mClient = client;
     }
 
-    private JSONArray getSelectedTags() {
-        JSONArray jsonArray = new JSONArray();
-        ArrayList<String> tags = mAdapterRecyclerProjectTags.getTags();
-        boolean[] selectedTags = mAdapterRecyclerProjectTags.getSelectedTags();
-
-        for (int i = 0; i < selectedTags.length; i++) {
-            if (selectedTags[i]) {
-                jsonArray.put(tags.get(i));
-            }
-        }
-
-        return jsonArray;
-    }
-
-    private JSONArray getSelectedSkills(){
+    private JSONArray getSelectedSkills() {
         JSONArray jsonArray = new JSONArray();
         ArrayList<Skill> skills = mAdapterRecyclerSkills.getSkills();
         boolean[] selectedSkills = mAdapterRecyclerSkills.getSelectedSkills();
 
         for (int i = 0; i < selectedSkills.length; i++) {
-            if(selectedSkills[i]){
+            if (selectedSkills[i]) {
                 jsonArray.put(skills.get(i).getJsonSkill());
             }
         }
