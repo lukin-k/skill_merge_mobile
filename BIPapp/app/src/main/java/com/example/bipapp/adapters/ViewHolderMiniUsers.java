@@ -19,12 +19,12 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     public ViewHolderMiniUsers(@NonNull View itemView) {
         super(itemView);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickUser();
-            }
-        });
+//        itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickUser();
+//            }
+//        });
 
         mImagePhoto = itemView.findViewById(R.id.image_photo);
         mTextFullname = itemView.findViewById(R.id.text_fullname);

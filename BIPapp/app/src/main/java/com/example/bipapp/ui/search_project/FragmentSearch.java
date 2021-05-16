@@ -1,11 +1,11 @@
 package com.example.bipapp.ui.search_project;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
@@ -13,7 +13,6 @@ import com.example.bipapp.MainActivity;
 import com.example.bipapp.R;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
-import com.example.bipapp.models.Skill;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,17 +22,20 @@ import java.util.ArrayList;
 
 //TODO implentation search
 
-public class FragmentSearchProject extends Fragment {
+public class FragmentSearch extends Fragment {
     private ClientMain mClient;
+    private FragmentSearchProjects mFragmentSearchProjects;
+    private FragmentManager mFragmentManager;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_project, container, false);
-        TextView textView = view.findViewById(R.id.text_home);
-        textView.setText("This is home fragment");
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         mClient = ((MainActivity) getActivity()).getClientMain();
 
+        mFragmentSearchProjects = new FragmentSearchProjects();
+        mFragmentSearchProjects.setClient(mClient);
+        mFragmentManager = getChildFragmentManager();
 
         return view;
     }
@@ -42,21 +44,31 @@ public class FragmentSearchProject extends Fragment {
     public void onResume() {
         super.onResume();
 
-        searchTest5();
+        mFragmentManager.beginTransaction()
+                .replace(R.id.frame_container_search, mFragmentSearchProjects)
+                .commit();
+//        searchTest2();
 
     }
 
     public void showSearchResult() {
-        Log.v("FragmentSearchProject", "search " + mClient.getFindProjects().size());
-        ArrayList<Project> projects = mClient.getFindProjects();
-        for (Project project : projects) {
-            Log.v("FragmentSearchProject", "search "+ project.getName());
-        }
+//        Log.v("FragmentSearch", "search " + mClient.getFindProjects().size());
+//        ArrayList<Project> projects = mClient.getFindProjects();
+//        for (Project project : projects) {
+//            Log.v("FragmentSearch", "search " + project.getName());
+//        }
+
+        FragmentShowProjects fragmentShowProjects = new FragmentShowProjects();
+        fragmentShowProjects.setClient(mClient);
+
+        mFragmentManager.beginTransaction()
+                .replace(R.id.frame_container_search, fragmentShowProjects)
+                .commit();
     }
 
-//1. Тест
+    //1. Тест
 //Найти первый проект через его имя
-    private void searchTest1(){
+    private void searchTest1() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("search_string", "Проект 1");
@@ -66,9 +78,9 @@ public class FragmentSearchProject extends Fragment {
         mClient.searchProjects(jsonObject);
     }
 
-//2. Тест
+    //2. Тест
 //Найти первый и третий проекты через скилл С++
-    private void searchTest2(){
+    private void searchTest2() {
         JSONObject jsonObject = new JSONObject();
         try {
             JSONArray jsonArray = new JSONArray();
@@ -83,9 +95,9 @@ public class FragmentSearchProject extends Fragment {
         mClient.searchProjects(jsonObject);
     }
 
-//3. Тест
+    //3. Тест
 //Найти второй и третий проекты через скилл JS
-    private void searchTest3(){
+    private void searchTest3() {
         JSONObject jsonObject = new JSONObject();
         try {
             JSONArray jsonArray = new JSONArray();
@@ -100,9 +112,9 @@ public class FragmentSearchProject extends Fragment {
         mClient.searchProjects(jsonObject);
     }
 
-//4. Тест
+    //4. Тест
 //Найти только третий проект через два скилла
-    private void searchTest4(){
+    private void searchTest4() {
         JSONObject jsonObject = new JSONObject();
         try {
             JSONArray jsonArray = new JSONArray();
@@ -120,9 +132,10 @@ public class FragmentSearchProject extends Fragment {
         }
         mClient.searchProjects(jsonObject);
     }
-//5. Тест
+
+    //5. Тест
 //Найти первый и третий проект через поисковую строку описания
-    private void searchTest5(){
+    private void searchTest5() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("search_string", "SECRET_PROJECT_STRING");
@@ -132,9 +145,9 @@ public class FragmentSearchProject extends Fragment {
         mClient.searchProjects(jsonObject);
     }
 
-//6. Тест
+    //6. Тест
 //Найти третий через поисковую строку описания
-    private void searchTest6(){
+    private void searchTest6() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("search_string", "SECRET_PROJECT_STRINGDUMB_DESCR_CHAR");

@@ -27,7 +27,7 @@ public class AdapterRecyclerMiniUsers extends RecyclerView.Adapter<ViewHolderMin
     @Override
     public ViewHolderMiniUsers onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_recycler_project, viewGroup, false);
+                .inflate(R.layout.item_recycler_mini_user, viewGroup, false);
         ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view) {
             @Override
             public void onClickUser() {

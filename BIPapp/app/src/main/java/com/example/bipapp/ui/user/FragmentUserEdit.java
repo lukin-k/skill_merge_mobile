@@ -72,28 +72,28 @@ public class FragmentUserEdit extends Fragment {
         });
 
 
-        String[] NEED_PERMISSIONS = {Manifest.permission.READ_SMS};
-        if (ActivityCompat.checkSelfPermission(getContext(),
-            android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(getContext(),
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-         requestPermissions(NEED_PERMISSIONS, REQUEST_CODE_PERMISSION);
-    } else {
-        Log.e("DB", "PERMISSION GRANTED");
-    }
+//        String[] NEED_PERMISSIONS = {Manifest.permission.READ_SMS};
+//        if (ActivityCompat.checkSelfPermission(getContext(),
+//            android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+//            ActivityCompat.checkSelfPermission(getContext(),
+//                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//         requestPermissions(NEED_PERMISSIONS, REQUEST_CODE_PERMISSION);
+//    } else {
+//        Log.e("DB", "PERMISSION GRANTED");
+//    }
         return view;
     }
-    private final int REQUEST_CODE_PERMISSION = 101;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_PERMISSION) {
-            if (grantResults.length > 0) {
-                Log.v("Per", "" + grantResults);
-            }
-        }
-    }
+//    private final int REQUEST_CODE_PERMISSION = 101;
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == REQUEST_CODE_PERMISSION) {
+//            if (grantResults.length > 0) {
+//                Log.v("Per", "" + grantResults);
+//            }
+//        }
+//    }
 
     @Override
     public void onResume() {

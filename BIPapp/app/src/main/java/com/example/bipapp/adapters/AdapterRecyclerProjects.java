@@ -37,6 +37,7 @@ public class AdapterRecyclerProjects extends RecyclerView.Adapter<ViewHolderProj
                 Log.v("Project", "click " + i);
             }
         };
+
         return viewHolderProject;
     }
 

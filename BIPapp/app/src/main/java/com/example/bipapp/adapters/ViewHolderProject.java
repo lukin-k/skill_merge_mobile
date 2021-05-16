@@ -3,7 +3,7 @@ package com.example.bipapp.adapters;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +21,7 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
     private AdapterRecyclerSkills mAdapterRecyclerSkills;
     private TextView mTextTag;
 
+
     public ViewHolderProject(@NonNull View itemView) {
         super(itemView);
 
@@ -37,7 +38,16 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
         mTextTag = itemView.findViewById(R.id.text_project_tag);
 
         RecyclerView recyclerParticipants = itemView.findViewById(R.id.recycler_project_participants);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext());
+        recyclerParticipants.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerParticipants.setLayoutManager(layoutManager);
         mAdapterRecyclerMiniUsers = new AdapterRecyclerMiniUsers();
         recyclerParticipants.setAdapter(mAdapterRecyclerMiniUsers);
@@ -62,8 +72,6 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
         mAdapterRecyclerSkills.setSkills(project.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
 
-        Log.v("LOL", mTextTag.toString());
-        Log.v("LOL", project.getTag());
         mTextTag.setText(project.getTag());
     }
 

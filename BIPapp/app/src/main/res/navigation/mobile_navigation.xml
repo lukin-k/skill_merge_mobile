@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/navigation_search_project"
-        android:name="com.example.bipapp.ui.search_project.FragmentSearchProject"
+        android:name="com.example.bipapp.ui.search_project.FragmentSearch"
         android:label="@string/title_search_project"
-        tools:layout="@layout/fragment_search_project" >
+        tools:layout="@layout/fragment_search" >
     </fragment>
 
     <fragment

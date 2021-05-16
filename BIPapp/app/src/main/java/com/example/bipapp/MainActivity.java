@@ -8,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,7 +19,7 @@ import com.example.bipapp.api.API;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.client.IClientMainCallback;
 import com.example.bipapp.ui.projects.FragmentProjects;
-import com.example.bipapp.ui.search_project.FragmentSearchProject;
+import com.example.bipapp.ui.search_project.FragmentSearch;
 import com.example.bipapp.ui.user.FragmentUser;
 
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
@@ -107,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     @Override
     public void showSearchResult() {
         Fragment fragment = getNowFragment();
-        if (fragment instanceof FragmentSearchProject) {
-            ((FragmentSearchProject) fragment).showSearchResult();
+        if (fragment instanceof FragmentSearch) {
+            ((FragmentSearch) fragment).showSearchResult();
         }
     }
 }
