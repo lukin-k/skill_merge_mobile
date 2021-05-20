@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
                 R.id.navigation_search_project, R.id.navigation_dashboard, R.id.navigation_projects, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration); // эта строка конфигурирует appbar, его нет
         NavigationUI.setupWithNavController(navView, navController);
 
     }

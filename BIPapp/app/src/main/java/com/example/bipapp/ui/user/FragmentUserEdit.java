@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,7 @@ public class FragmentUserEdit extends Fragment {
         editBiography.setText(user.getBiography());
 
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
+        Log.println(50, "skills", mClient.getAllSkillsList().toString());
         mAdapterRecyclerSkills.setSkillsLevels(mClient.getAllSkillsLevel());
         mAdapterRecyclerSkills.setSelectedSkills(user.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();

@@ -35,9 +35,12 @@ public abstract class ViewHolderProjectTag extends RecyclerView.ViewHolder {
     @SuppressLint("ResourceAsColor")
     protected void changeColor(boolean isSelected) {
         int color = itemView.getResources().getColor(R.color.project_tag_not_selected);
+        int textColor = itemView.getResources().getColor(R.color.deep_pipe_green);
         if (isSelected) {
             color = itemView.getResources().getColor(R.color.project_tag_selected);
+            textColor = itemView.getResources().getColor(R.color.orange);
         }
         itemView.setBackgroundColor(color);
+        mTextTag.setTextColor(textColor);
     }
 }

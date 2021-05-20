@@ -1,10 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.BIPapp" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.BIPapp" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange</item>
+        <item name="colorAccent">@color/orange</item>
+        <item name="android:textColor">@color/deep_pipe_green</item>
+        <item name="android:windowBackground">@color/light_peach</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

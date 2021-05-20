@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_search"
         android:inputType="text"
+        android:textColorHint="@color/deep_pipe_green"
         android:textAlignment="center"
         android:textSize="20sp">
     </EditText>
@@ -24,6 +25,8 @@
         android:id="@+id/button_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:textColor="@color/deep_pipe_green"
         android:text="@string/button_search">
     </Button>
 </LinearLayout>

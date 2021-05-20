@@ -9,28 +9,24 @@
     <fragment
         android:id="@+id/navigation_search_project"
         android:name="com.example.bipapp.ui.search_project.FragmentSearch"
-        android:label="@string/title_search_project"
         tools:layout="@layout/fragment_search" >
     </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.bipapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_projects"
         android:name="com.example.bipapp.ui.projects.FragmentProjects"
-        android:label="@string/title_projects"
         tools:layout="@layout/fragment_projects">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_user"
         android:name="com.example.bipapp.ui.user.FragmentUser"
-        android:label="@string/title_user"
         tools:layout="@layout/fragment_user">
     </fragment>
 </navigation>

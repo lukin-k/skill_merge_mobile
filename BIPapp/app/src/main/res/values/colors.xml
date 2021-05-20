@@ -8,9 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="skill_selected">#82BF82</color>
-    <color name="skill_not_selected">#D2D2D2</color>
+    <color name="deep_pipe_green">#1D3C45</color>
+    <color name="orange">#D2601A</color>
+    <color name="light_peach">#FFF1E1</color>
 
-    <color name="project_tag_selected">#8282BF</color>
-    <color name="project_tag_not_selected">#D2D2D2</color>
+    <color name="skill_selected">#1D3C45</color>
+    <color name="skill_not_selected">#D2601A</color>
+
+    <color name="project_tag_selected">#1D3C45</color>
+    <color name="project_tag_not_selected">#D2601A</color>
 </resources>

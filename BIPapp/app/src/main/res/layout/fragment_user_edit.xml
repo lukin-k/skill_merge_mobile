@@ -28,6 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_fullname"
+            android:textColorHint="@color/deep_pipe_green"
+            android:textColor="@color/deep_pipe_green"
             android:inputType="textPersonName"
             android:textAlignment="center"
             android:textSize="20sp">
@@ -38,6 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_age"
+            android:textColorHint="@color/deep_pipe_green"
+            android:textColor="@color/deep_pipe_green"
             android:inputType="number"
             android:textAlignment="center"
             android:textSize="20sp">
@@ -49,6 +53,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/hint_biography"
+            android:textColorHint="@color/deep_pipe_green"
+            android:textColor="@color/deep_pipe_green"
             android:inputType="textImeMultiLine"
             android:textAlignment="center"
             android:textSize="20sp">
@@ -61,6 +67,8 @@
             android:id="@+id/button_save_edit_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange"
+            android:textColor="@color/deep_pipe_green"
             android:text="@string/button_save_edit_user">
         </Button>
     </LinearLayout>
