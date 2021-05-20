@@ -57,7 +57,11 @@
         <Button
             android:id="@+id/button_project_action"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange"
+            android:textColor="@color/deep_pipe_green"
+            android:fontFamily="@font/ostrich"
+            android:textSize="25dp"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

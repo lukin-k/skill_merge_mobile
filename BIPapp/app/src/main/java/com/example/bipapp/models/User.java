@@ -1,6 +1,8 @@
 package com.example.bipapp.models;
 
 
+import android.graphics.Bitmap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +16,7 @@ public class User {
     private String mBiography;
     private ArrayList<Skill> mSkills;
     //TODO set suitable type for photo
-    private byte[] mPhoto;
+    private Bitmap mPhoto;
 
     public User(JSONObject jsonObject) {
         mSkills = new ArrayList<>();

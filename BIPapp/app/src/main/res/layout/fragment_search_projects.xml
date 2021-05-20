@@ -27,6 +27,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
         android:textColor="@color/deep_pipe_green"
+        android:fontFamily="@font/ostrich"
+        android:textSize="25dp"
         android:text="@string/button_search">
     </Button>
 </LinearLayout>
