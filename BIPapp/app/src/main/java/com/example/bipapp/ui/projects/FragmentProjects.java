@@ -4,36 +4,28 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.example.bipapp.MainActivity;
 import com.example.bipapp.R;
-import com.example.bipapp.adapters.AdapterRecyclerProjects;
 import com.example.bipapp.client.ClientMain;
+import com.example.bipapp.models.Project;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+//TODO back onece request exit? second go to singin activity
 public class FragmentProjects extends Fragment {
     private ClientMain mClient;
-    private FragmentMyProjects mFragmentMyProjects;
+    private FragmentShowProjects mFragmentShowProjects;
     private FragmentManager mFragmentManager;
     private FloatingActionButton mFab;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_projects, container, false);
-        mClient = ((MainActivity) getActivity()).getClientMain();
+        mClient = ClientMain.getClient();
 
-
-        mFragmentMyProjects = new FragmentMyProjects();
-        mFragmentMyProjects.setClient(mClient);
+        mFragmentShowProjects = new FragmentShowProjects();
         mFragmentManager = getChildFragmentManager();
 
         mFab = view.findViewById(R.id.fab_create_project);
@@ -42,7 +34,6 @@ public class FragmentProjects extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentProjectCreate fragmentProjectCreate = new FragmentProjectCreate();
-                fragmentProjectCreate.setClient(mClient);
                 mFab.setVisibility(View.GONE);
 
                 mFragmentManager.beginTransaction()
@@ -57,13 +48,11 @@ public class FragmentProjects extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("initiator", mClient.getUser().getUserName());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (mClient.isSearch()) {
+            showProjects();
+        } else {
+            mClient.getMyProjects();
         }
-        mClient.getMyProjects(jsonObject);
     }
 
     public void showProjects() {
@@ -75,7 +64,23 @@ public class FragmentProjects extends Fragment {
             }
         });
         mFragmentManager.beginTransaction()
-                .replace(R.id.frame_container_projects, mFragmentMyProjects)
+                .replace(R.id.frame_container_projects, mFragmentShowProjects)
+                .commit();
+    }
+
+    public void showProjectInfo(Project project) {
+        getActivity().runOnUiThread(new Runnable() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void run() {
+                mFab.setVisibility(View.GONE);
+            }
+        });
+        FragmentProjectInfo fragmentProjectInfo = new FragmentProjectInfo();
+        fragmentProjectInfo.setProject(project);
+
+        mFragmentManager.beginTransaction()
+                .replace(R.id.frame_container_projects, fragmentProjectInfo)
                 .commit();
     }
 }

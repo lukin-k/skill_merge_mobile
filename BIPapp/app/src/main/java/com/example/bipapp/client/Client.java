@@ -8,17 +8,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public abstract class Client extends Thread {
     private final IClientCallback mClientCallback;
     protected final List<Packet> mOutPackets; //TODO set save synhron
     protected boolean isRun;
 
-    public Client(IClientCallback clientCallback) {
+    protected static Client mClient = null;
+
+    protected Client(IClientCallback clientCallback) {
         isRun = true;
         mClientCallback = clientCallback;
         mOutPackets = new ArrayList<>();
         start();
     }
+
 
     @Override
     public void run() {

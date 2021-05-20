@@ -8,6 +8,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,12 +20,19 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.bipapp.api.API;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.client.IClientMainCallback;
+import com.example.bipapp.models.Project;
 import com.example.bipapp.ui.projects.FragmentProjects;
-import com.example.bipapp.ui.search_project.FragmentSearch;
 import com.example.bipapp.ui.user.FragmentUser;
 
+//TODO back onece request exit? second go to singin activity
+//TODO maybe add scrollview
+
+//TODO add subscribersFragment
+//TODO del topbar
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
     private ClientMain mClient;
+
+    private View mViewNavigationProjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +41,18 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
 
         SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
         API.setPreferences(preferences);
-        mClient = new ClientMain(this);
+
+        ClientMain.createClient(this);
+        mClient = ClientMain.getClient();
+        if (mClient == null) {
+            Log.e("ClientMain", "No IClientMainCallback");
+            finish();
+        }
         mClient.getAllSkillsRequest();
         mClient.getAllProjectTagsRequest();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        mViewNavigationProjects = navView.findViewById(R.id.navigation_projects);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_search_project, R.id.navigation_dashboard, R.id.navigation_projects, R.id.navigation_user)
@@ -51,15 +67,6 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     protected void onDestroy() {
         super.onDestroy();
         mClient.stopClient();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    public ClientMain getClientMain() {
-        return mClient;
     }
 
     @Override
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         });
     }
 
-    private Fragment getNowFragment(){
+    private Fragment getNowFragment() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
         return fragment;
@@ -96,18 +103,33 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     }
 
     @Override
-    public void showMyProjects() {
+    public void showSearchResult() {
         Fragment fragment = getNowFragment();
         if (fragment instanceof FragmentProjects) {
             ((FragmentProjects) fragment).showProjects();
+        } else {
+            runOnUiThread(new Runnable() {
+                //TODO if search save search state
+                //TODO save Json object search
+                @Override
+                public void run() {
+                    mViewNavigationProjects.performClick();
+                }
+            });
         }
     }
 
     @Override
-    public void showSearchResult() {
+    public void showProject(Project project) {
         Fragment fragment = getNowFragment();
-        if (fragment instanceof FragmentSearch) {
-            ((FragmentSearch) fragment).showSearchResult();
+        if (fragment instanceof FragmentProjects) {
+            ((FragmentProjects) fragment).showProjectInfo(project);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.v(getClass().getName(), "onBackPressed");
     }
 }

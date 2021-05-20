@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 import com.example.bipapp.R;
 import com.example.bipapp.adapters.AdapterRecyclerProjectTags;
-import com.example.bipapp.adapters.AdapterRecyclerSkills;
+import com.example.bipapp.adapters.AdapterRecyclerSkillsSelected;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Skill;
 
@@ -23,21 +23,23 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
+//TODO back to my projects
 public class FragmentProjectCreate extends Fragment {
     private ClientMain mClient;
     private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;
-    private AdapterRecyclerSkills mAdapterRecyclerSkills;
+    private AdapterRecyclerSkillsSelected mAdapterRecyclerSkills;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mClient = ClientMain.getClient();
         View view = inflater.inflate(R.layout.fragment_project_create, container, false);
 
         RecyclerView recyclerTags = view.findViewById(R.id.recycler_project_tags);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerTags.setLayoutManager(layoutManager);
+
         mAdapterRecyclerProjectTags = new AdapterRecyclerProjectTags();
         mAdapterRecyclerProjectTags.setTags(mClient.getAllProjectTagsList());
         recyclerTags.setAdapter(mAdapterRecyclerProjectTags);
@@ -45,8 +47,10 @@ public class FragmentProjectCreate extends Fragment {
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerSkills.setLayoutManager(layoutManager);
-        mAdapterRecyclerSkills = new AdapterRecyclerSkills();
+
+        mAdapterRecyclerSkills = new AdapterRecyclerSkillsSelected();
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
+        mAdapterRecyclerSkills.setSkillsLevels(mClient.getAllSkillsLevel());
         recyclerSkills.setAdapter(mAdapterRecyclerSkills);
 
         Button buttonCreate = view.findViewById(R.id.button_create_project);
@@ -73,10 +77,6 @@ public class FragmentProjectCreate extends Fragment {
         });
 
         return view;
-    }
-
-    public void setClient(ClientMain client) {
-        mClient = client;
     }
 
     private JSONArray getSelectedSkills() {

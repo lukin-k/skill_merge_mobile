@@ -10,6 +10,11 @@ public class Skill {
     private String mType;
     private String mLevel;
 
+    public Skill(Skill skill) {
+        mType = skill.getType();
+        mLevel = skill.getLevel();
+    }
+
     public Skill(JSONObject map) throws JSONException {
         update(map);
     }
@@ -19,7 +24,7 @@ public class Skill {
         mLevel = jsonObject.getString(SKILL_LEVEL);
     }
 
-    public JSONObject getJsonSkill(){
+    public JSONObject getJsonSkill() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(SKILL_TYPE, mType);
@@ -31,6 +36,9 @@ public class Skill {
         return jsonObject;
     }
 
+    public void setLevel(String level) {
+        mLevel = level;
+    }
 
     public String getType() {
         return mType;

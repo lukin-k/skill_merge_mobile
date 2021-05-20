@@ -13,23 +13,15 @@ import com.example.bipapp.adapters.AdapterRecyclerProjects;
 import com.example.bipapp.client.ClientMain;
 
 
-public class FragmentMyProjects extends Fragment {
+public class FragmentShowProjects extends Fragment {
     private ClientMain mClient;
     private AdapterRecyclerProjects mAdapterRecyclerProjects;
-
-    public void setClient(ClientMain client) {
-        mClient = client;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_projects, container, false);
+        mClient = ClientMain.getClient();
+        View view = inflater.inflate(R.layout.fragment_show_projects, container, false);
         RecyclerView recyclerProjects = view.findViewById(R.id.recycler_projects);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerProjects.setLayoutManager(layoutManager);
@@ -46,7 +38,16 @@ public class FragmentMyProjects extends Fragment {
     }
 
     public void showProjects() {
+        mAdapterRecyclerProjects.setUserName(mClient.getUser().getUserName());
         mAdapterRecyclerProjects.setProjects(mClient.getFindProjects());
         mAdapterRecyclerProjects.notifyDataSetChanged();
     }
+
+//    buttonBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getParentFragment().getChildFragmentManager().beginTransaction().remove(FragmentShowProjectsNotNeed.this).commit();
+//            }
+//        });
+
 }

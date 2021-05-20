@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderProjectTag> {
     private ArrayList<String> mTags;
     private int mSelectedTag;
+    private ViewHolderProjectTag mLastSelectedViewHolder;
 
     public void setTags(ArrayList<String> tags) {
         mTags = tags;
@@ -23,9 +24,8 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
     public AdapterRecyclerProjectTags() {
         mTags = new ArrayList<>();
         mSelectedTag = -1;
+        mLastSelectedViewHolder = null;
     }
-
-    //TODO unselected last selected tag
 
     @NonNull
     @Override
@@ -36,11 +36,16 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
             @Override
             public void onClickProjectTag() {
                 int i = getAdapterPosition();
-                Log.v("Tag", "click " + i);
                 if (mSelectedTag == i) {
                     mSelectedTag = -1;
-                }else {
+                    mLastSelectedViewHolder = null;
+                } else {
+                    if (mLastSelectedViewHolder != null && mLastSelectedViewHolder.getAdapterPosition() == mSelectedTag) {
+                        mLastSelectedViewHolder.changeColor(false);
+                    }
+
                     mSelectedTag = i;
+                    mLastSelectedViewHolder = this;
                 }
                 changeColor(mSelectedTag == i);
             }

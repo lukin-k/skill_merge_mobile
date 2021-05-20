@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search_project.FragmentSearchProjects">
+    tools:context=".ui.search_project.FragmentSearchProjects"
+    android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_search"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="20sp">
+    </EditText>
 
-</FrameLayout>
+    <include layout="@layout/panel_skills"/>
+
+    <include layout="@layout/panel_project_tags"/>
+
+    <Button
+        android:id="@+id/button_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_search">
+    </Button>
+</LinearLayout>

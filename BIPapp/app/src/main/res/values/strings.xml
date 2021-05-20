@@ -34,5 +34,16 @@
     <string name="description_user_photo">Photo of user</string>
 
     <string name="button_search">Search</string>
+    <string name="hint_search">Enter name or description</string>
+
     <string name="button_back">Back</string>
+
+    <string name="description_fab_update_project">Update project</string>
+    <string name="button_subscribe">Subscribe</string>
+    <string name="button_unsubscribe">Unsubscribe</string>
+    <string name="button_leave">Leave</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_accept">Accept</string>
+
+    <string name="title_choose_level_skill">Choose level of skill</string>
 </resources>

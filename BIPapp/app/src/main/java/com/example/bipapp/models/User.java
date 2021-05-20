@@ -1,13 +1,11 @@
 package com.example.bipapp.models;
 
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class User {
     private String mUserName;
@@ -47,7 +45,7 @@ public class User {
 
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("user_skills");
-            for (int i = 0; i < jsonArray.length(); ++i){
+            for (int i = 0; i < jsonArray.length(); ++i) {
                 JSONObject map = jsonArray.getJSONObject(i);
                 mSkills.add(new Skill(map));
             }
@@ -55,7 +53,7 @@ public class User {
             e.printStackTrace();
         }
 
-//TODO            mPhoto = jsonObject.getString("photo_id");
+        //TODO mPhoto = jsonObject.getString("photo_id");
     }
 
     public String getUserName() {

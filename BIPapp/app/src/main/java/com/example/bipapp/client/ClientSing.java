@@ -12,11 +12,22 @@ public class ClientSing extends Client {
     private final IClientSingCallback mClientSingCallback;
 
 
-    public ClientSing(IClientSingCallback clientCallback) {
+    private ClientSing(IClientSingCallback clientCallback) {
         super(clientCallback);
         mClientSingCallback = clientCallback;
     }
 
+
+    public static void createClient(IClientSingCallback clientCallback) {
+        mClient = new ClientSing(clientCallback);
+    }
+
+    public static ClientSing getClient() throws Exception {
+        if (mClient == null) {
+            throw new Exception("No IClientSingCallback in ClientSing");
+        }
+        return (ClientSing) mClient;
+    }
 
     protected void handleInPacket(Packet packet) throws JSONException {
         JSONObject jsonObject = packet.getJsonObject();

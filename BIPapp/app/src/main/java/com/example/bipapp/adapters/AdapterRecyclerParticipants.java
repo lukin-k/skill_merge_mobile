@@ -12,15 +12,19 @@ import com.example.bipapp.models.User;
 
 import java.util.ArrayList;
 
-public class AdapterRecyclerMiniUsers extends RecyclerView.Adapter<ViewHolderMiniUsers> {
+public class AdapterRecyclerParticipants extends RecyclerView.Adapter<ViewHolderMiniUsers> {
     private ArrayList<User> mUsers;
+    protected boolean isInitiator;
+    protected String mProjectId;
 
     public void setUsers(ArrayList<User> users) {
         mUsers = users;
     }
 
-    public AdapterRecyclerMiniUsers() {
+    public AdapterRecyclerParticipants(boolean isInitiator, String projectId) {
         mUsers = new ArrayList<>();
+        this.isInitiator = isInitiator;
+        mProjectId = projectId;
     }
 
     @NonNull
@@ -30,11 +34,20 @@ public class AdapterRecyclerMiniUsers extends RecyclerView.Adapter<ViewHolderMin
                 .inflate(R.layout.item_recycler_mini_user, viewGroup, false);
         ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view) {
             @Override
-            public void onClickUser() {
-                int i = getAdapterPosition();
-                Log.v("miniUser", "click " + i);
+            protected void onClickPositive() {
+                Log.v("Participant", "Positive");
+            }
+
+            @Override
+            protected void onClickNegative() {
+                //TODO delete itself?
+                Log.v("Participant", "Negative - delete");
             }
         };
+        if (isInitiator) {
+            viewHolderMiniUsers.setVisibleNegative();
+            viewHolderMiniUsers.setTextNegative(view.getContext().getResources().getString(R.string.button_delete));
+        }
         return viewHolderMiniUsers;
     }
 

@@ -34,6 +34,11 @@ public class API {
     private final static String ACTION_CREATE_PROJECT = "create_project/";
     private final static String ACTION_SEARCH_PROJECTS = "search_projects/";
 
+    private final static String ACTION_SUBSCRIBE_PROJECT = "subscribe_project/";
+    private final static String ACTION_UNSUBSCRIBE_PROJECT = "unsubscribe_project/";
+    private final static String ACTION_ACCEPT_VOLUNTEER = "accept_volunteer_project/";
+    private final static String ACTION_LEAVE_PROJECT = "leave_project/";
+
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
     private static SharedPreferences sPreferences;
@@ -149,8 +154,6 @@ public class API {
             packet.setTypePacket(ETypePacket.BAD);
         }
 
-//        Log.v(TAG, packet.getJsonObject().toString());
-
         return packet;
     }
 
@@ -180,7 +183,7 @@ public class API {
         return packet;
     }
 
-    public static Packet getAllSkills(){
+    public static Packet getAllSkills() {
         Packet packet = new Packet(ETypePacket.BAD);
         try {
             packet.setTypePacket(ETypePacket.GET_ALL_SKILLS);
@@ -195,7 +198,7 @@ public class API {
         return packet;
     }
 
-    public static Packet getAllProjectTags(){
+    public static Packet getAllProjectTags() {
         Packet packet = new Packet(ETypePacket.BAD);
         try {
             packet.setTypePacket(ETypePacket.GET_ALL_PROJECT_TAGS);
@@ -210,7 +213,7 @@ public class API {
         return packet;
     }
 
-    public static Packet searchProject(JSONObject jsonObject) {
+    public static Packet searchProjects(JSONObject jsonObject) {
         Packet packet = new Packet(ETypePacket.SEARCH_PROJECTS);
         try {
             packet.setUrl(new URL(SERVER_URL + ACTION_SEARCH_PROJECTS));
@@ -222,6 +225,68 @@ public class API {
         packet.setJsonObject(jsonObject);
         return packet;
     }
+
+    public static Packet subscribeProject(String projectId) {
+        Packet packet = new Packet(ETypePacket.SUBSCRIBE_PROJECT);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_SUBSCRIBE_PROJECT));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet unsubscribeProject(String projectId) {
+        Packet packet = new Packet(ETypePacket.UNSUBSCRIBE_PROJECT);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_UNSUBSCRIBE_PROJECT));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet acceptVolunteer(String projectId, String username) {
+        Packet packet = new Packet(ETypePacket.ACCEPT_VOLUNTEER);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_ACCEPT_VOLUNTEER));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+            jsonObject.put("username", username);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet leaveProject(String projectId) {
+        Packet packet = new Packet(ETypePacket.LEAVE_PROJECT);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_LEAVE_PROJECT));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
 
     //TODO взять отсюда csrf токен
 //    private void kek() {

@@ -2,7 +2,6 @@ package com.example.bipapp.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,14 @@ import android.view.ViewGroup;
 import com.example.bipapp.R;
 
 
+import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
 
 import java.util.ArrayList;
 
 public class AdapterRecyclerProjects extends RecyclerView.Adapter<ViewHolderProject> {
     private ArrayList<Project> mProjects;
+    private String mUserName;
 
     public void setProjects(ArrayList<Project> projects) {
         mProjects = projects;
@@ -34,7 +35,7 @@ public class AdapterRecyclerProjects extends RecyclerView.Adapter<ViewHolderProj
             @Override
             public void onClickProject() {
                 int i = getAdapterPosition();
-                Log.v("Project", "click " + i);
+                ClientMain.getClient().getProjectInfo(mProjects.get(i));
             }
         };
 
@@ -43,11 +44,15 @@ public class AdapterRecyclerProjects extends RecyclerView.Adapter<ViewHolderProj
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderProject viewHolderProject, int i) {
-        viewHolderProject.onBind(mProjects.get(i));
+        viewHolderProject.onBind(mProjects.get(i), mUserName);
     }
 
     @Override
     public int getItemCount() {
         return mProjects.size();
+    }
+
+    public void setUserName(String userName) {
+        mUserName = userName;
     }
 }

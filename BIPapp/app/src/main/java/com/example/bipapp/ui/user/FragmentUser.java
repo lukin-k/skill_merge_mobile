@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bipapp.MainActivity;
 import com.example.bipapp.R;
 import com.example.bipapp.client.ClientMain;
 
+//TODO back onece request exit? second go to singin activity
 public class FragmentUser extends Fragment {
     //TODO add refresh layout to get new user info
     private ClientMain mClient;
@@ -23,10 +23,9 @@ public class FragmentUser extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-        mClient = ((MainActivity) getActivity()).getClientMain();
+        mClient = ClientMain.getClient();
 
         mFragmentUserInfo = new FragmentUserInfo();
-        mFragmentUserInfo.setClient(mClient);
         mFragmentManager = getChildFragmentManager();
 
         mFab = view.findViewById(R.id.fab_edit_user);
@@ -35,7 +34,6 @@ public class FragmentUser extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentUserEdit fragmentUserEdit = new FragmentUserEdit();
-                fragmentUserEdit.setClient(mClient);
                 mFab.setVisibility(View.GONE);
 
                 mFragmentManager.beginTransaction()

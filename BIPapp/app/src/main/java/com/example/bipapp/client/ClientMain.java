@@ -19,20 +19,33 @@ public class ClientMain extends Client {
     private final static String TAG = "ClientMain";
 
     private User mUser;
-    private ArrayList<Skill> mAllSkills;
-    private ArrayList<String> mAllProjectTags;
-    private ArrayList<Project> mFindProjects;
+    private final ArrayList<Skill> mAllSkillsType;
+    private final ArrayList<String> mAllSkillsLevel;
+    private final ArrayList<String> mAllProjectTags;
+    private final ArrayList<Project> mFindProjects;
+
+    private boolean mSearch;
+
 
     private final IClientMainCallback mClientMainCallback;
 
-    public ClientMain(IClientMainCallback clientCallback) {
+    private ClientMain(IClientMainCallback clientCallback) {
         super(clientCallback);
         mClientMainCallback = clientCallback;
-        mAllSkills = new ArrayList<>();
+        mAllSkillsType = new ArrayList<>();
+        mAllSkillsLevel = new ArrayList<>();
         mAllProjectTags = new ArrayList<>();
         mFindProjects = new ArrayList<>();
+        mSearch = false;
     }
 
+    public static void createClient(IClientMainCallback clientCallback) {
+        mClient = new ClientMain(clientCallback);
+    }
+
+    public static ClientMain getClient() {
+        return (ClientMain) mClient;
+    }
 
     protected void handleInPacket(Packet packet) throws JSONException {
         JSONObject jsonObject = packet.getJsonObject();
@@ -44,7 +57,7 @@ public class ClientMain extends Client {
                     saveAllSkills(jsonObject.getJSONArray("data"));
                     return;
                 case GET_USER_INFO:
-                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
+//                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
                     mUser = new User(jsonObject.getJSONObject("data"));
                     mClientMainCallback.showUserInfo();
                     return;
@@ -55,24 +68,18 @@ public class ClientMain extends Client {
                     saveAllProjectTags(jsonObject.getJSONObject("data").getJSONArray("tags"));
                     return;
                 case CREATE_PROJECT:
-//                    mClientMainCallback.showMyProjects();
-                    JSONObject jsonObjectInitiator = new JSONObject();
-                    try {
-                        jsonObjectInitiator.put("initiator", mUser.getUserName());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    getMyProjects(jsonObjectInitiator);
-                    return;
-                case GET_MY_PROJECTS:
-                    Log.v(TAG, "GET_MY_PROJECTS " + jsonObject.toString());
-                    saveFindProjects(jsonObject.getJSONArray("data"));
-                    mClientMainCallback.showMyProjects();
+                    getMyProjects();
                     return;
                 case SEARCH_PROJECTS:
-                    Log.v(TAG, "SEARCH_PROJECTS " + jsonObject.toString());
                     saveFindProjects(jsonObject.getJSONArray("data"));
                     mClientMainCallback.showSearchResult();
+                    return;
+                case SUBSCRIBE_PROJECT:
+                case UNSUBSCRIBE_PROJECT:
+                case ACCEPT_VOLUNTEER:
+                case LEAVE_PROJECT:
+                    Project project = new Project(jsonObject.getJSONArray("data").getJSONObject(0));
+                    getProjectInfo(project);
                     return;
             }
         } else {
@@ -82,20 +89,56 @@ public class ClientMain extends Client {
 
     private void saveFindProjects(JSONArray projects) {
         mFindProjects.clear();
+        ArrayList<Project> participantProjects = new ArrayList<>();
+        String username = mUser.getUserName();
         for (int i = 0; i < projects.length(); ++i) {
             try {
-                mFindProjects.add(new Project(projects.getJSONObject(i)));
+                Project project = new Project(projects.getJSONObject(i));
+                if (username.equals(project.getInitiator().getUserName())) {
+                    mFindProjects.add(project);
+                } else {
+                    participantProjects.add(project);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
+        mFindProjects.addAll(participantProjects);
     }
 
     private void saveAllSkills(JSONArray skills) {
-        mAllSkills.clear();
+        ArrayList<String> allSkillsType = new ArrayList<>();
         for (int i = 0; i < skills.length(); ++i) {
             try {
-                mAllSkills.add(new Skill(skills.getJSONObject(i)));
+                String skillType = skills.getJSONObject(i).getString("skill_type");
+                if (allSkillsType.contains(skillType)) {
+                    break;
+                }
+                allSkillsType.add(skillType);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mAllSkillsLevel.clear();
+        int countSkills = allSkillsType.size();
+        for (int i = 0; i < skills.length(); i += countSkills) {
+            try {
+                String skillLevel = skills.getJSONObject(i).getString("skill_level");
+                mAllSkillsLevel.add(skillLevel);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mAllSkillsType.clear();
+        for (int i = 0; i < allSkillsType.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("skill_type", allSkillsType.get(i));
+                jsonObject.put("skill_level", "");
+                mAllSkillsType.add(new Skill(jsonObject));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -118,7 +161,11 @@ public class ClientMain extends Client {
     }
 
     public ArrayList<Skill> getAllSkillsList() {
-        return mAllSkills;
+        ArrayList<Skill> copyAllSkills = new ArrayList<>();
+        for (int i = 0; i < mAllSkillsType.size(); i++) {
+            copyAllSkills.add(new Skill(mAllSkillsType.get(i)));
+        }
+        return copyAllSkills;
     }
 
     public void getAllProjectTagsRequest() {
@@ -146,13 +193,39 @@ public class ClientMain extends Client {
     }
 
     public void searchProjects(JSONObject jsonObject) {
-        mOutPackets.add(API.searchProject(jsonObject));
+        mSearch = true;
+        mOutPackets.add(API.searchProjects(jsonObject));
     }
 
-    public void getMyProjects(JSONObject jsonObject) {
-        Packet packet = API.searchProject(jsonObject);
-        packet.setTypePacket(ETypePacket.GET_MY_PROJECTS);
+    public void getMyProjects() {
+        JSONObject jsonObjectInitiator = new JSONObject();
+        try {
+            jsonObjectInitiator.put("participant", mUser.getUserName());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Packet packet = API.searchProjects(jsonObjectInitiator);
         mOutPackets.add(packet);
+    }
+
+    public void getProjectInfo(Project project) {
+        mClientMainCallback.showProject(project);
+    }
+
+    public void subscribeProject(String projectId) {
+        mOutPackets.add(API.subscribeProject(projectId));
+    }
+
+    public void unsubscribeProject(String projectId) {
+        mOutPackets.add(API.unsubscribeProject(projectId));
+    }
+
+    public void acceptVolunteer(String projectId, String userName) {
+        mOutPackets.add(API.acceptVolunteer(projectId, userName));
+    }
+
+    public void leaveProject(String projectId) {
+        mOutPackets.add(API.leaveProject(projectId));
     }
 
     public boolean isUserExist() {
@@ -162,5 +235,16 @@ public class ClientMain extends Client {
     public User getUser() {
         return mUser;
     }
+
+    public ArrayList<String> getAllSkillsLevel() {
+        return mAllSkillsLevel;
+    }
+
+    public boolean isSearch() {
+        boolean tmp = mSearch;
+        mSearch = false;
+        return tmp;
+    }
+
 
 }

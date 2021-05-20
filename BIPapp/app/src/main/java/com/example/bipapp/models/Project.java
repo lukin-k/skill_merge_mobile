@@ -23,7 +23,6 @@ public class Project {
         update(jsonObject);
     }
 
-    //TODO test update
     public void update(JSONObject jsonObject) {
         try {
             mName = jsonObject.getString("project_name");
@@ -48,7 +47,7 @@ public class Project {
 
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("participants");
-            for (int i = 0; i<jsonArray.length(); ++i){
+            for (int i = 0; i < jsonArray.length(); ++i) {
                 mParticipants.add(new User(jsonArray.getJSONObject(i)));
             }
         } catch (JSONException e) {
@@ -56,8 +55,17 @@ public class Project {
         }
 
         try {
+            JSONArray jsonArray = jsonObject.getJSONArray("volunteer");
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                mVolunteer.add(new User(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
             JSONArray jsonArray = jsonObject.getJSONArray("project_skills");
-            for (int i = 0; i<jsonArray.length(); ++i){
+            for (int i = 0; i < jsonArray.length(); ++i) {
                 mSkills.add(new Skill(jsonArray.getJSONObject(i)));
             }
         } catch (JSONException e) {
@@ -75,6 +83,10 @@ public class Project {
         return mName;
     }
 
+    public String getId() {
+        return mId;
+    }
+
     public String getDescription() {
         return mDescription;
     }
@@ -85,6 +97,10 @@ public class Project {
 
     public ArrayList<User> getParticipants() {
         return mParticipants;
+    }
+
+    public ArrayList<User> getVolunteer() {
+        return mVolunteer;
     }
 
     public ArrayList<Skill> getSkills() {

@@ -1,9 +1,7 @@
 package com.example.bipapp.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
