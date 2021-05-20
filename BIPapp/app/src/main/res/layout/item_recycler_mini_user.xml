@@ -78,6 +78,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
+                android:backgroundTint="@color/orange"
+                android:textColor="@color/deep_pipe_green"
+                android:fontFamily="@font/ostrich"
+                android:textSize="25dp"
                 android:visibility="gone" />
 
             <Button
