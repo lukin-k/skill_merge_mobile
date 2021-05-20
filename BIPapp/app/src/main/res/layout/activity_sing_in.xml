@@ -9,6 +9,15 @@
     android:gravity="center"
     android:padding="50dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="welcome to SkillMerge!"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:textColor="@color/deep_pipe_green"
+        android:fontFamily="@font/ostrich">
+    </TextView>
     <EditText
         android:id="@+id/edit_login"
         android:layout_width="match_parent"
