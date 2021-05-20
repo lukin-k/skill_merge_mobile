@@ -1,5 +1,5 @@
 <resources>
-    <string name="sing_in_title">Sing In</string>
+    <string name="sing_in_title">Skill Merge</string>
     <string name="hint_login">Login</string>
     <string name="hint_password">Password</string>
     <string name="button_sing_up">sing up</string>
