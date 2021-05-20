@@ -9,4 +9,11 @@
         <item name="android:windowBackground">@color/light_peach</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorBackground">@color/light_peach</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:textColorPrimary">@color/deep_pipe_green</item>
+    </style>
+
 </resources>

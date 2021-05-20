@@ -1,7 +1,11 @@
 package com.example.bipapp.ui.user;
 
+import android.Manifest;
+import android.support.v7.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.bipapp.R;
 import com.example.bipapp.adapters.AdapterRecyclerSkillsSelected;
@@ -67,6 +73,32 @@ public class FragmentUserEdit extends Fragment {
             }
         });
 
+        ImageButton ibUserPhoto = view.findViewById(R.id.image_button_select_photo);
+        ibUserPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder SelectSourceDialogueBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
+                SelectSourceDialogueBuilder.setMessage("Please select a source for a new image.");
+                SelectSourceDialogueBuilder.setCancelable(true);
+
+                SelectSourceDialogueBuilder.setPositiveButton(
+                        "Gallery",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(getContext(), "gallery", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                SelectSourceDialogueBuilder.setNegativeButton(
+                        "Camera",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(getContext(), "camera", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                SelectSourceDialogueBuilder.create().show();
+            }
+        });
         return view;
     }
 
