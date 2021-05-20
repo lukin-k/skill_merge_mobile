@@ -11,6 +11,7 @@
     <color name="deep_pipe_green">#1D3C45</color>
     <color name="orange">#D2601A</color>
     <color name="light_peach">#FFF1E1</color>
+    <color name="darker_light_peach">#D1B08A</color>
 
     <color name="skill_selected">#1D3C45</color>
     <color name="skill_not_selected">#D2601A</color>
