@@ -91,8 +91,7 @@ public class FragmentUserEdit extends Fragment {
         return image;
     }
 
-    public static Bitmap RotateBitmap(Bitmap source, float angle)
-    {
+    public static Bitmap RotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
@@ -126,7 +125,7 @@ public class FragmentUserEdit extends Fragment {
         File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(APP_TAG, "failed to create directory");
         }
 
@@ -257,14 +256,6 @@ public class FragmentUserEdit extends Fragment {
             imagePhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
         } else {
             imagePhoto.setImageBitmap(user.getPhoto());
-        ImageView ivUserPhoto = view.findViewById(R.id.user_image_view);
-        if (user.getPhoto() == null)
-        {
-            ivUserPhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
-        }
-        else
-        {
-            ivUserPhoto.setImageBitmap(user.getPhoto());
         }
 
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
@@ -273,6 +264,7 @@ public class FragmentUserEdit extends Fragment {
         mAdapterRecyclerSkills.notifyDataSetChanged();
 
         //TODO show my  photo
+
     }
 
     private JSONArray getSelectedSkills() {
@@ -288,4 +280,5 @@ public class FragmentUserEdit extends Fragment {
 
         return jsonArray;
     }
+
 }

@@ -80,4 +80,7 @@ public class User {
     public ArrayList<Skill> getSkills() {
         return mSkills;
     }
+
+    public void setPhoto(Bitmap selectedImage) {
+    }
 }
