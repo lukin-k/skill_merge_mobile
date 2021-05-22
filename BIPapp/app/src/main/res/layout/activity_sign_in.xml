@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivitySignIn"
-    android:orientation="vertical"
     android:gravity="center"
-    android:padding="50dp">
+    android:orientation="vertical"
+    android:padding="50dp"
+    tools:context=".ActivitySignIn">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="welcome to SkillMerge!"
+        android:fontFamily="@font/ostrich"
         android:gravity="center"
-        android:textSize="40dp"
+        android:text="@string/title_welcome"
         android:textColor="@color/deep_pipe_green"
-        android:fontFamily="@font/ostrich">
-    </TextView>
+        android:textSize="40sp" />
+
     <EditText
         android:id="@+id/edit_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_login"
-        android:textColorHint="@color/deep_pipe_green"
-        android:textColor="@color/deep_pipe_green">
-    </EditText>
+        android:inputType="text"
+        android:textColor="@color/deep_pipe_green"
+        android:textColorHint="@color/deep_pipe_green" />
 
     <EditText
         android:id="@+id/edit_password"
@@ -33,9 +32,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_password"
         android:inputType="textPassword"
-        android:textColorHint="@color/deep_pipe_green"
-        android:textColor="@color/deep_pipe_green">
-    </EditText>
+        android:textColor="@color/deep_pipe_green"
+        android:textColorHint="@color/deep_pipe_green" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,26 +43,24 @@
         <Button
             android:id="@+id/button_sign_up"
             android:layout_width="0dp"
-            android:layout_weight="5"
             android:layout_height="wrap_content"
+            android:layout_weight="5"
             android:backgroundTint="@color/orange"
-            android:textColor="@color/deep_pipe_green"
-            android:textSize="25dp"
             android:fontFamily="@font/ostrich"
-            android:text="@string/button_sign_up">
-        </Button>
+            android:text="@string/button_sign_up"
+            android:textColor="@color/deep_pipe_green"
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/button_sign_in"
             android:layout_width="0dp"
-            android:layout_weight="5"
             android:layout_height="wrap_content"
+            android:layout_weight="5"
             android:backgroundTint="@color/orange"
-            android:textColor="@color/deep_pipe_green"
             android:fontFamily="@font/ostrich"
-            android:textSize="25dp"
-            android:text="@string/button_sign_in">
-        </Button>
+            android:text="@string/button_sign_in"
+            android:textColor="@color/deep_pipe_green"
+            android:textSize="25sp" />
     </LinearLayout>
 
 </LinearLayout>

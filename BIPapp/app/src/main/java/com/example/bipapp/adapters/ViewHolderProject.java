@@ -11,11 +11,11 @@ import com.example.bipapp.models.Project;
 import com.example.bipapp.models.User;
 
 public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
-    private TextView mTextName;
-    private TextView mTextDescription;
-    private View mViewInitiator;
-    private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
-    private TextView mTextTag;
+    private final TextView mTextName;
+    private final TextView mTextDescription;
+    private final View mViewInitiator;
+    private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
+    private final TextView mTextTag;
 
 
     public ViewHolderProject(@NonNull View itemView) {
@@ -32,8 +32,7 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
         mTextDescription = itemView.findViewById(R.id.text_project_description);
         mViewInitiator = itemView.findViewById(R.id.project_initiator);
         mTextTag = itemView.findViewById(R.id.text_project_tag);
-
-
+        
         View view = itemView.findViewById(R.id.project_skills);
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
         LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);

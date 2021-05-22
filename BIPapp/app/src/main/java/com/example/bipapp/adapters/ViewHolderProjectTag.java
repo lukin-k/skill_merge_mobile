@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.bipapp.R;
 
 public abstract class ViewHolderProjectTag extends RecyclerView.ViewHolder {
-    private TextView mTextTag;
+    private final TextView mTextTag;
 
     public ViewHolderProjectTag(@NonNull View itemView) {
         super(itemView);

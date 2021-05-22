@@ -2,7 +2,6 @@ package com.example.bipapp.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
     private ArrayList<String> mTags;
     private int mSelectedTag;
     private ViewHolderProjectTag mLastSelectedViewHolder;
-    private ArrayList<ViewHolderProjectTag> mViewHolderTagsList;
+    private final ArrayList<ViewHolderProjectTag> mViewHolderTagsList;
 
     public void setTags(ArrayList<String> tags) {
         mTags = tags;
@@ -59,7 +58,7 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
     @Override
     public void onBindViewHolder(@NonNull ViewHolderProjectTag viewHolderProjectTag, int i) {
         viewHolderProjectTag.onBind(mTags.get(i), mSelectedTag == i);
-        if(mSelectedTag == i) {
+        if (mSelectedTag == i) {
             mLastSelectedViewHolder = viewHolderProjectTag;
         }
     }
@@ -79,14 +78,14 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
 
     public void setSelectedTag(String tag) {
         for (int i = 0; i < mTags.size(); i++) {
-            if(mTags.get(i).equals(tag)){
+            if (mTags.get(i).equals(tag)) {
                 mSelectedTag = i;
                 return;
             }
         }
 
         mSelectedTag = -1;
-        if(mLastSelectedViewHolder != null){
+        if (mLastSelectedViewHolder != null) {
             mLastSelectedViewHolder.changeColor(false);
             mLastSelectedViewHolder = null;
         }

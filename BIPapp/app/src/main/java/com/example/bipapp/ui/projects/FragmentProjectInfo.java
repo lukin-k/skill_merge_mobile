@@ -69,11 +69,9 @@ public class FragmentProjectInfo extends Fragment {
         return view;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
-
         showProject();
     }
 
@@ -132,7 +130,6 @@ public class FragmentProjectInfo extends Fragment {
         mAdapterRecyclerSkills.setSkills(mProject.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
         textTag.setText(mProject.getTag());
-
     }
 
     private boolean isVolunteer(String userName) {

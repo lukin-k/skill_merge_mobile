@@ -1,7 +1,6 @@
 package com.example.bipapp.adapters;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import com.example.bipapp.R;
 import com.example.bipapp.client.ClientMain;
 
 public class AdapterRecyclerVolunteers extends AdapterRecyclerParticipants {
-
-
     public AdapterRecyclerVolunteers(boolean isInitiator, String projectId) {
         super(isInitiator, projectId);
     }

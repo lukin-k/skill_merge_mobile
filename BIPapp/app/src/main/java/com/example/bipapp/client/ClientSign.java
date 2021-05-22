@@ -11,7 +11,6 @@ import org.json.JSONObject;
 public class ClientSign extends Client {
     private final IClientSignCallback mClientSignCallback;
 
-
     private ClientSign(IClientSignCallback clientCallback) {
         super(clientCallback);
         mClientSignCallback = clientCallback;

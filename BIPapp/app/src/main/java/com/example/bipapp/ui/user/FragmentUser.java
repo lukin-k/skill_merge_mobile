@@ -1,8 +1,6 @@
 package com.example.bipapp.ui.user;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -15,13 +13,11 @@ import com.example.bipapp.ui.IFragmentHost;
 
 import java.util.List;
 
-//TODO replace fab to userInfo fragment
 public class FragmentUser extends Fragment implements IFragmentHost {
     //TODO add refresh layout to get new user info
     private ClientMain mClient;
     private FragmentUserInfo mFragmentUserInfo;
     private FragmentManager mFragmentManager;
-    private FloatingActionButton mFab;
 
 
     @Override
@@ -32,24 +28,7 @@ public class FragmentUser extends Fragment implements IFragmentHost {
         mFragmentUserInfo = new FragmentUserInfo();
         mFragmentManager = getChildFragmentManager();
 
-        mFab = view.findViewById(R.id.fab_edit_user);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("RestrictedApi")
-            @Override
-            public void onClick(View v) {
-                FragmentUserEdit fragmentUserEdit = new FragmentUserEdit();
-                mFab.setVisibility(View.GONE);
-
-                mFragmentManager.beginTransaction()
-                        .add(R.id.frame_container_user, fragmentUserEdit)
-                        .commit();
-            }
-        });
-
-        mFragmentManager.beginTransaction()
-                .replace(R.id.frame_container_user, mFragmentUserInfo)
-                .commit();
-
+        setFragmentUserInfo();
         return view;
     }
 
@@ -61,21 +40,17 @@ public class FragmentUser extends Fragment implements IFragmentHost {
         if (!mClient.isUserExist()) {
             mClient.getUserInfo();
         } else {
-            if (!isEditOnTop()) {
+            if (isInfoOnTop()) {
                 showUserInfo();
             }
         }
     }
 
     public void showUserInfo() {
-        if (isEditOnTop()) {
-            popLastFragment();
-        }
+        setFragmentUserInfo();
         getActivity().runOnUiThread(new Runnable() {
-            @SuppressLint("RestrictedApi")
             @Override
             public void run() {
-                mFab.setVisibility(View.VISIBLE);
                 mFragmentUserInfo.showUserInfo();
             }
         });
@@ -87,28 +62,41 @@ public class FragmentUser extends Fragment implements IFragmentHost {
         if (fragments.size() > 0) {
             Fragment fragment = fragments.get(fragments.size() - 1);
             mFragmentManager.beginTransaction().remove(fragment).commit();
-            if (fragments.size() >= 2) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @SuppressLint("RestrictedApi")
-                    @Override
-                    public void run() {
-                        mFab.setVisibility(View.VISIBLE);
-                    }
-                });
-            }
             return true;
         }
         return false;
     }
 
-    private boolean isEditOnTop() {
+    private boolean isInfoOnTop() {
         List<Fragment> fragments = mFragmentManager.getFragments();
         if (fragments.size() > 0) {
             Fragment fragment = fragments.get(fragments.size() - 1);
-            if (fragment instanceof FragmentUserEdit) {
+            if (fragment instanceof FragmentUserInfo) {
                 return true;
             }
         }
         return false;
+    }
+
+    public void showUserEdit() {
+        FragmentUserEdit fragmentUserEdit = new FragmentUserEdit();
+        mFragmentManager.beginTransaction()
+                .add(R.id.frame_container_user, fragmentUserEdit)
+                .commit();
+    }
+
+    private void setFragmentUserInfo() {
+        List<Fragment> fragments = mFragmentManager.getFragments();
+        for (int i = fragments.size() - 1; i >= 0; --i) {
+            Fragment fragment = fragments.get(i);
+            if (fragment instanceof FragmentUserInfo) {
+                return;
+            }
+            mFragmentManager.beginTransaction().remove(fragment).commit();
+        }
+
+        mFragmentManager.beginTransaction()
+                .replace(R.id.frame_container_user, mFragmentUserInfo)
+                .commit();
     }
 }

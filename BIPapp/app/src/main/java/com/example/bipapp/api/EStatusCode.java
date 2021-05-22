@@ -6,7 +6,7 @@ public enum EStatusCode {
 
     BAD("");
 
-    private String strStatusCode;
+    private final String strStatusCode;
 
     EStatusCode(String strStatus) {
         this.strStatusCode = strStatus;
@@ -19,9 +19,9 @@ public enum EStatusCode {
     public static EStatusCode getStatusCode(String strStatus) {
         String UpCaseStrStatus = strStatus.toUpperCase();
         EStatusCode[] statusCodes = EStatusCode.values();
-        for (int i = 0; i < statusCodes.length; i++) {
-            if (statusCodes[i].getStrStatusCode().equals(UpCaseStrStatus)) {
-                return statusCodes[i];
+        for (EStatusCode statusCode : statusCodes) {
+            if (statusCode.getStrStatusCode().equals(UpCaseStrStatus)) {
+                return statusCode;
             }
         }
 

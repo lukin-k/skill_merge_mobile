@@ -62,7 +62,7 @@
             android:backgroundTint="@color/orange"
             android:fontFamily="@font/ostrich"
             android:textColor="@color/deep_pipe_green"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

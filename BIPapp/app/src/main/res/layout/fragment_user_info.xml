@@ -1,132 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/light_peach"
     tools:context=".ui.user.FragmentUserEdit">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@color/deep_pipe_green"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_photo"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="4"
-            android:src="@drawable/test_photo"
-            app:civ_border_color="@color/light_peach"
-            app:civ_border_width="5dp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text_fullname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ostrich"
-                android:textColor="@color/light_peach"
-                android:textSize="50sp"
-                tools:text="TestName TestSurname" />
-
-            <TextView
-                android:id="@+id/text_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ostrich"
-                android:includeFontPadding="false"
-                android:textColor="@color/light_peach"
-                android:textSize="15sp"
-                tools:text="testnick_name_6666" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/deep_pipe_green"
+            android:orientation="horizontal"
             android:padding="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ostrich"
-                android:padding="10sp"
-                android:text="@string/title_my_information"
-                android:textColor="@color/deep_pipe_green"
-                android:textSize="50sp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_photo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="4"
+                android:src="@drawable/test_photo"
+                app:civ_border_color="@color/light_peach"
+                app:civ_border_width="5dp" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/hint_age"
-                android:textColorHint="@color/deep_pipe_green">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/text_age"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/text_fullname"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_baseline_child_friendly_24"
-                    android:drawablePadding="10dp"
-                    android:editable="false"
-                    android:textColor="@color/deep_pipe_green"
-                    tools:text="188">
+                    android:fontFamily="@font/ostrich"
+                    android:textColor="@color/light_peach"
+                    android:textSize="50sp"
+                    tools:text="TestName TestSurname" />
 
-                </android.support.design.widget.TextInputEditText>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/hint_biography"
-                android:textColorHint="@color/deep_pipe_green">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/text_biography"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/text_username"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_baseline_campaign_24"
-                    android:drawablePadding="10dp"
-                    android:editable="false"
-                    android:textColor="@color/deep_pipe_green"
-                    tools:text="Android developer, C++ also">
-
-                </android.support.design.widget.TextInputEditText>
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ostrich"
-                android:padding="10sp"
-                android:text="@string/title_my_skills"
-                android:textColor="@color/deep_pipe_green"
-                android:textSize="50sp" />
-
-            <include layout="@layout/panel_skills" />
+                    android:fontFamily="@font/ostrich"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/light_peach"
+                    android:textSize="15sp"
+                    tools:text="testnick_name_6666" />
+            </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ostrich"
+                    android:padding="10sp"
+                    android:text="@string/title_my_information"
+                    android:textColor="@color/deep_pipe_green"
+                    android:textSize="50sp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/hint_age"
+                    android:textColorHint="@color/deep_pipe_green">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/text_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_child_friendly_24"
+                        android:drawablePadding="10dp"
+                        android:editable="false"
+                        android:textColor="@color/deep_pipe_green"
+                        tools:text="188" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/hint_biography"
+                    android:textColorHint="@color/deep_pipe_green">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/text_biography"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_campaign_24"
+                        android:drawablePadding="10dp"
+                        android:editable="false"
+                        android:textColor="@color/deep_pipe_green"
+                        tools:text="Android developer, C++ also" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ostrich"
+                    android:padding="10sp"
+                    android:text="@string/title_my_skills"
+                    android:textColor="@color/deep_pipe_green"
+                    android:textSize="50sp" />
+
+                <include layout="@layout/panel_skills" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/description_fab_edit_user"
+        app:srcCompat="@drawable/ic_baseline_edit_124" />
+</RelativeLayout>

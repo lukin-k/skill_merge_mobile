@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/light_peach"
+    android:orientation="vertical"
     tools:context=".ui.user.FragmentUserEdit">
 
     <RelativeLayout
@@ -36,7 +36,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-
             <TextView
                 android:id="@+id/text_view_my_information_is"
                 android:layout_width="wrap_content"
@@ -46,7 +45,6 @@
                 android:text="@string/title_my_information"
                 android:textColor="@color/deep_pipe_green"
                 android:textSize="50sp" />
-
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -62,9 +60,7 @@
                     android:drawableStart="@drawable/ic_baseline_person_24"
                     android:drawablePadding="10dp"
                     android:textColor="@color/deep_pipe_green"
-                    tools:text="ivan testorio">
-
-                </android.support.design.widget.TextInputEditText>
+                    tools:text="ivan testorio" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -83,10 +79,7 @@
                     android:drawablePadding="10dp"
                     android:inputType="number"
                     android:textColor="@color/deep_pipe_green"
-                    tools:text="908">
-
-                </android.support.design.widget.TextInputEditText>
-
+                    tools:text="908" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -103,11 +96,8 @@
                     android:drawableStart="@drawable/ic_baseline_campaign_24"
                     android:drawablePadding="10dp"
                     android:textColor="@color/deep_pipe_green"
-                    tools:text="Android developer, C++ also">
-
-                </android.support.design.widget.TextInputEditText>
+                    tools:text="Android developer, C++ also" />
             </android.support.design.widget.TextInputLayout>
-
 
             <TextView
                 android:id="@+id/text_view_my_skills_are"
@@ -118,7 +108,6 @@
                 android:text="@string/title_my_skills"
                 android:textColor="@color/deep_pipe_green"
                 android:textSize="50sp" />
-
 
             <include layout="@layout/panel_skills" />
 

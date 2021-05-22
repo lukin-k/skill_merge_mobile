@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 public class ClientMain extends Client {
-    private final static String TAG = "ClientMain";
+    private final IClientMainCallback mClientMainCallback;
 
     private User mUser;
     private final ArrayList<Skill> mAllSkillsType;
@@ -26,11 +26,8 @@ public class ClientMain extends Client {
     private final ArrayList<Project> mFindProjects;
 
     private boolean mSearch;
-
     private JSONObject mLastSearch;
 
-
-    private final IClientMainCallback mClientMainCallback;
 
     private ClientMain(IClientMainCallback clientCallback) {
         super(clientCallback);
@@ -276,4 +273,11 @@ public class ClientMain extends Client {
     }
 
 
+    public void showUserEdit() {
+        mClientMainCallback.showUserEdit();
+    }
+
+    public void showProjectCreate() {
+        mClientMainCallback.showProjectCreate();
+    }
 }

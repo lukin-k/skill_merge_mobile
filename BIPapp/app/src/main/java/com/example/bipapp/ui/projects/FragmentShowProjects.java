@@ -1,6 +1,7 @@
 package com.example.bipapp.ui.projects;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,14 @@ public class FragmentShowProjects extends Fragment {
         recyclerProjects.setLayoutManager(layoutManager);
         mAdapterRecyclerProjects = new AdapterRecyclerProjects();
         recyclerProjects.setAdapter(mAdapterRecyclerProjects);
+
+        FloatingActionButton fab = view.findViewById(R.id.fab_create_project);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClient.showProjectCreate();
+            }
+        });
 
         return view;
     }

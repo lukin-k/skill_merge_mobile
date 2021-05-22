@@ -10,5 +10,7 @@ public interface IClientMainCallback extends IClientCallback {
 
     void showProject(Project project);
 
-    void deleteProject();
+    void showUserEdit();
+
+    void showProjectCreate();
 }

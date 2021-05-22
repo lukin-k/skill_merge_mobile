@@ -123,10 +123,18 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     }
 
     @Override
-    public void deleteProject() {
+    public void showUserEdit() {
         Fragment fragment = getNowFragment();
-        if (fragment instanceof IFragmentHost) {
-            ((IFragmentHost) fragment).popLastFragment();
+        if (fragment instanceof FragmentUser) {
+            ((FragmentUser) fragment).showUserEdit();
+        }
+    }
+
+    @Override
+    public void showProjectCreate() {
+        Fragment fragment = getNowFragment();
+        if (fragment instanceof FragmentProjects) {
+            ((FragmentProjects) fragment).showProjectCreate();
         }
     }
 
@@ -135,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         Fragment fragment = getNowFragment();
         if (fragment instanceof IFragmentHost) {
             IFragmentHost fragmentHost = (IFragmentHost) fragment;
-            if(!fragmentHost.popLastFragment()){
+            if (!fragmentHost.popLastFragment()) {
                 //TODO back onece request exit? second go to singin activity
                 finish();
             }

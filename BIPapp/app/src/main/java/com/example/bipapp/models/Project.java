@@ -1,5 +1,8 @@
 package com.example.bipapp.models;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,11 +14,12 @@ public class Project {
     private String mId;
     private String mDescription;
     private User mInitiator;
-    private ArrayList<User> mParticipants;
-    private ArrayList<User> mVolunteer;
-    private ArrayList<Skill> mSkills;
+    private final ArrayList<User> mParticipants;
+    private final ArrayList<User> mVolunteer;
+    private final ArrayList<Skill> mSkills;
     private String mTag;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Project(JSONObject jsonObject) {
         mParticipants = new ArrayList<>();
         mVolunteer = new ArrayList<>();
@@ -23,6 +27,7 @@ public class Project {
         update(jsonObject);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void update(JSONObject jsonObject) {
         try {
             mName = jsonObject.getString("project_name");

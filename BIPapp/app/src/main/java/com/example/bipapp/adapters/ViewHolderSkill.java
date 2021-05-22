@@ -10,8 +10,8 @@ import com.example.bipapp.R;
 import com.example.bipapp.models.Skill;
 
 public abstract class ViewHolderSkill extends RecyclerView.ViewHolder {
-    private TextView mTextType;
-    private TextView mTextLevel;
+    private final TextView mTextType;
+    private final TextView mTextLevel;
 
     public ViewHolderSkill(@NonNull View itemView) {
         super(itemView);

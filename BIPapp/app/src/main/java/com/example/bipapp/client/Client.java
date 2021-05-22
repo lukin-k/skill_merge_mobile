@@ -6,12 +6,13 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 public abstract class Client extends Thread {
     private final IClientCallback mClientCallback;
-    protected final List<Packet> mOutPackets; //TODO set save synhron
+    protected final List<Packet> mOutPackets;
     protected boolean isRun;
 
     protected static Client mClient = null;
@@ -19,10 +20,9 @@ public abstract class Client extends Thread {
     protected Client(IClientCallback clientCallback) {
         isRun = true;
         mClientCallback = clientCallback;
-        mOutPackets = new ArrayList<>();
+        mOutPackets = Collections.synchronizedList(new ArrayList<Packet>());
         start();
     }
-
 
     @Override
     public void run() {
@@ -37,21 +37,22 @@ public abstract class Client extends Thread {
     }
 
     private void sendAndHandlePackets() {
-        int i = mOutPackets.size() - 1;
-
-        for (; i >= 0; --i) {
-            try {
-                Packet outPacket = mOutPackets.get(i);
-                if (outPacket.getTypePacket() == ETypePacket.BAD) {
-                    mClientCallback.showMessage("Error", outPacket.getJsonObject().getString("message"));
-                    continue;
+        synchronized (mOutPackets) {
+            int i = mOutPackets.size() - 1;
+            for (; i >= 0; --i) {
+                try {
+                    Packet outPacket = mOutPackets.get(i);
+                    if (outPacket.getTypePacket() == ETypePacket.BAD) {
+                        mClientCallback.showMessage("Error", outPacket.getJsonObject().getString("message"));
+                        continue;
+                    }
+                    handleInPacket(API.sendPacket(outPacket));
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                    mClientCallback.showMessage("Error", e.toString());
                 }
-                handleInPacket(API.sendPacket(outPacket));
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                mClientCallback.showMessage("Error", e.toString());
+                mOutPackets.remove(i);
             }
-            mOutPackets.remove(i);
         }
     }
 

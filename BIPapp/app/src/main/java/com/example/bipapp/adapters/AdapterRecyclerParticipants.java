@@ -42,7 +42,6 @@ public class AdapterRecyclerParticipants extends RecyclerView.Adapter<ViewHolder
             @Override
             protected void onClickNegative() {
                 ClientMain.getClient().deleteParticipant(mProjectId, mUser.getUserName());
-                Log.v("Participant", "Negative - delete");
             }
         };
         if (isInitiator) {

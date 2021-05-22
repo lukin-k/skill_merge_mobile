@@ -18,7 +18,7 @@ public class User {
     private String mFullName;
     private short mAge;
     private String mBiography;
-    private ArrayList<Skill> mSkills;
+    private final ArrayList<Skill> mSkills;
     private Bitmap mPhoto;
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -42,6 +42,6 @@
         android:fontFamily="@font/ostrich"
         android:text="@string/button_create_project"
         android:textColor="@color/deep_pipe_green"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
 </LinearLayout>
