@@ -52,8 +52,11 @@ public abstract class ViewHolderSkill extends RecyclerView.ViewHolder {
             textColor = itemView.getResources().getColor(R.color.orange);
         }
         itemView.setBackgroundColor(color);
-        mTextType.setTextColor(textColor);
-        mTextLevel.setTextColor(textColor);
+<<<<<<< HEAD
+
+        itemView.setBackgroundColor(color);
+=======
+>>>>>>> origin/xoredxedx
         mTextType.setTextColor(textColor);
         mTextLevel.setTextColor(textColor);
     }
