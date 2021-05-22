@@ -15,7 +15,6 @@ public class User {
     private short mAge;
     private String mBiography;
     private ArrayList<Skill> mSkills;
-    //TODO set suitable type for photo
     private Bitmap mPhoto;
 
     public User(JSONObject jsonObject) {

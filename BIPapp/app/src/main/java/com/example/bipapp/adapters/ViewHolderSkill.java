@@ -39,9 +39,13 @@ public abstract class ViewHolderSkill extends RecyclerView.ViewHolder {
     @SuppressLint("ResourceAsColor")
     protected void changeColor(boolean isSelected) {
         int color = itemView.getResources().getColor(R.color.skill_not_selected);
+        int textColor = itemView.getResources().getColor(R.color.deep_pipe_green);
         if (isSelected) {
             color = itemView.getResources().getColor(R.color.skill_selected);
+            textColor = itemView.getResources().getColor(R.color.orange);
         }
         itemView.setBackgroundColor(color);
+        mTextType.setTextColor(textColor);
+        mTextLevel.setTextColor(textColor);
     }
 }
