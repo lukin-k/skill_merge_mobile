@@ -38,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ostrich"
                 android:textColor="@color/light_peach"
-                android:textSize="50sp"
+                android:textSize="30sp"
+                android:layout_gravity="left"
                 tools:text="TestName TestSurname" />
 
             <TextView
@@ -49,6 +50,7 @@
                 android:includeFontPadding="false"
                 android:textColor="@color/light_peach"
                 android:textSize="15sp"
+                android:layout_gravity="left"
                 tools:text="testnick_name_6666" />
         </LinearLayout>
 
@@ -72,7 +74,7 @@
                 android:padding="10sp"
                 android:text="@string/title_my_information"
                 android:textColor="@color/deep_pipe_green"
-                android:textSize="50sp" />
+                android:textSize="30sp" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -122,7 +124,7 @@
                 android:padding="10sp"
                 android:text="@string/title_my_skills"
                 android:textColor="@color/deep_pipe_green"
-                android:textSize="50sp" />
+                android:textSize="30sp" />
 
             <include layout="@layout/panel_skills" />
 

@@ -67,7 +67,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
 
     public void onBind(User user) {
         mUser = user;
-        mTextFullname.setText(mUser.getFullName());
+        mTextFullname.setText(mUser.getFullName() + ",");
         mTextAge.setText("" + mUser.getAge());
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();

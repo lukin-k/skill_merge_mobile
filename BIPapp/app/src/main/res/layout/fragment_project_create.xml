@@ -6,6 +6,41 @@
     android:orientation="vertical"
     tools:context=".ui.projects.FragmentProjectCreate">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/deep_pipe_green"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_emoji_objects_24"
+            android:layout_marginTop="10dp">
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROJECTS CONSTRUCTOR"
+            android:textSize="30sp"
+            android:textColor="@color/light_peach"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project name..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
+
     <EditText
         android:id="@+id/edit_project_name"
         android:layout_width="match_parent"
@@ -17,6 +52,15 @@
         android:textSize="20sp">
     </EditText>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project description..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
 
     <EditText
         android:id="@+id/edit_project_description"
@@ -30,7 +74,27 @@
         android:textSize="20sp">
     </EditText>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project tag..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
+
     <include layout="@layout/panel_project_tags"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suitable skills..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
 
     <include layout="@layout/panel_skills"/>
 

@@ -44,7 +44,7 @@
                 android:padding="10sp"
                 android:text="@string/title_my_information"
                 android:textColor="@color/deep_pipe_green"
-                android:textSize="50sp" />
+                android:textSize="30sp" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -116,7 +116,7 @@
                 android:padding="10sp"
                 android:text="@string/title_my_skills"
                 android:textColor="@color/deep_pipe_green"
-                android:textSize="50sp" />
+                android:textSize="30sp" />
 
 
             <include layout="@layout/panel_skills" />

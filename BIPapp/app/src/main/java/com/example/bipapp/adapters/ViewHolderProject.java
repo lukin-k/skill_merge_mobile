@@ -12,6 +12,7 @@ import com.example.bipapp.models.User;
 
 public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
     private TextView mTextName;
+    private TextView mTextFullName;
     private TextView mTextDescription;
     private View mViewInitiator;
     private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
@@ -30,7 +31,7 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
 
         mTextName = itemView.findViewById(R.id.text_project_name);
         mTextDescription = itemView.findViewById(R.id.text_project_description);
-        mViewInitiator = itemView.findViewById(R.id.project_initiator);
+        mTextFullName = itemView.findViewById(R.id.text_fullname);
         mTextTag = itemView.findViewById(R.id.text_project_tag);
 
 
@@ -47,7 +48,6 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
 
     public void onBind(Project project, String userName) {
         mTextName.setText(project.getName());
-        mTextDescription.setText(project.getDescription());
         setInitiator(project.getInitiator());
         mAdapterRecyclerSkills.setSkills(project.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
@@ -56,8 +56,7 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
 
     private void setInitiator(User initiator) {
         //TODO set all fields
-        TextView textFullname = mViewInitiator.findViewById(R.id.text_fullname);
-
+        TextView textFullname =  itemView.findViewById(R.id.text_fullname);
         textFullname.setText(initiator.getFullName());
     }
 }

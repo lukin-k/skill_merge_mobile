@@ -6,49 +6,57 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:elevation="15dp"
-    app:cardCornerRadius="15dp">
-
+    app:cardCornerRadius="15dp"
+    android:backgroundTint="@color/deep_pipe_green">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_photo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_weight="2"
                 android:src="@drawable/test_photo"
-                app:civ_border_color="@color/orange"
+                app:civ_border_color="@color/light_peach"
                 app:civ_border_width="2dp"
                 android:layout_margin="5dp"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:orientation="vertical"
-                android:layout_margin="5dp">
-
                 <TextView
                     android:id="@+id/text_fullname"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="User full name" />
+                    android:fontFamily="@font/ostrich"
+                    android:textColor="@color/light_peach"
+                    android:textSize="15dp"
+                    android:padding="5dp"
+                    tools:text="User full name"
+                    android:layout_toRightOf="@id/image_photo"
+                    android:layout_centerInParent="true"/>
 
                 <TextView
                     android:id="@+id/text_age"
-                    android:layout_width="match_parent"
+                    android:textColor="@color/light_peach"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="age" />
+                    android:fontFamily="@font/ostrich"
+                    android:textSize="15dp"
+                    tools:text="age"
+                    android:layout_toRightOf="@id/text_fullname"
+                    android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
                 <include layout="@layout/panel_skills" />
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -65,7 +73,7 @@
                 android:backgroundTint="@color/orange"
                 android:fontFamily="@font/ostrich"
                 android:textColor="@color/deep_pipe_green"
-                android:textSize="25dp"
+                android:textSize="15dp"
                 android:visibility="gone" />
 
             <Button
@@ -76,10 +84,11 @@
                 android:backgroundTint="@color/orange"
                 android:fontFamily="@font/ostrich"
                 android:textColor="@color/deep_pipe_green"
-                android:textSize="25dp"
+                android:textSize="15dp"
                 android:visibility="gone" />
         </LinearLayout>
-    </LinearLayout>
+
+</LinearLayout>
 
 
 </android.support.v7.widget.CardView>

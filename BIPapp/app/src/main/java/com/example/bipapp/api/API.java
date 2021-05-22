@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 
 public class API {
     private final static String TAG = "API";
-    private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
+    private final static String SERVER_URL = "http://192.168.0.104:8000/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
 

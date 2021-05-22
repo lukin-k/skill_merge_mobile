@@ -6,10 +6,46 @@
     tools:context=".ui.search_project.FragmentSearch"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/deep_pipe_green"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_explore_24"
+            android:layout_marginTop="10dp">
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROJECTS EXPLORER"
+            android:textSize="30sp"
+            android:textColor="@color/light_peach"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project name..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
+
     <EditText
         android:id="@+id/edit_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:hint="@string/hint_search"
         android:inputType="text"
         android:textColorHint="@color/deep_pipe_green"
@@ -17,7 +53,48 @@
         android:textSize="20sp">
     </EditText>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
+
+    <EditText
+        android:id="@+id/username_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter username"
+        android:inputType="text"
+        android:textColorHint="@color/deep_pipe_green"
+        android:textAlignment="center"
+        android:textSize="20sp">
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suitable skills..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
+
     <include layout="@layout/panel_skills"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project tag..."
+        android:textSize="30sp"
+        android:textColor="@color/deep_pipe_green"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+    </TextView>
 
     <include layout="@layout/panel_project_tags"/>
 
@@ -29,6 +106,7 @@
         android:textColor="@color/deep_pipe_green"
         android:fontFamily="@font/ostrich"
         android:textSize="25sp"
-        android:text="@string/button_search">
+        android:text="@string/button_search"
+        android:layout_marginTop="5dp">
     </Button>
 </LinearLayout>

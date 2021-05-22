@@ -4,6 +4,11 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,6 +42,13 @@ public class FragmentProjectInfo extends Fragment {
     private RecyclerView mRecyclerVolunteer;
     private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
+    // viewpager stuff
+    private static int NUM_PAGES = 2;
+    private ViewPager mPager;
+    private PagerAdapter pagerAdapter;
+    private boolean isInitiator;
+
+
     public FragmentProjectInfo() {
         mClient = ClientMain.getClient();
     }
@@ -45,29 +57,59 @@ public class FragmentProjectInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_project_info, container, false);
+        // Instantiate a ViewPager and a PagerAdapter.
+        Log.v("pageview", "trying to instantiate");
+        mPager = (ViewPager) view.findViewById(R.id.pager);
+        pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
+        mPager.setAdapter(pagerAdapter);
 
-        boolean isInitiator = mClient.getUser().getUserName().equals(mProject.getInitiator().getUserName());
-        RecyclerView recyclerParticipants = view.findViewById(R.id.recycler_project_participants);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerParticipants.setLayoutManager(layoutManager);
-        mAdapterRecyclerParticipants = new AdapterRecyclerParticipants(isInitiator, mProject.getId());
-        recyclerParticipants.setAdapter(mAdapterRecyclerParticipants);
 
-        mRecyclerVolunteer = view.findViewById(R.id.recycler_project_volunteer);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerVolunteer.setLayoutManager(layoutManager);
-        mAdapterRecyclerVolunteers = new AdapterRecyclerVolunteers(isInitiator, mProject.getId());
-        mRecyclerVolunteer.setAdapter(mAdapterRecyclerVolunteers);
+        isInitiator = mClient.getUser().getUserName().equals(mProject.getInitiator().getUserName());
+
+        if (isInitiator)
+        {
+            NUM_PAGES = 2;
+        }
+        else
+        {
+            NUM_PAGES = 1;
+        }
+        pagerAdapter.notifyDataSetChanged();
 
         View panelSkills = view.findViewById(R.id.project_skills);
         RecyclerView recyclerSkills = panelSkills.findViewById(R.id.recycler_skills);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerSkills.setLayoutManager(layoutManager);
         mAdapterRecyclerSkills = new AdapterRecyclerSkillsNonSelected();
         recyclerSkills.setAdapter(mAdapterRecyclerSkills);
 
         return view;
     }
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position)
+            {
+                case 0:
+                    return new FragmentRecyclerProjectParticipants(isInitiator, mProject);
+                case 1:
+                    return new FragmentRecyclerProjectVolunteer(isInitiator, mProject);
+            }
+            Log.v("damn", "shoudnt have been here");
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
+    }
+
 
 
     @Override
@@ -83,14 +125,11 @@ public class FragmentProjectInfo extends Fragment {
 
         TextView textName = view.findViewById(R.id.text_project_name);
         TextView textDescription = view.findViewById(R.id.text_project_description);
-        View viewInitiator = view.findViewById(R.id.project_initiator);
         TextView textTag = view.findViewById(R.id.text_project_tag);
 
         textName.setText(mProject.getName());
         textDescription.setText(mProject.getDescription());
-        setInitiator(viewInitiator, mProject.getInitiator());
-        mAdapterRecyclerParticipants.setUsers(mProject.getParticipants());
-        mAdapterRecyclerParticipants.notifyDataSetChanged();
+        setInitiator(mProject.getInitiator());
 
         Button buttonAction = view.findViewById(R.id.button_project_action);
         if (userName.equals(mProject.getInitiator().getUserName())) {
@@ -156,19 +195,15 @@ public class FragmentProjectInfo extends Fragment {
         return false;
     }
 
-    private void setInitiator(View viewInitiator, User initiator) {
+    private void setInitiator(User initiator) {
         //TODO set all fields
-        TextView textFullname = viewInitiator.findViewById(R.id.text_fullname);
-
+        TextView textFullname = getView().findViewById(R.id.text_fullname);
         textFullname.setText(initiator.getFullName());
     }
 
     @SuppressLint("RestrictedApi")
     private void showInitiatorsData(View view) {
         //TODO delete participants and volontiers
-        mRecyclerVolunteer.setVisibility(View.VISIBLE);
-        mAdapterRecyclerVolunteers.setUsers(mProject.getVolunteer());
-        mAdapterRecyclerVolunteers.notifyDataSetChanged();
 
         FloatingActionButton fabUpdate = view.findViewById(R.id.fab_update_project);
         fabUpdate.setVisibility(View.VISIBLE);
