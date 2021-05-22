@@ -15,7 +15,7 @@
         android:theme="@style/Theme.BIPapp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ActivitySingIn"
+            android:name=".ActivitySignIn"
             android:label="@string/sing_in_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

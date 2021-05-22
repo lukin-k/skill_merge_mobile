@@ -57,7 +57,6 @@ public class FragmentUserEdit extends Fragment {
                 EditText editFullName = view.findViewById(R.id.edit_fullname);
                 EditText editAge = view.findViewById(R.id.edit_age);
                 EditText editBiography = view.findViewById(R.id.edit_biography);
-                //TODO get photo
 
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -65,7 +64,6 @@ public class FragmentUserEdit extends Fragment {
                     jsonObject.put("age", Integer.parseInt(editAge.getText().toString()));
                     jsonObject.put("biography", editBiography.getText().toString());
                     jsonObject.put("skills", getSelectedSkills());
-
                     //TODO set photo
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -99,6 +97,7 @@ public class FragmentUserEdit extends Fragment {
                         });
 
                 SelectSourceDialogueBuilder.create().show();
+                //TODO save tmp photo
             }
         });
         return view;
@@ -120,7 +119,7 @@ public class FragmentUserEdit extends Fragment {
 
         TextView twUserName = view.findViewById(R.id.textview_username);
 
-        twUserName.setText("@Castyl_user_name");
+        twUserName.setText(user.getUserName());
 
         EditText editFullName = view.findViewById(R.id.edit_fullname);
         editFullName.setText(user.getFullName());
@@ -142,12 +141,9 @@ public class FragmentUserEdit extends Fragment {
         }
 
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
-        Log.println(50, "skills", mClient.getAllSkillsList().toString());
         mAdapterRecyclerSkills.setSkillsLevels(mClient.getAllSkillsLevel());
         mAdapterRecyclerSkills.setSelectedSkills(user.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
-
-        //TODO show my  photo
     }
 
     private JSONArray getSelectedSkills() {

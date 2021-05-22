@@ -62,6 +62,7 @@ public class FragmentSearch extends Fragment {
             public void onClick(View v) {
                 EditText editSearch = view.findViewById(R.id.edit_search);
 
+                //TODO save search data
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("search_string", editSearch.getText().toString());

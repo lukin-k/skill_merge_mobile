@@ -74,6 +74,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     }
 
     private void showDialogUserData() {
+        //TODO set normal circle photo https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml
         Context context = itemView.getContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

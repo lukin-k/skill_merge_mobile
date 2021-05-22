@@ -8,25 +8,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class ClientSing extends Client {
-    private final IClientSingCallback mClientSingCallback;
+public class ClientSign extends Client {
+    private final IClientSignCallback mClientSignCallback;
 
 
-    private ClientSing(IClientSingCallback clientCallback) {
+    private ClientSign(IClientSignCallback clientCallback) {
         super(clientCallback);
-        mClientSingCallback = clientCallback;
+        mClientSignCallback = clientCallback;
     }
 
 
-    public static void createClient(IClientSingCallback clientCallback) {
-        mClient = new ClientSing(clientCallback);
+    public static void createClient(IClientSignCallback clientCallback) {
+        mClient = new ClientSign(clientCallback);
     }
 
-    public static ClientSing getClient() throws Exception {
+    public static ClientSign getClient() throws Exception {
         if (mClient == null) {
             throw new Exception("No IClientSingCallback in ClientSing");
         }
-        return (ClientSing) mClient;
+        return (ClientSign) mClient;
     }
 
     protected void handleInPacket(Packet packet) throws JSONException {
@@ -35,25 +35,25 @@ public class ClientSing extends Client {
         if (statusCode == EStatusCode.OK) {
             ETypePacket typePacket = packet.getTypePacket();
             switch (typePacket) {
-                case SING_IN:
+                case SIGN_IN:
                     API.setToken(jsonObject.getJSONObject("data").getString("token"));
-                    mClientSingCallback.singIn();
+                    mClientSignCallback.signIn();
                     isRun = false;
                     return;
-                case SING_UP:
-                    mClientSingCallback.singUp();
+                case SIGN_UP:
+                    mClientSignCallback.signUp();
                     return;
             }
         } else {
-            mClientSingCallback.showMessage("Error", jsonObject.getString("message"));
+            mClientSignCallback.showMessage("Error", jsonObject.getString("message"));
         }
     }
 
-    public void singUp(String login, String password) {
-        mOutPackets.add(API.singUp(login, password));
+    public void signUp(String login, String password) {
+        mOutPackets.add(API.signUp(login, password));
     }
 
-    public void singIn(String login, String password) {
-        mOutPackets.add(API.singIn(login, password));
+    public void signIn(String login, String password) {
+        mOutPackets.add(API.signIn(login, password));
     }
 }

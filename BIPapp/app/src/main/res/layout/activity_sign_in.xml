@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivitySingIn"
+    tools:context=".ActivitySignIn"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="50dp">
@@ -43,7 +43,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_sing_up"
+            android:id="@+id/button_sign_up"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="wrap_content"
@@ -51,11 +51,11 @@
             android:textColor="@color/deep_pipe_green"
             android:textSize="25dp"
             android:fontFamily="@font/ostrich"
-            android:text="@string/button_sing_up">
+            android:text="@string/button_sign_up">
         </Button>
 
         <Button
-            android:id="@+id/button_sing_in"
+            android:id="@+id/button_sign_in"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:textColor="@color/deep_pipe_green"
             android:fontFamily="@font/ostrich"
             android:textSize="25dp"
-            android:text="@string/button_sing_in">
+            android:text="@string/button_sign_in">
         </Button>
     </LinearLayout>
 

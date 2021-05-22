@@ -72,8 +72,8 @@ public class API {
         setTokenPreferences();
     }
 
-    public static Packet singIn(String login, String password) {
-        Packet packet = sing(login, password);
+    public static Packet signIn(String login, String password) {
+        Packet packet = sign(login, password);
 
         if (packet.getTypePacket() == ETypePacket.BAD) {
             return packet;
@@ -84,13 +84,13 @@ public class API {
         } catch (MalformedURLException e) {
             packet.setTypePacket(ETypePacket.BAD);
         }
-        packet.setTypePacket(ETypePacket.SING_IN);
+        packet.setTypePacket(ETypePacket.SIGN_IN);
 
         return packet;
     }
 
-    public static Packet singUp(String login, String password) {
-        Packet packet = sing(login, password);
+    public static Packet signUp(String login, String password) {
+        Packet packet = sign(login, password);
 
         if (packet.getTypePacket() == ETypePacket.BAD) {
             return packet;
@@ -101,12 +101,12 @@ public class API {
         } catch (MalformedURLException e) {
             packet.setTypePacket(ETypePacket.BAD);
         }
-        packet.setTypePacket(ETypePacket.SING_UP);
+        packet.setTypePacket(ETypePacket.SIGN_UP);
 
         return packet;
     }
 
-    private static Packet sing(String login, String password) {
+    private static Packet sign(String login, String password) {
         Packet packet = new Packet(ETypePacket.BAD);
         if (login.length() <= 0 || password.length() <= 0) {
             try {

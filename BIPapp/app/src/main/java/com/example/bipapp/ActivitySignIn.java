@@ -13,17 +13,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bipapp.api.API;
-import com.example.bipapp.client.ClientSing;
-import com.example.bipapp.client.IClientSingCallback;
+import com.example.bipapp.client.ClientSign;
+import com.example.bipapp.client.IClientSignCallback;
 
 
-public class ActivitySingIn extends AppCompatActivity implements IClientSingCallback {
-    private ClientSing mClient;
+public class ActivitySignIn extends AppCompatActivity implements IClientSignCallback {
+    private ClientSign mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sing_in);
+        setContentView(R.layout.activity_sign_in);
 
         SharedPreferences preferences = getSharedPreferences(API.PREFERENCES_NAME, Context.MODE_PRIVATE);
         API.setPreferences(preferences);
@@ -31,32 +31,32 @@ public class ActivitySingIn extends AppCompatActivity implements IClientSingCall
         EditText editLogin = findViewById(R.id.edit_login);
         EditText editPassword = findViewById(R.id.edit_password);
 
-        Button buttonSingUp = findViewById(R.id.button_sing_up);
+        Button buttonSignUp = findViewById(R.id.button_sign_up);
 
-        buttonSingUp.setOnClickListener(new View.OnClickListener() {
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClient.singUp(editLogin.getText().toString(), editPassword.getText().toString());
+                mClient.signUp(editLogin.getText().toString(), editPassword.getText().toString());
             }
         });
 
-        Button buttonSingIn = findViewById(R.id.button_sing_in);
-        buttonSingIn.setOnClickListener(new View.OnClickListener() {
+        Button buttonSignIn = findViewById(R.id.button_sign_in);
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClient.singIn(editLogin.getText().toString(), editPassword.getText().toString());
+                mClient.signIn(editLogin.getText().toString(), editPassword.getText().toString());
             }
         });
 
 
         if (API.isTokenExist()) {
             if (API.isTokenActive()) {
-                singIn();
+                signIn();
             } else {
                 if (!API.refreshToken()) {
                     Toast.makeText(this, R.string.bad_token, Toast.LENGTH_LONG).show();
                 } else {
-                    singIn();
+                    signIn();
                 }
             }
         }
@@ -66,9 +66,9 @@ public class ActivitySingIn extends AppCompatActivity implements IClientSingCall
     protected void onResume() {
         super.onResume();
 
-        ClientSing.createClient(this);
+        ClientSign.createClient(this);
         try {
-            mClient = ClientSing.getClient();
+            mClient = ClientSign.getClient();
         } catch (Exception e) {
             e.printStackTrace();
             finish();
@@ -87,7 +87,7 @@ public class ActivitySingIn extends AppCompatActivity implements IClientSingCall
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySingIn.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySignIn.this);
                 builder.setTitle(title)
                         .setMessage(message)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -102,18 +102,17 @@ public class ActivitySingIn extends AppCompatActivity implements IClientSingCall
     }
 
     @Override
-    public void singIn() {
+    public void signIn() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void singUp() {
-        //TODO call create user data activity
+    public void signUp() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((Button) findViewById(R.id.button_sing_in)).performClick();
+                ((Button) findViewById(R.id.button_sign_in)).performClick();
             }
         });
     }

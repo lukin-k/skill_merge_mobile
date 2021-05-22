@@ -47,7 +47,7 @@ public class FragmentUserInfo extends Fragment {
         twFullName.setText(user.getFullName());
 
         TextView twUserName = view.findViewById(R.id.textview_username);
-        twUserName.setText("@Castyl_user_name");
+        twUserName.setText(user.getUserName());
 
         TextView textFullName = view.findViewById(R.id.text_fullname);
         textFullName.setText(user.getFullName());
@@ -70,7 +70,5 @@ public class FragmentUserInfo extends Fragment {
 
         mAdapterRecyclerSkills.setSkills(user.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
-
-        //TODO show photo
     }
 }
