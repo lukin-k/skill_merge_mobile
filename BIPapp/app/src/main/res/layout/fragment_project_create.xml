@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_peach"
     android:orientation="vertical"
     tools:context=".ui.projects.FragmentProjectCreate">
 
@@ -11,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_project_name"
-        android:textColorHint="@color/deep_pipe_green"
         android:inputType="text"
         android:textAlignment="center"
-        android:textSize="20sp">
-    </EditText>
+        android:textColorHint="@color/deep_pipe_green"
+        android:textSize="20sp" />
 
 
     <EditText
@@ -24,15 +24,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:hint="@string/hint_project_description"
-        android:textColorHint="@color/deep_pipe_green"
         android:inputType="textImeMultiLine"
         android:textAlignment="center"
-        android:textSize="20sp">
-    </EditText>
+        android:textColorHint="@color/deep_pipe_green"
+        android:textSize="20sp" />
 
-    <include layout="@layout/panel_project_tags"/>
+    <include layout="@layout/panel_project_tags" />
 
-    <include layout="@layout/panel_skills"/>
+    <include layout="@layout/panel_skills" />
 
 
     <Button
@@ -40,10 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
-        android:textColor="@color/deep_pipe_green"
         android:fontFamily="@font/ostrich"
-        android:textSize="25dp"
-        android:text="@string/button_create_project">
-    </Button>
+        android:text="@string/button_create_project"
+        android:textColor="@color/deep_pipe_green"
+        android:textSize="25dp" />
 
 </LinearLayout>

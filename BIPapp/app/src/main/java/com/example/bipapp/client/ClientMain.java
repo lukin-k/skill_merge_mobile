@@ -1,5 +1,7 @@
 package com.example.bipapp.client;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.example.bipapp.api.API;
@@ -47,6 +49,7 @@ public class ClientMain extends Client {
         return (ClientMain) mClient;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void handleInPacket(Packet packet) throws JSONException {
         JSONObject jsonObject = packet.getJsonObject();
         EStatusCode statusCode = EStatusCode.getStatusCode(jsonObject.getString("status"));
@@ -55,10 +58,9 @@ public class ClientMain extends Client {
             switch (typePacket) {
                 case GET_ALL_SKILLS:
                     saveAllSkills(jsonObject.getJSONArray("data"));
-//                    Log.v("json skills", jsonObject.toString());
                     return;
                 case GET_USER_INFO:
-                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
+//                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
                     mUser = new User(jsonObject.getJSONObject("data"));
                     mClientMainCallback.showUserInfo();
                     return;

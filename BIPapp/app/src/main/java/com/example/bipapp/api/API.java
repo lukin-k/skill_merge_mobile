@@ -387,7 +387,7 @@ public class API {
     }
 
     private static void addJsonToConnection(HttpURLConnection connection, JSONObject jsonObject) throws IOException {
-        Log.v(TAG, jsonObject.toString());
+//        Log.v(TAG, jsonObject.toString());
         OutputStream outputStream = connection.getOutputStream();
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         outputStreamWriter.write(jsonObject.toString());

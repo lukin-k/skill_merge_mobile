@@ -3,12 +3,15 @@ package com.example.bipapp.models;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class User {
     private String mUserName;
@@ -18,11 +21,13 @@ public class User {
     private ArrayList<Skill> mSkills;
     private Bitmap mPhoto;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public User(JSONObject jsonObject) {
         mSkills = new ArrayList<>();
         update(jsonObject);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void update(JSONObject jsonObject) {
         try {
             mUserName = jsonObject.getString("username");
@@ -55,14 +60,13 @@ public class User {
             e.printStackTrace();
         }
 
-//        try {
-//            //TODO mPhoto = jsonObject.getString("photo_id");
-//            String photo_id = jsonObject.getString("photo_id");
-//            byte[] bytesPhoto = photo_id.getBytes();
-//            mPhoto = BitmapFactory.decodeByteArray(bytesPhoto, 0, bytesPhoto.length);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            String photo_id = jsonObject.getString("photo_id");
+            byte[] bytesPhoto = Base64.getDecoder().decode(photo_id.getBytes());
+            mPhoto = BitmapFactory.decodeByteArray(bytesPhoto, 0, bytesPhoto.length);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUserName() {
@@ -87,9 +91,5 @@ public class User {
 
     public ArrayList<Skill> getSkills() {
         return mSkills;
-    }
-
-    public void setPhoto(Bitmap selectedImage) {
-        mPhoto = selectedImage;
     }
 }

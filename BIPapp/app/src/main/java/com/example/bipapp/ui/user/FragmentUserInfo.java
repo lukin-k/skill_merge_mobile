@@ -33,13 +33,7 @@ public class FragmentUserInfo extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        showUserInfo();
-    }
-
-    private void showUserInfo() {
+    public void showUserInfo() {
         User user = mClient.getUser();
         View view = getView();
 

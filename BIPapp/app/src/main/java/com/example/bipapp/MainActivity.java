@@ -21,13 +21,12 @@ import com.example.bipapp.api.API;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.client.IClientMainCallback;
 import com.example.bipapp.models.Project;
+import com.example.bipapp.ui.IFragmentHost;
 import com.example.bipapp.ui.projects.FragmentProjects;
 import com.example.bipapp.ui.user.FragmentUser;
 
-//TODO back onece request exit? second go to singin activity
 
 //TODO add subscribersFragment
-//TODO del topbar
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
     private ClientMain mClient;
 
@@ -125,7 +124,13 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Log.v(getClass().getName(), "onBackPressed");
+        Fragment fragment = getNowFragment();
+        if (fragment instanceof IFragmentHost) {
+            IFragmentHost fragmentHost = (IFragmentHost) fragment;
+            if(!fragmentHost.popLastFragment()){
+                //TODO back onece request exit? second go to singin activity
+                finish();
+            }
+        }
     }
 }

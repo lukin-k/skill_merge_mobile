@@ -18,6 +18,7 @@ import com.example.bipapp.adapters.AdapterRecyclerProjectTags;
 import com.example.bipapp.adapters.AdapterRecyclerSkillsSelected;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Skill;
+import com.example.bipapp.ui.IFragmentHost;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 //TODO back onece request exit? second go to singin activity
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements IFragmentHost {
     private ClientMain mClient;
     private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;
     private AdapterRecyclerSkillsSelected mAdapterRecyclerSkills;
@@ -99,5 +100,10 @@ public class FragmentSearch extends Fragment {
         }
 
         return jsonArray;
+    }
+
+    @Override
+    public boolean popLastFragment() {
+        return false;
     }
 }

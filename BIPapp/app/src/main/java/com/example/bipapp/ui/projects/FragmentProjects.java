@@ -13,9 +13,13 @@ import android.support.v4.app.Fragment;
 import com.example.bipapp.R;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
+import com.example.bipapp.ui.IFragmentHost;
+
+import java.lang.reflect.InvocationHandler;
+import java.util.List;
 
 //TODO back onece request exit? second go to singin activity
-public class FragmentProjects extends Fragment {
+public class FragmentProjects extends Fragment implements IFragmentHost {
     private ClientMain mClient;
     private FragmentShowProjects mFragmentShowProjects;
     private FragmentManager mFragmentManager;
@@ -37,7 +41,7 @@ public class FragmentProjects extends Fragment {
                 mFab.setVisibility(View.GONE);
 
                 mFragmentManager.beginTransaction()
-                        .replace(R.id.frame_container_projects, fragmentProjectCreate)
+                        .add(R.id.frame_container_projects, fragmentProjectCreate)
                         .commit();
             }
         });
@@ -80,7 +84,19 @@ public class FragmentProjects extends Fragment {
         fragmentProjectInfo.setProject(project);
 
         mFragmentManager.beginTransaction()
-                .replace(R.id.frame_container_projects, fragmentProjectInfo)
+                .add(R.id.frame_container_projects, fragmentProjectInfo)
                 .commit();
+    }
+
+    @Override
+    public boolean popLastFragment() {
+        List<Fragment> fragments = mFragmentManager.getFragments();
+        if(fragments.size() > 0){
+            Fragment fragment = fragments.get(fragments.size()-1);
+            mFragmentManager.beginTransaction().remove(fragment).commit();
+            return true;
+        }
+
+        return false;
     }
 }

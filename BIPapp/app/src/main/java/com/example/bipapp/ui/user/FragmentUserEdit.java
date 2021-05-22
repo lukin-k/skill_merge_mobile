@@ -1,6 +1,8 @@
 package com.example.bipapp.ui.user;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -10,7 +12,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,17 +40,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 import static android.app.Activity.RESULT_OK;
-
-//TODO back to UserInfo
 
 public class FragmentUserEdit extends Fragment {
     private ClientMain mClient;
     private AdapterRecyclerSkillsSelected mAdapterRecyclerSkills;
+    private ImageView mImagePhoto;
 
     public final static int PICK_PHOTO_CODE = 1046;
 
@@ -123,15 +128,15 @@ public class FragmentUserEdit extends Fragment {
                 takenImage = ThumbnailUtils.extractThumbnail(takenImage, 300, 300, 0);
                 mTmpUserPhoto = takenImage;
             } else {
-                mTmpUserPhoto = null;
+                mTmpUserPhoto = mClient.getUser().getPhoto();
             }
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mClient = ClientMain.getClient();
+        mTmpUserPhoto = mClient.getUser().getPhoto();
         View view = inflater.inflate(R.layout.fragment_user_edit, container, false);
 
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
@@ -143,6 +148,7 @@ public class FragmentUserEdit extends Fragment {
 
         Button buttonSave = view.findViewById(R.id.button_save_edit_user);
         buttonSave.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 EditText editFullName = view.findViewById(R.id.edit_fullname);
@@ -160,47 +166,55 @@ public class FragmentUserEdit extends Fragment {
                     e.printStackTrace();
                 }
 
-                //TODO send photo
-//                if (tmpUserPhoto != null) {
-//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                    tmpUserPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//                    byte[] byteArray = stream.toByteArray();
-//                    try {
-//                        jsonObject.put("photo_bytes", byteArray);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                mTmpUserPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                try {
+                    byte[] encoded = Base64.getEncoder().encode(byteArray);
+                    jsonObject.put("photo_bytes", new String(encoded));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 mClient.changeUserInfo(jsonObject);
             }
         });
 
-        ImageView ibCameraImage = view.findViewById(R.id.image_photo);
-        ibCameraImage.setOnClickListener(new View.OnClickListener() {
+        mImagePhoto = view.findViewById(R.id.image_photo);
+        mImagePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder selectSourceBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
-                selectSourceBuilder.setMessage(getResources().getString(R.string.title_select_source_photo));
-                selectSourceBuilder.setCancelable(true);
-
-                selectSourceBuilder.setPositiveButton(getResources().getString(R.string.title_source_gallery),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                onPickPhoto();
-                            }
-                        });
-                selectSourceBuilder.setNegativeButton(getResources().getString(R.string.title_source_camera),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                onLaunchCamera();
-                            }
-                        });
-
-                selectSourceBuilder.create().show();
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
+                            .setMessage(getResources().getString(R.string.title_select_source_photo))
+                            .setCancelable(true)
+                            .setPositiveButton(getResources().getString(R.string.title_source_gallery),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            onPickPhoto();
+                                        }
+                                    })
+                            .setNegativeButton(getResources().getString(R.string.title_source_camera),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            onLaunchCamera();
+                                        }
+                                    }).create().show();
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                }
             }
         });
         return view;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mImagePhoto.performClick();
+            }
+        }
     }
 
     @Override
@@ -222,11 +236,10 @@ public class FragmentUserEdit extends Fragment {
         EditText editBiography = view.findViewById(R.id.edit_biography);
         editBiography.setText(user.getBiography());
 
-        ImageView imagePhoto = view.findViewById(R.id.image_photo);
         if (user.getPhoto() == null) {
-            imagePhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
+            mImagePhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
         } else {
-            imagePhoto.setImageBitmap(user.getPhoto());
+            mImagePhoto.setImageBitmap(mTmpUserPhoto);
         }
 
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
