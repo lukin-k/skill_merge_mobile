@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bipapp.R;
@@ -73,8 +75,8 @@ public class FragmentUserEdit extends Fragment {
             }
         });
 
-        ImageButton ibUserPhoto = view.findViewById(R.id.image_button_select_photo);
-        ibUserPhoto.setOnClickListener(new View.OnClickListener() {
+        ImageButton ibCameraImage = view.findViewById(R.id.camera_image_button);
+        ibCameraImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder SelectSourceDialogueBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
@@ -113,6 +115,13 @@ public class FragmentUserEdit extends Fragment {
         User user = mClient.getUser();
         View view = getView();
 
+        TextView twFullName = view.findViewById(R.id.textview_full_name);
+        twFullName.setText(user.getFullName());
+
+        TextView twUserName = view.findViewById(R.id.textview_username);
+
+        twUserName.setText("@Castyl_user_name");
+
         EditText editFullName = view.findViewById(R.id.edit_fullname);
         editFullName.setText(user.getFullName());
 
@@ -121,6 +130,16 @@ public class FragmentUserEdit extends Fragment {
 
         EditText editBiography = view.findViewById(R.id.edit_biography);
         editBiography.setText(user.getBiography());
+
+        ImageView ivUserPhoto = view.findViewById(R.id.user_image_view);
+        if (user.getPhoto() == null)
+        {
+            ivUserPhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
+        }
+        else
+        {
+            ivUserPhoto.setImageBitmap(user.getPhoto());
+        }
 
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
         Log.println(50, "skills", mClient.getAllSkillsList().toString());

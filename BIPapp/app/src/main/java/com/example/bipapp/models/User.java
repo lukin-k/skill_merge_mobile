@@ -74,6 +74,10 @@ public class User {
         return mBiography;
     }
 
+    public Bitmap getPhoto() { return mPhoto; }
+
+    public void setPhoto(Bitmap photo) { mPhoto = photo; }
+
     public ArrayList<Skill> getSkills() {
         return mSkills;
     }
