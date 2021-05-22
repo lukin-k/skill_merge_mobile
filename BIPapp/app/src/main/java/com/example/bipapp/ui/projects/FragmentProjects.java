@@ -15,10 +15,9 @@ import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
 import com.example.bipapp.ui.IFragmentHost;
 
-import java.lang.reflect.InvocationHandler;
 import java.util.List;
 
-//TODO back onece request exit? second go to singin activity
+//TODO replace fab to projects fragment
 public class FragmentProjects extends Fragment implements IFragmentHost {
     private ClientMain mClient;
     private FragmentShowProjects mFragmentShowProjects;
@@ -46,6 +45,8 @@ public class FragmentProjects extends Fragment implements IFragmentHost {
             }
         });
 
+        setFragmentShowProjects();
+
         return view;
     }
 
@@ -60,16 +61,17 @@ public class FragmentProjects extends Fragment implements IFragmentHost {
     }
 
     public void showProjects() {
+        if (!isShowOnTop()) {
+            setFragmentShowProjects();
+        }
         getActivity().runOnUiThread(new Runnable() {
             @SuppressLint("RestrictedApi")
             @Override
             public void run() {
                 mFab.setVisibility(View.VISIBLE);
+                mFragmentShowProjects.showProjects();
             }
         });
-        mFragmentManager.beginTransaction()
-                .replace(R.id.frame_container_projects, mFragmentShowProjects)
-                .commit();
     }
 
     public void showProjectInfo(Project project) {
@@ -91,12 +93,40 @@ public class FragmentProjects extends Fragment implements IFragmentHost {
     @Override
     public boolean popLastFragment() {
         List<Fragment> fragments = mFragmentManager.getFragments();
-        if(fragments.size() > 0){
-            Fragment fragment = fragments.get(fragments.size()-1);
+        if (fragments.size() > 0) {
+            Fragment fragment = fragments.get(fragments.size() - 1);
             mFragmentManager.beginTransaction().remove(fragment).commit();
             return true;
         }
 
         return false;
     }
+
+    private boolean isShowOnTop() {
+        List<Fragment> fragments = mFragmentManager.getFragments();
+        if (fragments.size() > 0) {
+            Fragment fragment = fragments.get(fragments.size() - 1);
+            if (fragment instanceof FragmentShowProjects) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setFragmentShowProjects() {
+        List<Fragment> fragments = mFragmentManager.getFragments();
+        for (int i = fragments.size() - 1; i >= 0; --i) {
+            Fragment fragment = fragments.get(i);
+            if (fragment instanceof FragmentShowProjects) {
+                return;
+            }
+            mFragmentManager.beginTransaction().remove(fragment).commit();
+        }
+
+        mFragmentManager.beginTransaction()
+                .replace(R.id.frame_container_projects, mFragmentShowProjects)
+                .commit();
+    }
+
+
 }

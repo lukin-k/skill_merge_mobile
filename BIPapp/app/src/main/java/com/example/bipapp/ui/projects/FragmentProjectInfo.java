@@ -100,8 +100,7 @@ public class FragmentProjectInfo extends Fragment {
             buttonAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO add delete project
-                    Log.v("Project", "Delete");
+                    mClient.deleteProject(mProject.getId());
                 }
             });
         } else if (isParticipant(userName)) {
@@ -165,7 +164,6 @@ public class FragmentProjectInfo extends Fragment {
 
     @SuppressLint("RestrictedApi")
     private void showInitiatorsData(View view) {
-        //TODO delete participants and volontiers
         mRecyclerVolunteer.setVisibility(View.VISIBLE);
         mAdapterRecyclerVolunteers.setUsers(mProject.getVolunteer());
         mAdapterRecyclerVolunteers.notifyDataSetChanged();
@@ -180,6 +178,4 @@ public class FragmentProjectInfo extends Fragment {
             }
         });
     }
-
-
 }

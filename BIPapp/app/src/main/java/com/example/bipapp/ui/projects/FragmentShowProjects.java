@@ -31,23 +31,9 @@ public class FragmentShowProjects extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        showProjects();
-    }
-
     public void showProjects() {
         mAdapterRecyclerProjects.setUserName(mClient.getUser().getUserName());
         mAdapterRecyclerProjects.setProjects(mClient.getFindProjects());
         mAdapterRecyclerProjects.notifyDataSetChanged();
     }
-
-//    buttonBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getParentFragment().getChildFragmentManager().beginTransaction().remove(FragmentShowProjectsNotNeed.this).commit();
-//            }
-//        });
-
 }

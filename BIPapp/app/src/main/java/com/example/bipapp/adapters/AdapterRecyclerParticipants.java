@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bipapp.R;
+import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.User;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class AdapterRecyclerParticipants extends RecyclerView.Adapter<ViewHolder
 
             @Override
             protected void onClickNegative() {
-                //TODO delete itself?
+                ClientMain.getClient().deleteParticipant(mProjectId, mUser.getUserName());
                 Log.v("Participant", "Negative - delete");
             }
         };

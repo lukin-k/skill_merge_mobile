@@ -33,7 +33,6 @@ public abstract class ViewHolderSkill extends RecyclerView.ViewHolder {
     public void onBind(Skill skill, boolean isSelected) {
         mTextType.setText(skill.getType());
         String level = skill.getLevel();
-        //TODO norm?
         if (level.length() <= 0) {
             mTextLevel.setVisibility(View.GONE);
         } else {

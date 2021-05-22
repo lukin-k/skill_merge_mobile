@@ -9,4 +9,6 @@ public interface IClientMainCallback extends IClientCallback {
     void showSearchResult();
 
     void showProject(Project project);
+
+    void deleteProject();
 }

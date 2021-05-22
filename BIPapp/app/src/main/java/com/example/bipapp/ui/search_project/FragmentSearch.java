@@ -26,7 +26,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//TODO back onece request exit? second go to singin activity
 public class FragmentSearch extends Fragment implements IFragmentHost {
     private ClientMain mClient;
     private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;

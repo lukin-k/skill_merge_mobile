@@ -15,6 +15,7 @@ import com.example.bipapp.ui.IFragmentHost;
 
 import java.util.List;
 
+//TODO replace fab to userInfo fragment
 public class FragmentUser extends Fragment implements IFragmentHost {
     //TODO add refresh layout to get new user info
     private ClientMain mClient;
@@ -97,7 +98,6 @@ public class FragmentUser extends Fragment implements IFragmentHost {
             }
             return true;
         }
-
         return false;
     }
 

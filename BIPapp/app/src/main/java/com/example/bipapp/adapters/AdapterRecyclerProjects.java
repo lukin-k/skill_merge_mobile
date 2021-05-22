@@ -35,7 +35,7 @@ public class AdapterRecyclerProjects extends RecyclerView.Adapter<ViewHolderProj
             @Override
             public void onClickProject() {
                 int i = getAdapterPosition();
-                ClientMain.getClient().getProjectInfo(mProjects.get(i));
+                ClientMain.getClient().showProjectInfo(mProjects.get(i));
             }
         };
 

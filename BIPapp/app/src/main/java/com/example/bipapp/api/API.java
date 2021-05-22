@@ -32,12 +32,15 @@ public class API {
 
     private final static String ACTION_GET_ALL_PROJECT_TAGS = "get_all_project_tags/";
     private final static String ACTION_CREATE_PROJECT = "create_project/";
+    private final static String ACTION_DELETE_PROJECT = "delete_project/";
     private final static String ACTION_SEARCH_PROJECTS = "search_projects/";
 
     private final static String ACTION_SUBSCRIBE_PROJECT = "subscribe_project/";
     private final static String ACTION_UNSUBSCRIBE_PROJECT = "unsubscribe_project/";
     private final static String ACTION_ACCEPT_VOLUNTEER = "accept_volunteer_project/";
+    private final static String ACTION_DELETE_VOLUNTEER = "delete_volunteer_from_project/";
     private final static String ACTION_LEAVE_PROJECT = "leave_project/";
+    private final static String ACTION_DELETE_PARTICIPANT = "delete_participant_from_project/";
 
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
@@ -183,6 +186,21 @@ public class API {
         return packet;
     }
 
+    public static Packet deleteProject(String projectId) {
+        Packet packet = new Packet(ETypePacket.DELETE_PROJECT);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_DELETE_PROJECT));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
     public static Packet getAllSkills() {
         Packet packet = new Packet(ETypePacket.BAD);
         try {
@@ -272,6 +290,22 @@ public class API {
         return packet;
     }
 
+    public static Packet deleteVolunteer(String projectId, String username) {
+        Packet packet = new Packet(ETypePacket.DELETE_VOLUNTEER);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_DELETE_VOLUNTEER));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+            jsonObject.put("username", username);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
     public static Packet leaveProject(String projectId) {
         Packet packet = new Packet(ETypePacket.LEAVE_PROJECT);
         JSONObject jsonObject = new JSONObject();
@@ -279,6 +313,22 @@ public class API {
             packet.setUrl(new URL(SERVER_URL + ACTION_LEAVE_PROJECT));
             jsonObject.put("token", sToken);
             jsonObject.put("project_uuid", projectId);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet deleteParticipant(String projectId, String username) {
+        Packet packet = new Packet(ETypePacket.DELETE_PARTICIPANT);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_DELETE_PARTICIPANT));
+            jsonObject.put("token", sToken);
+            jsonObject.put("project_uuid", projectId);
+            jsonObject.put("username", username);
         } catch (MalformedURLException | JSONException e) {
             e.printStackTrace();
         }

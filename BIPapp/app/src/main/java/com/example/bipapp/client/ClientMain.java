@@ -2,7 +2,6 @@ package com.example.bipapp.client;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import com.example.bipapp.api.API;
 import com.example.bipapp.api.EStatusCode;
@@ -71,6 +70,7 @@ public class ClientMain extends Client {
                     saveAllProjectTags(jsonObject.getJSONObject("data").getJSONArray("tags"));
                     return;
                 case CREATE_PROJECT:
+                case DELETE_PROJECT:
                     getMyProjects();
                     return;
                 case SEARCH_PROJECTS:
@@ -80,9 +80,11 @@ public class ClientMain extends Client {
                 case SUBSCRIBE_PROJECT:
                 case UNSUBSCRIBE_PROJECT:
                 case ACCEPT_VOLUNTEER:
+                case DELETE_VOLUNTEER:
                 case LEAVE_PROJECT:
+                case DELETE_PARTICIPANT:
                     Project project = new Project(jsonObject.getJSONObject("data"));
-                    getProjectInfo(project);
+                    showProjectInfo(project);
                     return;
             }
         } else {
@@ -195,6 +197,10 @@ public class ClientMain extends Client {
         mOutPackets.add(API.createProject(jsonObject));
     }
 
+    public void deleteProject(String projectId) {
+        mOutPackets.add(API.deleteProject(projectId));
+    }
+
     public void searchProjects(JSONObject jsonObject) {
         mSearch = true;
         mOutPackets.add(API.searchProjects(jsonObject));
@@ -211,7 +217,7 @@ public class ClientMain extends Client {
         mOutPackets.add(packet);
     }
 
-    public void getProjectInfo(Project project) {
+    public void showProjectInfo(Project project) {
         mClientMainCallback.showProject(project);
     }
 
@@ -225,6 +231,14 @@ public class ClientMain extends Client {
 
     public void acceptVolunteer(String projectId, String userName) {
         mOutPackets.add(API.acceptVolunteer(projectId, userName));
+    }
+
+    public void deleteVolunteer(String projectId, String userName) {
+        mOutPackets.add(API.deleteVolunteer(projectId, userName));
+    }
+
+    public void deleteParticipant(String projectId, String userName) {
+        mOutPackets.add(API.deleteParticipant(projectId, userName));
     }
 
     public void leaveProject(String projectId) {

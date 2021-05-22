@@ -23,7 +23,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//TODO back to my projects
 public class FragmentProjectCreate extends Fragment {
     private ClientMain mClient;
     private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bipapp.R;
+import com.example.bipapp.client.Client;
+import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.User;
 
 public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
@@ -71,6 +73,12 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
         mTextAge.setText("" + mUser.getAge());
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
+
+        if(ClientMain.getClient().getUser().getUserName().equals(user.getUserName())){
+            mButtonNegative.setVisibility(View.GONE);
+        }else {
+            setVisibleNegative();
+        }
     }
 
     private void showDialogUserData() {

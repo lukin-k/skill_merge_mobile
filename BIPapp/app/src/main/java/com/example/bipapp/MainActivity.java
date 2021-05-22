@@ -123,6 +123,14 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     }
 
     @Override
+    public void deleteProject() {
+        Fragment fragment = getNowFragment();
+        if (fragment instanceof IFragmentHost) {
+            ((IFragmentHost) fragment).popLastFragment();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         Fragment fragment = getNowFragment();
         if (fragment instanceof IFragmentHost) {

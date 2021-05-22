@@ -29,7 +29,7 @@ public class AdapterRecyclerVolunteers extends AdapterRecyclerParticipants {
 
             @Override
             protected void onClickNegative() {
-                Log.v("Participant", "Negative - delete");
+                ClientMain.getClient().deleteVolunteer(mProjectId, mUser.getUserName());
             }
         };
 
