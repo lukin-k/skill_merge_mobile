@@ -11,12 +11,20 @@ import com.example.bipapp.models.Project;
 import com.example.bipapp.models.User;
 
 public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
+<<<<<<< HEAD
     private final TextView mTextName;
     private final TextView mTextDescription;
-    private TextView mTextFullName;
     private final View mViewInitiator;
     private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
     private final TextView mTextTag;
+=======
+    private TextView mTextName;
+    private TextView mTextFullName;
+    private TextView mTextDescription;
+    private View mViewInitiator;
+    private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
+    private TextView mTextTag;
+>>>>>>> origin/xoredxedx
 
 
     public ViewHolderProject(@NonNull View itemView) {

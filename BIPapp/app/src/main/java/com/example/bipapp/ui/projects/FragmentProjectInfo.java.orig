@@ -86,6 +86,8 @@ public class FragmentProjectInfo extends Fragment {
         return view;
     }
 
+<<<<<<< HEAD
+=======
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -111,6 +113,8 @@ public class FragmentProjectInfo extends Fragment {
     }
 
 
+
+>>>>>>> origin/xoredxedx
     @Override
     public void onResume() {
         super.onResume();
@@ -199,6 +203,13 @@ public class FragmentProjectInfo extends Fragment {
 
     @SuppressLint("RestrictedApi")
     private void showInitiatorsData(View view) {
+<<<<<<< HEAD
+        mRecyclerVolunteer.setVisibility(View.VISIBLE);
+        mAdapterRecyclerVolunteers.setUsers(mProject.getVolunteer());
+        mAdapterRecyclerVolunteers.notifyDataSetChanged();
+=======
+        //TODO delete participants and volontiers
+>>>>>>> origin/xoredxedx
 
         FloatingActionButton fabUpdate = view.findViewById(R.id.fab_update_project);
         fabUpdate.setVisibility(View.VISIBLE);

@@ -13,12 +13,42 @@
         android:orientation="vertical">
 
         <LinearLayout
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/deep_pipe_green"
             android:orientation="horizontal"
             android:padding="10dp">
+=======
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ostrich"
+                android:textColor="@color/light_peach"
+                android:textSize="30sp"
+                android:layout_gravity="left"
+                tools:text="TestName TestSurname" />
+
+            <TextView
+                android:id="@+id/text_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ostrich"
+                android:includeFontPadding="false"
+                android:textColor="@color/light_peach"
+                android:textSize="15sp"
+                android:layout_gravity="left"
+                tools:text="testnick_name_6666" />
+        </LinearLayout>
+>>>>>>> origin/xoredxedx
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_photo"
@@ -43,8 +73,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ostrich"
                     android:textColor="@color/light_peach"
-                android:textSize="30sp"
-                android:layout_gravity="left"
+                    android:textSize="50sp"
                     tools:text="TestName TestSurname" />
 
                 <TextView
@@ -55,7 +84,6 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/light_peach"
                     android:textSize="15sp"
-                android:layout_gravity="left"
                     tools:text="testnick_name_6666" />
             </LinearLayout>
 
@@ -63,8 +91,23 @@
 
         <ScrollView
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="0dp"
             android:layout_weight="7">
+=======
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ostrich"
+                android:padding="10sp"
+                android:text="@string/title_my_information"
+                android:textColor="@color/deep_pipe_green"
+                android:textSize="30sp" />
+>>>>>>> origin/xoredxedx
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +122,7 @@
                     android:padding="10sp"
                     android:text="@string/title_my_information"
                     android:textColor="@color/deep_pipe_green"
-                android:textSize="30sp" />
+                    android:textSize="50sp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -124,9 +167,20 @@
                     android:padding="10sp"
                     android:text="@string/title_my_skills"
                     android:textColor="@color/deep_pipe_green"
-                android:textSize="30sp" />
+                    android:textSize="50sp" />
 
+<<<<<<< HEAD
                 <include layout="@layout/panel_skills" />
+=======
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ostrich"
+                android:padding="10sp"
+                android:text="@string/title_my_skills"
+                android:textColor="@color/deep_pipe_green"
+                android:textSize="30sp" />
+>>>>>>> origin/xoredxedx
 
             </LinearLayout>
         </ScrollView>
