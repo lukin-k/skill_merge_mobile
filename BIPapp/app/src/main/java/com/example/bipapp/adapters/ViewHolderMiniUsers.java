@@ -38,7 +38,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
         mTextFullname = itemView.findViewById(R.id.text_fullname);
         mTextAge = itemView.findViewById(R.id.text_age);
 
-        mButtonPositive = itemView.findViewById(R.id.button_user_positive);
+        mButtonPositive = itemView.findViewById(R.id.button_positive);
         mButtonPositive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +46,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
             }
         });
 
-        mButtonNegative = itemView.findViewById(R.id.button_user_negative);
+        mButtonNegative = itemView.findViewById(R.id.button_negative);
         mButtonNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +74,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     }
 
     private void showDialogUserData() {
-        //TODO set normal circle photo https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml
+        //TODO set all filds
         Context context = itemView.getContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

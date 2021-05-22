@@ -32,16 +32,29 @@ public abstract class ViewHolderSkill extends RecyclerView.ViewHolder {
 
     public void onBind(Skill skill, boolean isSelected) {
         mTextType.setText(skill.getType());
-        mTextLevel.setText(skill.getLevel());
+        String level = skill.getLevel();
+        //TODO norm?
+        if (level.length() <= 0) {
+            mTextLevel.setVisibility(View.GONE);
+        } else {
+            mTextLevel.setVisibility(View.VISIBLE);
+            mTextLevel.setText(level);
+        }
         changeColor(isSelected);
     }
 
     @SuppressLint("ResourceAsColor")
     protected void changeColor(boolean isSelected) {
         int color = itemView.getResources().getColor(R.color.skill_not_selected);
+        int textColor = itemView.getResources().getColor(R.color.deep_pipe_green);
         if (isSelected) {
             color = itemView.getResources().getColor(R.color.skill_selected);
+            textColor = itemView.getResources().getColor(R.color.orange);
         }
         itemView.setBackgroundColor(color);
+
+        itemView.setBackgroundColor(color);
+        mTextType.setTextColor(textColor);
+        mTextLevel.setTextColor(textColor);
     }
 }

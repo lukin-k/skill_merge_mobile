@@ -25,7 +25,6 @@ import com.example.bipapp.ui.projects.FragmentProjects;
 import com.example.bipapp.ui.user.FragmentUser;
 
 //TODO back onece request exit? second go to singin activity
-//TODO maybe add scrollview
 
 //TODO add subscribersFragment
 //TODO del topbar
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
                 R.id.navigation_search_project, R.id.navigation_dashboard, R.id.navigation_projects, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration); // эта строка конфигурирует appbar, его нет
         NavigationUI.setupWithNavController(navView, navController);
 
     }
@@ -109,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
             ((FragmentProjects) fragment).showProjects();
         } else {
             runOnUiThread(new Runnable() {
-                //TODO if search save search state
-                //TODO save Json object search
                 @Override
                 public void run() {
                     mViewNavigationProjects.performClick();

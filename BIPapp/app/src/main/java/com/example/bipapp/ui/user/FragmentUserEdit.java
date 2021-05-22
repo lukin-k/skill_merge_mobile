@@ -1,22 +1,17 @@
 package com.example.bipapp.ui.user;
 
-import android.Manifest;
 import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bipapp.R;
@@ -73,30 +68,30 @@ public class FragmentUserEdit extends Fragment {
             }
         });
 
-        ImageButton ibCameraImage = view.findViewById(R.id.camera_image_button);
+        ImageView ibCameraImage = view.findViewById(R.id.image_photo);
         ibCameraImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder SelectSourceDialogueBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
-                SelectSourceDialogueBuilder.setMessage("Please select a source for a new image.");
-                SelectSourceDialogueBuilder.setCancelable(true);
+                AlertDialog.Builder selectSourceDialogueBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
+                selectSourceDialogueBuilder.setMessage(getResources().getString(R.string.title_select_source_photo));
+                selectSourceDialogueBuilder.setCancelable(true);
 
-                SelectSourceDialogueBuilder.setPositiveButton(
-                        "Gallery",
+                selectSourceDialogueBuilder.setPositiveButton(
+                        getResources().getString(R.string.title_source_gallery),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(getContext(), "gallery", Toast.LENGTH_SHORT).show();
                             }
                         });
-                SelectSourceDialogueBuilder.setNegativeButton(
-                        "Camera",
+                selectSourceDialogueBuilder.setNegativeButton(
+                        getResources().getString(R.string.title_source_camera),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(getContext(), "camera", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-                SelectSourceDialogueBuilder.create().show();
+                selectSourceDialogueBuilder.create().show();
                 //TODO save tmp photo
             }
         });
@@ -114,13 +109,6 @@ public class FragmentUserEdit extends Fragment {
         User user = mClient.getUser();
         View view = getView();
 
-        TextView twFullName = view.findViewById(R.id.textview_full_name);
-        twFullName.setText(user.getFullName());
-
-        TextView twUserName = view.findViewById(R.id.textview_username);
-
-        twUserName.setText(user.getUserName());
-
         EditText editFullName = view.findViewById(R.id.edit_fullname);
         editFullName.setText(user.getFullName());
 
@@ -130,14 +118,11 @@ public class FragmentUserEdit extends Fragment {
         EditText editBiography = view.findViewById(R.id.edit_biography);
         editBiography.setText(user.getBiography());
 
-        ImageView ivUserPhoto = view.findViewById(R.id.user_image_view);
-        if (user.getPhoto() == null)
-        {
-            ivUserPhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
-        }
-        else
-        {
-            ivUserPhoto.setImageBitmap(user.getPhoto());
+        ImageView imagePhoto = view.findViewById(R.id.image_photo);
+        if (user.getPhoto() == null) {
+            imagePhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
+        } else {
+            imagePhoto.setImageBitmap(user.getPhoto());
         }
 
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());

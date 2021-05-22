@@ -81,6 +81,12 @@ public class FragmentSearch extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //TODO set saved data
+    }
+
     private JSONArray getSelectedSkills() {
         JSONArray jsonArray = new JSONArray();
         ArrayList<Skill> skills = mAdapterRecyclerSkills.getSkills();

@@ -43,14 +43,11 @@ public class FragmentUserInfo extends Fragment {
         User user = mClient.getUser();
         View view = getView();
 
-        TextView twFullName = view.findViewById(R.id.textview_full_name);
-        twFullName.setText(user.getFullName());
+        TextView textFullname = view.findViewById(R.id.text_fullname);
+        textFullname.setText(user.getFullName());
 
-        TextView twUserName = view.findViewById(R.id.textview_username);
-        twUserName.setText(user.getUserName());
-
-        TextView textFullName = view.findViewById(R.id.text_fullname);
-        textFullName.setText(user.getFullName());
+        TextView textUserame = view.findViewById(R.id.text_username);
+        textUserame.setText(user.getUserName());
 
         TextView textAge = view.findViewById(R.id.text_age);
         textAge.setText("" + user.getAge());
@@ -58,13 +55,10 @@ public class FragmentUserInfo extends Fragment {
         TextView textBiography = view.findViewById(R.id.text_biography);
         textBiography.setText(user.getBiography());
 
-        ImageView ivUserPhoto = view.findViewById(R.id.user_image_view);
-        if (user.getPhoto() == null)
-        {
+        ImageView ivUserPhoto = view.findViewById(R.id.image_photo);
+        if (user.getPhoto() == null) {
             ivUserPhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
-        }
-        else
-        {
+        } else {
             ivUserPhoto.setImageBitmap(user.getPhoto());
         }
 

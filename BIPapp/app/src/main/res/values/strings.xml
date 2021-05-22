@@ -46,4 +46,11 @@
     <string name="button_accept">Accept</string>
 
     <string name="title_choose_level_skill">Choose level of skill</string>
+    <string name="title_my_information">My information</string>
+    <string name="title_my_skills">My skills</string>
+
+    <string name="title_select_source_photo">Please select a source for a new image</string>
+    <string name="title_source_gallery">Gallery</string>
+    <string name="title_source_camera">Camera</string>
+
 </resources>
