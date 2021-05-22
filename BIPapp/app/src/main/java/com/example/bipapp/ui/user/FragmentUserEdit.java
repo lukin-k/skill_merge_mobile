@@ -1,6 +1,5 @@
 package com.example.bipapp.ui.user;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +16,6 @@ import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,10 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bipapp.R;
 import com.example.bipapp.adapters.AdapterRecyclerSkillsSelected;
@@ -53,25 +48,18 @@ public class FragmentUserEdit extends Fragment {
     private ClientMain mClient;
     private AdapterRecyclerSkillsSelected mAdapterRecyclerSkills;
 
-    // PICK_PHOTO_CODE is a constant integer
     public final static int PICK_PHOTO_CODE = 1046;
 
     public final String APP_TAG = "BIPAPP";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo.jpg";
     private File photoFile;
-    private Bitmap bmTempUserImage;
+    private Bitmap mTmpUserPhoto;
 
-    // Trigger gallery selection for a photo
+
     public void onPickPhoto() {
-        // Create intent for picking a photo from the gallery
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            // Bring up gallery to select a photo
             startActivityForResult(intent, PICK_PHOTO_CODE);
         }
     }
@@ -80,8 +68,6 @@ public class FragmentUserEdit extends Fragment {
     public Bitmap loadFromUri(Uri photoUri) {
         Bitmap image = null;
         try {
-
-            // on newer versions of Android, use the new decodeBitmap method
             ImageDecoder.Source source = ImageDecoder.createSource(getActivity().getContentResolver(), photoUri);
             image = ImageDecoder.decodeBitmap(source);
 
@@ -98,40 +84,25 @@ public class FragmentUserEdit extends Fragment {
     }
 
     public void onLaunchCamera() {
-        // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference for future access
-        photoFile = getPhotoFileUri(photoFileName);
+        photoFile = getPhotoFileUri("photo.jpg");
 
-        // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.example.bipapp.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
     }
 
-    // Returns the File for a photo stored on disk given the fileName
     public File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
         File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
 
-        // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(APP_TAG, "failed to create directory");
         }
 
-        // Return the file target for the photo based on filename
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
         return file;
     }
 
@@ -141,22 +112,18 @@ public class FragmentUserEdit extends Fragment {
         if ((data != null) && requestCode == PICK_PHOTO_CODE) {
             Uri photoUri = data.getData();
 
-            // Load the image located at photoUri into selectedImage
             Bitmap selectedImage = loadFromUri(photoUri);
             selectedImage = ThumbnailUtils.extractThumbnail(selectedImage, 300, 300, 0);
-            mClient.getUser().setPhoto(selectedImage);
+            mTmpUserPhoto = selectedImage;
         }
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 takenImage = RotateBitmap(takenImage, -90);
                 takenImage = ThumbnailUtils.extractThumbnail(takenImage, 300, 300, 0);
-                // RESIZE BITMAP, see section below
-                // Load the taken image into a preview
-                mClient.getUser().setPhoto(takenImage);
-            } else { // Result was a failure
-                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                mTmpUserPhoto = takenImage;
+            } else {
+                mTmpUserPhoto = null;
             }
         }
     }
@@ -181,7 +148,7 @@ public class FragmentUserEdit extends Fragment {
                 EditText editFullName = view.findViewById(R.id.edit_fullname);
                 EditText editAge = view.findViewById(R.id.edit_age);
                 EditText editBiography = view.findViewById(R.id.edit_biography);
-                //TODO get photo
+
 
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -189,11 +156,21 @@ public class FragmentUserEdit extends Fragment {
                     jsonObject.put("age", Integer.parseInt(editAge.getText().toString()));
                     jsonObject.put("biography", editBiography.getText().toString());
                     jsonObject.put("skills", getSelectedSkills());
-
-                    //TODO set photo
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                //TODO send photo
+//                if (tmpUserPhoto != null) {
+//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                    tmpUserPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//                    byte[] byteArray = stream.toByteArray();
+//                    try {
+//                        jsonObject.put("photo_bytes", byteArray);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
                 mClient.changeUserInfo(jsonObject);
             }
@@ -203,34 +180,28 @@ public class FragmentUserEdit extends Fragment {
         ibCameraImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder selectSourceDialogueBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
-                selectSourceDialogueBuilder.setMessage(getResources().getString(R.string.title_select_source_photo));
-                selectSourceDialogueBuilder.setCancelable(true);
+                AlertDialog.Builder selectSourceBuilder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
+                selectSourceBuilder.setMessage(getResources().getString(R.string.title_select_source_photo));
+                selectSourceBuilder.setCancelable(true);
 
-                selectSourceDialogueBuilder.setPositiveButton(
-                        getResources().getString(R.string.title_source_gallery),
+                selectSourceBuilder.setPositiveButton(getResources().getString(R.string.title_source_gallery),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(getContext(), "gallery", Toast.LENGTH_SHORT).show();
                                 onPickPhoto();
                             }
                         });
-                selectSourceDialogueBuilder.setNegativeButton(
-                        getResources().getString(R.string.title_source_camera),
+                selectSourceBuilder.setNegativeButton(getResources().getString(R.string.title_source_camera),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(getContext(), "camera", Toast.LENGTH_SHORT).show();
                                 onLaunchCamera();
                             }
                         });
 
-                selectSourceDialogueBuilder.create().show();
-                //TODO save tmp photo
+                selectSourceBuilder.create().show();
             }
         });
         return view;
     }
-
 
     @Override
     public void onResume() {
@@ -262,9 +233,6 @@ public class FragmentUserEdit extends Fragment {
         mAdapterRecyclerSkills.setSkillsLevels(mClient.getAllSkillsLevel());
         mAdapterRecyclerSkills.setSelectedSkills(user.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
-
-        //TODO show my  photo
-
     }
 
     private JSONArray getSelectedSkills() {
@@ -280,5 +248,4 @@ public class FragmentUserEdit extends Fragment {
 
         return jsonArray;
     }
-
 }

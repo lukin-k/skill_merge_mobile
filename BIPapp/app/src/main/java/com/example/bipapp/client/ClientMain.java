@@ -55,10 +55,10 @@ public class ClientMain extends Client {
             switch (typePacket) {
                 case GET_ALL_SKILLS:
                     saveAllSkills(jsonObject.getJSONArray("data"));
-                    Log.v("json skills", jsonObject.toString());
+//                    Log.v("json skills", jsonObject.toString());
                     return;
                 case GET_USER_INFO:
-//                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
+                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
                     mUser = new User(jsonObject.getJSONObject("data"));
                     mClientMainCallback.showUserInfo();
                     return;

@@ -2,6 +2,7 @@ package com.example.bipapp.models;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,14 @@ public class User {
             e.printStackTrace();
         }
 
-        //TODO mPhoto = jsonObject.getString("photo_id");
+//        try {
+//            //TODO mPhoto = jsonObject.getString("photo_id");
+//            String photo_id = jsonObject.getString("photo_id");
+//            byte[] bytesPhoto = photo_id.getBytes();
+//            mPhoto = BitmapFactory.decodeByteArray(bytesPhoto, 0, bytesPhoto.length);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public String getUserName() {
@@ -82,5 +90,6 @@ public class User {
     }
 
     public void setPhoto(Bitmap selectedImage) {
+        mPhoto = selectedImage;
     }
 }
