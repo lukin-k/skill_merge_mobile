@@ -79,7 +79,7 @@ public class ClientMain extends Client {
                 case UNSUBSCRIBE_PROJECT:
                 case ACCEPT_VOLUNTEER:
                 case LEAVE_PROJECT:
-                    Project project = new Project(jsonObject.getJSONArray("data").getJSONObject(0));
+                    Project project = new Project(jsonObject.getJSONObject("data"));
                     getProjectInfo(project);
                     return;
             }
