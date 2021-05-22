@@ -2,8 +2,8 @@
     <string name="sing_in_title">Skill Merge</string>
     <string name="hint_login">Login</string>
     <string name="hint_password">Password</string>
-    <string name="button_sing_up">sing up</string>
-    <string name="button_sing_in">sing in</string>
+    <string name="button_sing_up">sign up</string>
+    <string name="button_sing_in">sign in</string>
 
     <string name="bad_token">Pleas sing in</string>
 

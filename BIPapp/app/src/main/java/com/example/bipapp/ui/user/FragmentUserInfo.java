@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bipapp.R;
@@ -42,6 +43,12 @@ public class FragmentUserInfo extends Fragment {
         User user = mClient.getUser();
         View view = getView();
 
+        TextView twFullName = view.findViewById(R.id.textview_full_name);
+        twFullName.setText(user.getFullName());
+
+        TextView twUserName = view.findViewById(R.id.textview_username);
+        twUserName.setText("@Castyl_user_name");
+
         TextView textFullName = view.findViewById(R.id.text_fullname);
         textFullName.setText(user.getFullName());
 
@@ -50,6 +57,16 @@ public class FragmentUserInfo extends Fragment {
 
         TextView textBiography = view.findViewById(R.id.text_biography);
         textBiography.setText(user.getBiography());
+
+        ImageView ivUserPhoto = view.findViewById(R.id.user_image_view);
+        if (user.getPhoto() == null)
+        {
+            ivUserPhoto.setImageResource(getResources().getIdentifier("test_photo", "drawable", getActivity().getPackageName()));
+        }
+        else
+        {
+            ivUserPhoto.setImageBitmap(user.getPhoto());
+        }
 
         mAdapterRecyclerSkills.setSkills(user.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
