@@ -31,16 +31,19 @@ public class AdapterRecyclerSkillsSelected extends RecyclerView.Adapter<ViewHold
     }
 
     public void setSelectedSkills(ArrayList<Skill> selectedSkills) {
+        boolean[] newSelected = new boolean[mSkills.size()];
         for (int i = 0; i < mSkills.size(); i++) {
             Skill skill = mSkills.get(i);
             for (Skill selectedSkill : selectedSkills) {
                 if (selectedSkill.getType().equals(skill.getType())) {
                     skill.setLevel(selectedSkill.getLevel());
-                    mSelectedSkills[i] = true;
+                    newSelected[i] = true;
                     break;
                 }
             }
         }
+
+        mSelectedSkills = newSelected;
     }
 
     public AdapterRecyclerSkillsSelected() {

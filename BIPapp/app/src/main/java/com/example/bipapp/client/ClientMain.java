@@ -27,6 +27,8 @@ public class ClientMain extends Client {
 
     private boolean mSearch;
 
+    private JSONObject mLastSearch;
+
 
     private final IClientMainCallback mClientMainCallback;
 
@@ -38,6 +40,7 @@ public class ClientMain extends Client {
         mAllProjectTags = new ArrayList<>();
         mFindProjects = new ArrayList<>();
         mSearch = false;
+        mLastSearch = new JSONObject();
     }
 
     public static void createClient(IClientMainCallback clientCallback) {
@@ -203,6 +206,7 @@ public class ClientMain extends Client {
 
     public void searchProjects(JSONObject jsonObject) {
         mSearch = true;
+        mLastSearch = jsonObject;
         mOutPackets.add(API.searchProjects(jsonObject));
     }
 
@@ -261,6 +265,14 @@ public class ClientMain extends Client {
         boolean tmp = mSearch;
         mSearch = false;
         return tmp;
+    }
+
+    public JSONObject getLastSearch() {
+        return mLastSearch;
+    }
+
+    public void resetLastSearch() {
+        mLastSearch = new JSONObject();
     }
 
 

@@ -54,7 +54,14 @@ public class FragmentSearch extends Fragment implements IFragmentHost {
         mAdapterRecyclerProjectTags.setTags(mClient.getAllProjectTagsList());
         recyclerTags.setAdapter(mAdapterRecyclerProjectTags);
 
-        //TODO add button reset
+        Button buttonReset = view.findViewById(R.id.button_search_reset);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClient.resetLastSearch();
+                setLastSearch();
+            }
+        });
 
         Button buttonSearch = view.findViewById(R.id.button_search);
         buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +69,6 @@ public class FragmentSearch extends Fragment implements IFragmentHost {
             public void onClick(View v) {
                 EditText editSearch = view.findViewById(R.id.edit_search);
 
-                //TODO save search data
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("search_string", editSearch.getText().toString());
@@ -72,7 +78,7 @@ public class FragmentSearch extends Fragment implements IFragmentHost {
                     e.printStackTrace();
                 }
 
-                Log.v("Search", jsonObject.toString());
+//                Log.v("Search", jsonObject.toString());
 
                 mClient.searchProjects(jsonObject);
             }
@@ -84,7 +90,43 @@ public class FragmentSearch extends Fragment implements IFragmentHost {
     @Override
     public void onResume() {
         super.onResume();
-        //TODO set saved data
+        setLastSearch();
+    }
+
+    private void setLastSearch() {
+        View view = getView();
+        JSONObject lastSearch = mClient.getLastSearch();
+
+        EditText editSearch = view.findViewById(R.id.edit_search);
+        try {
+            String search = lastSearch.getString("search_string");
+            editSearch.setText(search);
+        } catch (JSONException e) {
+            editSearch.setText("");
+        }
+
+        try {
+            JSONArray jsonArray = lastSearch.getJSONArray("skills");
+            ArrayList<Skill> skills = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); ++i) {
+                JSONObject map = jsonArray.getJSONObject(i);
+                skills.add(new Skill(map));
+            }
+            mAdapterRecyclerSkills.setSelectedSkills(skills);
+            mAdapterRecyclerSkills.notifyDataSetChanged();
+        } catch (JSONException e) {
+            mAdapterRecyclerSkills.setSelectedSkills(new ArrayList<Skill>());
+            mAdapterRecyclerSkills.notifyDataSetChanged();
+        }
+
+        try {
+            String tag = lastSearch.getString("tag");
+            mAdapterRecyclerProjectTags.setSelectedTag(tag);
+            mAdapterRecyclerProjectTags.notifyDataSetChanged();
+        } catch (JSONException e) {
+            mAdapterRecyclerProjectTags.setSelectedTag("");
+            mAdapterRecyclerProjectTags.notifyDataSetChanged();
+        }
     }
 
     private JSONArray getSelectedSkills() {

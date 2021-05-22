@@ -15,6 +15,7 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
     private ArrayList<String> mTags;
     private int mSelectedTag;
     private ViewHolderProjectTag mLastSelectedViewHolder;
+    private ArrayList<ViewHolderProjectTag> mViewHolderTagsList;
 
     public void setTags(ArrayList<String> tags) {
         mTags = tags;
@@ -25,6 +26,7 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
         mTags = new ArrayList<>();
         mSelectedTag = -1;
         mLastSelectedViewHolder = null;
+        mViewHolderTagsList = new ArrayList<>();
     }
 
     @NonNull
@@ -50,12 +52,16 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
                 changeColor(mSelectedTag == i);
             }
         };
+        mViewHolderTagsList.add(viewHolderProjectTag);
         return viewHolderProjectTag;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderProjectTag viewHolderProjectTag, int i) {
         viewHolderProjectTag.onBind(mTags.get(i), mSelectedTag == i);
+        if(mSelectedTag == i) {
+            mLastSelectedViewHolder = viewHolderProjectTag;
+        }
     }
 
     @Override
@@ -68,6 +74,21 @@ public class AdapterRecyclerProjectTags extends RecyclerView.Adapter<ViewHolderP
             return "";
         } else {
             return mTags.get(mSelectedTag);
+        }
+    }
+
+    public void setSelectedTag(String tag) {
+        for (int i = 0; i < mTags.size(); i++) {
+            if(mTags.get(i).equals(tag)){
+                mSelectedTag = i;
+                return;
+            }
+        }
+
+        mSelectedTag = -1;
+        if(mLastSelectedViewHolder != null){
+            mLastSelectedViewHolder.changeColor(false);
+            mLastSelectedViewHolder = null;
         }
     }
 }

@@ -52,5 +52,6 @@
     <string name="title_select_source_photo">Please select a source for a new image</string>
     <string name="title_source_gallery">Gallery</string>
     <string name="title_source_camera">Camera</string>
+    <string name="button_search_reset">Reset</string>
 
 </resources>

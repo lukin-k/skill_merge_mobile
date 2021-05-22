@@ -17,12 +17,12 @@ import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.User;
 
 public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
-    private ImageView mImagePhoto;
-    private TextView mTextFullname;
-    private TextView mTextAge;
-    private Button mButtonPositive;
-    private Button mButtonNegative;
-    private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
+    private final ImageView mImagePhoto;
+    private final TextView mTextFullname;
+    private final TextView mTextAge;
+    private final Button mButtonPositive;
+    private final Button mButtonNegative;
+    private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
     protected User mUser;
 
@@ -69,6 +69,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
 
     public void onBind(User user) {
         mUser = user;
+        mImagePhoto.setImageBitmap(mUser.getPhoto());
         mTextFullname.setText(mUser.getFullName());
         mTextAge.setText("" + mUser.getAge());
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
@@ -82,27 +83,30 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     }
 
     private void showDialogUserData() {
-        //TODO set all filds
         Context context = itemView.getContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.fragment_user_info, null);
+
+        ImageView imagePhoto = view.findViewById(R.id.image_photo);
+        imagePhoto.setImageBitmap(mUser.getPhoto());
+
         TextView textFullName = view.findViewById(R.id.text_fullname);
         textFullName.setText(mUser.getFullName());
-
+        TextView textUserName = view.findViewById(R.id.text_username);
+        textUserName.setText(mUser.getUserName());
         TextView textAge = view.findViewById(R.id.text_age);
         textAge.setText("" + mUser.getAge());
-
         TextView textBiography = view.findViewById(R.id.text_biography);
         textBiography.setText(mUser.getBiography());
 
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerSkills.setLayoutManager(layoutManager);
-
         AdapterRecyclerSkillsNonSelected adapterRecyclerSkills = new AdapterRecyclerSkillsNonSelected();
         adapterRecyclerSkills.setSkills(mUser.getSkills());
         recyclerSkills.setAdapter(adapterRecyclerSkills);
+
         AlertDialog dialog = builder.setView(view).create();
         view.setOnClickListener(new View.OnClickListener() {
             @Override
