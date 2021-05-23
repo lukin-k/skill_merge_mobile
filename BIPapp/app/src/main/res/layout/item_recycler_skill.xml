@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/ostrich"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="lol" />
 
         <TextView
@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/ostrich"
+            android:textSize="10sp"
             tools:text="lol" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

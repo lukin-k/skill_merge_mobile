@@ -53,6 +53,15 @@
     <string name="title_source_gallery">Gallery</string>
     <string name="title_source_camera">Camera</string>
     <string name="button_search_reset">Reset</string>
-    <string name="title_welcome">welcome to SkillMerge!</string>
+    <string name="title_welcome">Welcome to SkillMerge!</string>
+    <string name="title_initiator">Initiator</string>
+    <string name="title_requested_skills">Requested skills</string>
+    <string name="title_project_create">Project constructor</string>
+    <string name="title_project_name">Project name</string>
+    <string name="title_project_tag">Project tag</string>
+    <string name="title_project_skills">Project skills</string>
+    <string name="title_projects_search">Projects explorer</string>
+    <string name="hint_search_username">Enter username</string>
+    <string name="title_search_skills">Suitable skills</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bipapp.R;
@@ -12,11 +13,10 @@ import com.example.bipapp.models.User;
 
 public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
     private final TextView mTextName;
-    private final TextView mTextDescription;
-    private TextView mTextFullName;
-    private final View mViewInitiator;
-    private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
     private final TextView mTextTag;
+    private final ImageView mImageInitiatorPhoto;
+    private final TextView mTextInitiatorFullname;
+    private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
 
     public ViewHolderProject(@NonNull View itemView) {
@@ -30,10 +30,10 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
         });
 
         mTextName = itemView.findViewById(R.id.text_project_name);
-        mTextDescription = itemView.findViewById(R.id.text_project_description);
-        mTextFullName = itemView.findViewById(R.id.text_fullname);
         mTextTag = itemView.findViewById(R.id.text_project_tag);
-        
+        mImageInitiatorPhoto = itemView.findViewById(R.id.image_initiator_photo);
+        mTextInitiatorFullname = itemView.findViewById(R.id.text_initiator_fullname);
+
         View view = itemView.findViewById(R.id.project_skills);
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
         LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -54,8 +54,7 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
     }
 
     private void setInitiator(User initiator) {
-        //TODO set all fields
-        TextView textFullname =  itemView.findViewById(R.id.text_fullname);
-        textFullname.setText(initiator.getFullName());
+        mImageInitiatorPhoto.setImageBitmap(initiator.getPhoto());
+        mTextInitiatorFullname.setText(initiator.getFullName());
     }
 }

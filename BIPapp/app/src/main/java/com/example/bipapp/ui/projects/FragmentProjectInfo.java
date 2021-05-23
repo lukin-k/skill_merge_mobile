@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bipapp.R;
@@ -36,10 +37,10 @@ public class FragmentProjectInfo extends Fragment {
         mProject = project;
     }
 
-    private AdapterRecyclerParticipants mAdapterRecyclerParticipants;
-    private AdapterRecyclerVolunteers mAdapterRecyclerVolunteers;
-
-    private RecyclerView mRecyclerVolunteer;
+    //    private AdapterRecyclerParticipants mAdapterRecyclerParticipants;
+//    private AdapterRecyclerVolunteers mAdapterRecyclerVolunteers;
+//
+//    private RecyclerView mRecyclerVolunteer;
     private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
     // viewpager stuff
@@ -59,22 +60,19 @@ public class FragmentProjectInfo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_project_info, container, false);
         // Instantiate a ViewPager and a PagerAdapter.
         Log.v("pageview", "trying to instantiate");
-        mPager = (ViewPager) view.findViewById(R.id.pager);
-        pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
+//        mPager = (ViewPager) view.findViewById(R.id.pager);
+//        pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
+//        mPager.setAdapter(pagerAdapter);
 
 
         isInitiator = mClient.getUser().getUserName().equals(mProject.getInitiator().getUserName());
 
-        if (isInitiator)
-        {
+        if (isInitiator) {
             NUM_PAGES = 2;
-        }
-        else
-        {
+        } else {
             NUM_PAGES = 1;
         }
-        pagerAdapter.notifyDataSetChanged();
+//        pagerAdapter.notifyDataSetChanged();
 
         View panelSkills = view.findViewById(R.id.project_skills);
         RecyclerView recyclerSkills = panelSkills.findViewById(R.id.recycler_skills);
@@ -93,8 +91,7 @@ public class FragmentProjectInfo extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position)
-            {
+            switch (position) {
                 case 0:
                     return new FragmentRecyclerProjectParticipants(isInitiator, mProject);
                 case 1:
@@ -122,11 +119,14 @@ public class FragmentProjectInfo extends Fragment {
         View view = getView();
 
         TextView textName = view.findViewById(R.id.text_project_name);
-        TextView textDescription = view.findViewById(R.id.text_project_description);
-        TextView textTag = view.findViewById(R.id.text_project_tag);
-
         textName.setText(mProject.getName());
+
+        TextView textDescription = view.findViewById(R.id.text_project_description);
         textDescription.setText(mProject.getDescription());
+
+        TextView textTag = view.findViewById(R.id.text_project_tag);
+        textTag.setText(mProject.getTag());
+
         setInitiator(mProject.getInitiator());
 
         Button buttonAction = view.findViewById(R.id.button_project_action);
@@ -168,7 +168,6 @@ public class FragmentProjectInfo extends Fragment {
 
         mAdapterRecyclerSkills.setSkills(mProject.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
-        textTag.setText(mProject.getTag());
     }
 
     private boolean isVolunteer(String userName) {
@@ -192,14 +191,18 @@ public class FragmentProjectInfo extends Fragment {
     }
 
     private void setInitiator(User initiator) {
-        //TODO set all fields
-        TextView textFullname = getView().findViewById(R.id.text_fullname);
-        textFullname.setText(initiator.getFullName());
+        View view = getView();
+
+        ImageView imageInitiatorPhoto = view.findViewById(R.id.image_initiator_photo);
+        imageInitiatorPhoto.setImageBitmap(initiator.getPhoto());
+
+        TextView textInitiatorFullname = view.findViewById(R.id.text_initiator_fullname);
+        textInitiatorFullname.setText(initiator.getFullName());
+        Log.e("setInitiator", initiator.getFullName() + " " + textInitiatorFullname);
     }
 
     @SuppressLint("RestrictedApi")
     private void showInitiatorsData(View view) {
-
         FloatingActionButton fabUpdate = view.findViewById(R.id.fab_update_project);
         fabUpdate.setVisibility(View.VISIBLE);
         fabUpdate.setOnClickListener(new View.OnClickListener() {
