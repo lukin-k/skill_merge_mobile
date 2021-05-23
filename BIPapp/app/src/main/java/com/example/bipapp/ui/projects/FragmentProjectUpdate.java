@@ -14,6 +14,7 @@ import com.example.bipapp.R;
 import com.example.bipapp.adapters.AdapterRecyclerProjectTags;
 import com.example.bipapp.adapters.AdapterRecyclerSkillsSelected;
 import com.example.bipapp.client.ClientMain;
+import com.example.bipapp.models.Project;
 import com.example.bipapp.models.Skill;
 
 import org.json.JSONArray;
@@ -22,17 +23,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class FragmentProjectCreate extends Fragment {
+public class FragmentProjectUpdate extends Fragment {
     private ClientMain mClient;
+    private Project mProject;
     private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;
     private AdapterRecyclerSkillsSelected mAdapterRecyclerSkills;
 
+    public void setProject(Project project) {
+        mProject = project;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mClient = ClientMain.getClient();
-        View view = inflater.inflate(R.layout.fragment_project_create, container, false);
+        View view = inflater.inflate(R.layout.fragment_project_update, container, false);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +45,20 @@ public class FragmentProjectCreate extends Fragment {
             }
         });
 
+        EditText editProjectName = view.findViewById(R.id.edit_project_name);
+        editProjectName.setText(mProject.getName());
+
+        EditText editProjectDescription = view.findViewById(R.id.edit_project_description);
+        editProjectDescription.setText(mProject.getDescription());
+
         RecyclerView recyclerTags = view.findViewById(R.id.recycler_project_tags);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerTags.setLayoutManager(layoutManager);
 
         mAdapterRecyclerProjectTags = new AdapterRecyclerProjectTags();
         mAdapterRecyclerProjectTags.setTags(mClient.getAllProjectTagsList());
+        mAdapterRecyclerProjectTags.setSelectedTag(mProject.getTag());
+
         recyclerTags.setAdapter(mAdapterRecyclerProjectTags);
 
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
@@ -55,17 +68,17 @@ public class FragmentProjectCreate extends Fragment {
         mAdapterRecyclerSkills = new AdapterRecyclerSkillsSelected();
         mAdapterRecyclerSkills.setSkills(mClient.getAllSkillsList());
         mAdapterRecyclerSkills.setSkillsLevels(mClient.getAllSkillsLevel());
+        mAdapterRecyclerSkills.setSelectedSkills(mProject.getSkills());
+
         recyclerSkills.setAdapter(mAdapterRecyclerSkills);
 
-        Button buttonCreate = view.findViewById(R.id.button_project_create);
-        buttonCreate.setOnClickListener(new View.OnClickListener() {
+        Button buttonUpdate = view.findViewById(R.id.button_project_update);
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editProjectName = view.findViewById(R.id.edit_project_name);
-                EditText editProjectDescription = view.findViewById(R.id.edit_project_description);
-
                 JSONObject jsonObject = new JSONObject();
                 try {
+                    jsonObject.put("project_uuid", mProject.getId());
                     jsonObject.put("project_name", editProjectName.getText().toString());
                     jsonObject.put("project_description", editProjectDescription.getText().toString());
                     jsonObject.put("tags", mAdapterRecyclerProjectTags.getSelectedTag());
@@ -74,10 +87,10 @@ public class FragmentProjectCreate extends Fragment {
                     e.printStackTrace();
                 }
 
-                mClient.createProject(jsonObject);
+                mClient.updateProject(jsonObject);
+                getParentFragment().getChildFragmentManager().beginTransaction().remove(FragmentProjectUpdate.this).commit();
             }
         });
-
         return view;
     }
 

@@ -32,6 +32,7 @@ public class API {
 
     private final static String ACTION_GET_ALL_PROJECT_TAGS = "get_all_project_tags/";
     private final static String ACTION_CREATE_PROJECT = "create_project/";
+    private final static String ACTION_UPDATE_PROJECT = "update_project/";
     private final static String ACTION_DELETE_PROJECT = "delete_project/";
     private final static String ACTION_SEARCH_PROJECTS = "search_projects/";
 
@@ -177,6 +178,19 @@ public class API {
         Packet packet = new Packet(ETypePacket.CREATE_PROJECT);
         try {
             packet.setUrl(new URL(SERVER_URL + ACTION_CREATE_PROJECT));
+            jsonObject.put("token", sToken);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet updateProject(JSONObject jsonObject) {
+        Packet packet = new Packet(ETypePacket.UPDATE_PROJECT);
+        try {
+            packet.setUrl(new URL(SERVER_URL + ACTION_UPDATE_PROJECT));
             jsonObject.put("token", sToken);
         } catch (MalformedURLException | JSONException e) {
             e.printStackTrace();

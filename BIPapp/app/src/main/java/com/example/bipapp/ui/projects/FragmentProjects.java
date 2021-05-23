@@ -93,4 +93,12 @@ public class FragmentProjects extends Fragment implements IFragmentHost {
                 .add(R.id.frame_container_projects, fragmentProjectCreate)
                 .commit();
     }
+
+    public void showProjectUpdate(Project project) {
+        FragmentProjectUpdate fragmentProjectUpdate = new FragmentProjectUpdate();
+        fragmentProjectUpdate.setProject(project);
+        mFragmentManager.beginTransaction()
+                .add(R.id.frame_container_projects, fragmentProjectUpdate)
+                .commit();
+    }
 }

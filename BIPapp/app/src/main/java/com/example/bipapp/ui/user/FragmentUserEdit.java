@@ -139,6 +139,12 @@ public class FragmentUserEdit extends Fragment {
         mTmpUserPhoto = mClient.getUser().getPhoto();
         View view = inflater.inflate(R.layout.fragment_user_edit, container, false);
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerSkills.setLayoutManager(layoutManager);

@@ -11,6 +11,7 @@ public enum ETypePacket {
 
     GET_ALL_PROJECT_TAGS,
     CREATE_PROJECT,
+    UPDATE_PROJECT,
     DELETE_PROJECT,
     SEARCH_PROJECTS,
 

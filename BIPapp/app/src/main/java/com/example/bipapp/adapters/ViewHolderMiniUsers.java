@@ -2,6 +2,7 @@ package com.example.bipapp.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,7 @@ import com.example.bipapp.models.User;
 public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     private final ImageView mImagePhoto;
     private final TextView mTextFullname;
-    private final TextView mTextAge;
+//    private final TextView mTextAge;
     private final Button mButtonPositive;
     private final Button mButtonNegative;
     private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
@@ -37,7 +38,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
 
         mImagePhoto = itemView.findViewById(R.id.image_photo);
         mTextFullname = itemView.findViewById(R.id.text_fullname);
-        mTextAge = itemView.findViewById(R.id.text_age);
+//        mTextAge = itemView.findViewById(R.id.text_age);
 
         mButtonPositive = itemView.findViewById(R.id.button_positive);
         mButtonPositive.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +70,8 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     public void onBind(User user) {
         mUser = user;
         mImagePhoto.setImageBitmap(mUser.getPhoto());
-        mTextFullname.setText(mUser.getFullName() + ",");
-        mTextAge.setText("" + mUser.getAge());
+        mTextFullname.setText(mUser.getFullName());
+//        mTextAge.setText("" + mUser.getAge());
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
 
@@ -105,6 +106,8 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
         AdapterRecyclerSkillsNonSelected adapterRecyclerSkills = new AdapterRecyclerSkillsNonSelected();
         adapterRecyclerSkills.setSkills(mUser.getSkills());
         recyclerSkills.setAdapter(adapterRecyclerSkills);
+
+        view.findViewById(R.id.fab_edit_user).setVisibility(View.GONE);
 
         AlertDialog dialog = builder.setView(view).create();
         view.setOnClickListener(new View.OnClickListener() {

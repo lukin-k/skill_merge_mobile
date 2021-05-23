@@ -139,6 +139,14 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
     }
 
     @Override
+    public void showProjectUpdate(Project project) {
+        Fragment fragment = getNowFragment();
+        if (fragment instanceof FragmentProjects) {
+            ((FragmentProjects) fragment).showProjectUpdate(project);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         Fragment fragment = getNowFragment();
         if (fragment instanceof IFragmentHost) {

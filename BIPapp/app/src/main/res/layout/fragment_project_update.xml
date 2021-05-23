@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_peach"
     android:orientation="vertical"
-    tools:context=".ui.projects.FragmentProjectCreate">
+    tools:context=".ui.projects.FragmentProjectUpdate">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,14 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_baseline_emoji_objects_24" />
+            android:src="@drawable/ic_baseline_edit_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:text="@string/title_project_create"
+            android:text="@string/title_project_update"
             android:textColor="@color/light_peach"
             android:textSize="30sp" />
 
@@ -70,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
+                    android:hint="@string/hint_project_description"
                     android:inputType="textMultiLine"
                     android:textColor="@color/deep_pipe_green"
                     tools:text="ivan testoriodwqdwdqwdwqdwdwd qdwqdwdqwdwqdwqqwd qwdqwd" />
@@ -98,15 +99,14 @@
             <include layout="@layout/panel_skills" />
 
             <Button
-                android:id="@+id/button_project_create"
+                android:id="@+id/button_project_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/orange"
                 android:fontFamily="@font/ostrich"
-                android:text="@string/button_create_project"
+                android:text="@string/button_project_update"
                 android:textColor="@color/deep_pipe_green"
                 android:textSize="25sp" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

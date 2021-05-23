@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bipapp.R;
+import com.example.bipapp.adapters.AdapterPagerMiniUsers;
 import com.example.bipapp.adapters.AdapterRecyclerParticipants;
 import com.example.bipapp.adapters.AdapterRecyclerSkillsNonSelected;
 import com.example.bipapp.adapters.AdapterRecyclerVolunteers;
@@ -32,22 +33,11 @@ import java.util.ArrayList;
 public class FragmentProjectInfo extends Fragment {
     private final ClientMain mClient;
     private Project mProject;
+    private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
     public void setProject(Project project) {
         mProject = project;
     }
-
-    //    private AdapterRecyclerParticipants mAdapterRecyclerParticipants;
-//    private AdapterRecyclerVolunteers mAdapterRecyclerVolunteers;
-//
-//    private RecyclerView mRecyclerVolunteer;
-    private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
-
-    // viewpager stuff
-    private static int NUM_PAGES = 2;
-    private ViewPager mPager;
-    private PagerAdapter pagerAdapter;
-    private boolean isInitiator;
 
 
     public FragmentProjectInfo() {
@@ -58,21 +48,15 @@ public class FragmentProjectInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_project_info, container, false);
-        // Instantiate a ViewPager and a PagerAdapter.
-        Log.v("pageview", "trying to instantiate");
-//        mPager = (ViewPager) view.findViewById(R.id.pager);
-//        pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
-//        mPager.setAdapter(pagerAdapter);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
-
-        isInitiator = mClient.getUser().getUserName().equals(mProject.getInitiator().getUserName());
-
-        if (isInitiator) {
-            NUM_PAGES = 2;
-        } else {
-            NUM_PAGES = 1;
-        }
-//        pagerAdapter.notifyDataSetChanged();
+        AdapterPagerMiniUsers adapterPager = new AdapterPagerMiniUsers(getChildFragmentManager(), getResources(), mProject);
+        ViewPager viewPager = view.findViewById(R.id.pager_mini_users);
+        viewPager.setAdapter(adapterPager);
 
         View panelSkills = view.findViewById(R.id.project_skills);
         RecyclerView recyclerSkills = panelSkills.findViewById(R.id.recycler_skills);
@@ -83,30 +67,6 @@ public class FragmentProjectInfo extends Fragment {
 
         return view;
     }
-
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new FragmentRecyclerProjectParticipants(isInitiator, mProject);
-                case 1:
-                    return new FragmentRecyclerProjectVolunteer(isInitiator, mProject);
-            }
-            Log.v("damn", "shoudnt have been here");
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
-        }
-    }
-
 
     @Override
     public void onResume() {
@@ -198,7 +158,6 @@ public class FragmentProjectInfo extends Fragment {
 
         TextView textInitiatorFullname = view.findViewById(R.id.text_initiator_fullname);
         textInitiatorFullname.setText(initiator.getFullName());
-        Log.e("setInitiator", initiator.getFullName() + " " + textInitiatorFullname);
     }
 
     @SuppressLint("RestrictedApi")
@@ -208,8 +167,7 @@ public class FragmentProjectInfo extends Fragment {
         fabUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO add update project
-                Log.v("Project", "Update");
+                mClient.showProjectUpdate(mProject);
             }
         });
     }

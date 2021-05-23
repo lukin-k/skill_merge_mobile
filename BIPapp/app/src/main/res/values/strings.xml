@@ -64,4 +64,10 @@
     <string name="hint_search_username">Enter username</string>
     <string name="title_search_skills">Suitable skills</string>
 
+    <string name="title_participants">Participants</string>
+    <string name="title_volunteer">Volunteer</string>
+
+    <string name="title_project_update">Project update</string>
+    <string name="button_project_update">Update</string>
+
 </resources>

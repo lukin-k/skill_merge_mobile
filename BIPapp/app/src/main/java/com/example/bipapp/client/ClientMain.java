@@ -83,6 +83,7 @@ public class ClientMain extends Client {
                 case DELETE_VOLUNTEER:
                 case LEAVE_PROJECT:
                 case DELETE_PARTICIPANT:
+                case UPDATE_PROJECT:
                     Project project = new Project(jsonObject.getJSONObject("data"));
                     showProjectInfo(project);
                     return;
@@ -92,6 +93,7 @@ public class ClientMain extends Client {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void saveFindProjects(JSONArray projects) {
         mFindProjects.clear();
         ArrayList<Project> participantProjects = new ArrayList<>();
@@ -197,6 +199,10 @@ public class ClientMain extends Client {
         mOutPackets.add(API.createProject(jsonObject));
     }
 
+    public void updateProject(JSONObject jsonObject) {
+        mOutPackets.add(API.updateProject(jsonObject));
+    }
+
     public void deleteProject(String projectId) {
         mOutPackets.add(API.deleteProject(projectId));
     }
@@ -279,5 +285,9 @@ public class ClientMain extends Client {
 
     public void showProjectCreate() {
         mClientMainCallback.showProjectCreate();
+    }
+
+    public void showProjectUpdate(Project project) {
+        mClientMainCallback.showProjectUpdate(project);
     }
 }
