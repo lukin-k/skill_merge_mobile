@@ -59,7 +59,7 @@ public class FragmentUser extends Fragment implements IFragmentHost {
     @Override
     public boolean popLastFragment() {
         List<Fragment> fragments = mFragmentManager.getFragments();
-        if (fragments.size() > 2) {
+        if (fragments.size() > 1) {
             Fragment fragment = fragments.get(fragments.size() - 1);
             mFragmentManager.beginTransaction().remove(fragment).commit();
             return true;

@@ -368,84 +368,6 @@ public class API {
         return packet;
     }
 
-
-    //TODO взять отсюда csrf токен
-//    private void kek() {
-//        try {
-//
-//            HttpURLConnection urlConnection = null;
-//            InputStream is = null;
-//            JSONObject jObj = null;
-//
-//            URL url = new URL("urlString");
-//
-//            urlConnection = (HttpURLConnection) url.openConnection();
-//
-//            String csrfToken = null;
-//
-//            if (site.getCookieManager().getCookieStore().getCookies().size() > 0) {
-//                //While joining the Cookies, use ',' or ';' as needed. Most of the server are using ';'
-//                urlConnection.setRequestProperty("Cookie",
-//                        TextUtils.join(";", site.getCookieManager().getCookieStore().getCookies()));
-//
-//                for (HttpCookie cookie : site.getCookieManager().getCookieStore().getCookies()) {
-//                    if (cookie.getName().equals("csrfToken")) {
-//                        csrfToken = cookie.getValue();
-//                        urlConnection.setRequestProperty("X-CSRF-Token", csrfToken);
-//                    }
-//                }
-//            }
-//
-//            if ((params != null) && !params.isEmpty()) { // To put your posts params AND the csrf Cookie
-//                urlConnection.setDoOutput(true);
-//                urlConnection.setChunkedStreamingMode(0);
-//                urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
-//                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + "UTF-8");
-//
-//                OutputStream output = urlConnection.getOutputStream();
-//                output.write(params.getBytes("UTF-8"));
-//
-//                if (csrfToken != null) {
-//                    String token = "&csrfToken=" + csrfToken;
-//                    output.write(token.getBytes("UTF-8"));
-//                }
-//
-//                output.close();
-//            } else {
-//                OutputStream output = urlConnection.getOutputStream();
-//                output.write(params.getBytes("UTF-8"));
-//
-//                if (csrfToken != null) {
-//                    String token = "csrfToken=" + csrfToken;
-//                    output.write(token.getBytes("UTF-8"));
-//                }
-//
-//                output.close();
-//
-//            }
-//
-//            is = urlConnection.getInputStream();
-//
-//            int status = urlConnection.getResponseCode();
-//
-//            if (status == HttpURLConnection.HTTP_OK) {
-//
-//                /**
-//                 * Do your job
-//                 */
-//
-//            }
-//
-//        } catch (IllegalArgumentException | NullPointerException | UnsupportedEncodingException | SocketTimeoutException | IOExceptione) {
-//            e.printStackTrace();
-//        } finally {
-//            if (is != null) {
-//                is.close();
-//            }
-//            urlConnection.disconnect();
-//        }
-//    }
-
     public static Packet sendPacket(Packet packet) throws IOException, JSONException {
         HttpURLConnection connection = createConnection(packet.getUrl());
         addJsonToConnection(connection, packet.getJsonObject());
@@ -463,6 +385,7 @@ public class API {
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
+//        connection.setRequestProperty("X-CSRF-Token", "csrfTokenjygygauw334");
 
         return connection;
     }
@@ -474,6 +397,7 @@ public class API {
         outputStreamWriter.write(jsonObject.toString());
         outputStreamWriter.flush();
         outputStreamWriter.close();
+
     }
 
     private static JSONObject getResponseFromConnection(HttpURLConnection connection) throws IOException, JSONException {

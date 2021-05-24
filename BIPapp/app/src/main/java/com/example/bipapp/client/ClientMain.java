@@ -111,7 +111,7 @@ public class ClientMain extends Client {
                         s += jsonObject1.getString("project_name");
                         Log.v("ClientMain", "GET_SUBSCRIBERS " + s);
                     }
-                    cscsc
+                    //TODO show subscribers
 
                     return;
             }

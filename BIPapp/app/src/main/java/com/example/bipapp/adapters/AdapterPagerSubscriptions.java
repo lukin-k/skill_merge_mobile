@@ -28,9 +28,8 @@ public class AdapterPagerSubscriptions extends FragmentPagerAdapter {
 
     private void createFragments(FragmentManager fragmentManager, Resources resources) {
         FragmentRecyclerAll fragmentRecyclerAll = new FragmentRecyclerAll();
-        //        AdapterRecyclerParticipants adapterRecyclerParticipants = new AdapterRecyclerParticipants(isInitiator, project.getId());
-//        adapterRecyclerParticipants.setUsers(project.getParticipants());
-        fragmentRecyclerAll.setAdapterRecycler(adapterRecyclerSubscribers);
+
+        //TODO fragmentRecyclerAll.setAdapterRecycler(adapterRecyclerSubscribers);
         mFragments.add(fragmentRecyclerAll);
         mFragmentTitles.add(resources.getString(R.string.title_subscribers));
 
