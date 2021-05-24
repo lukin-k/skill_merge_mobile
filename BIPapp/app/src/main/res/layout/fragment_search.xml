@@ -67,7 +67,7 @@
                 android:textColorHint="@color/deep_pipe_green">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/username_search"
+                    android:id="@+id/edit_search_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"

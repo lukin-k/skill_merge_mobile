@@ -43,6 +43,8 @@ public class API {
     private final static String ACTION_LEAVE_PROJECT = "leave_project/";
     private final static String ACTION_DELETE_PARTICIPANT = "delete_participant_from_project/";
 
+    private final static String ACTION_GET_SUBSCRIBERS = "get_subscribers_and_subscriptions/";
+
     public final static String PREFERENCES_NAME = "TokenStorage";
     private final static String KEY_TOKEN = "token";
     private static SharedPreferences sPreferences;
@@ -348,6 +350,21 @@ public class API {
         }
 
         packet.setJsonObject(jsonObject);
+        return packet;
+    }
+
+    public static Packet getSubscribers() {
+        Packet packet = new Packet(ETypePacket.BAD);
+        try {
+            packet.setTypePacket(ETypePacket.GET_SUBSCRIBERS);
+            packet.setUrl(new URL(SERVER_URL + ACTION_GET_SUBSCRIBERS));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("token", sToken);
+            packet.setJsonObject(jsonObject);
+        } catch (MalformedURLException | JSONException e) {
+            e.printStackTrace();
+        }
+
         return packet;
     }
 

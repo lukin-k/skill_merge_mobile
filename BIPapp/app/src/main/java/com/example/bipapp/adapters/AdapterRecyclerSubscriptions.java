@@ -1,59 +1,51 @@
 package com.example.bipapp.adapters;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bipapp.R;
-
-
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
 
 import java.util.ArrayList;
 
-public class AdapterRecyclerProjects extends RecyclerView.Adapter<ViewHolderProject> {
+public class AdapterRecyclerSubscriptions extends RecyclerView.Adapter<ViewHolderSubscription> {
     private ArrayList<Project> mProjects;
-    private String mUserName;
+    private FragmentManager mFragmentManager;
+
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        mFragmentManager = fragmentManager;
+    }
 
     public void setProjects(ArrayList<Project> projects) {
         mProjects = projects;
     }
 
-    public AdapterRecyclerProjects() {
+    public AdapterRecyclerSubscriptions() {
         mProjects = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public ViewHolderProject onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolderSubscription onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_recycler_project, viewGroup, false);
-        ViewHolderProject viewHolderProject = new ViewHolderProject(view) {
-            @Override
-            public void onClickProject() {
-                int i = getAdapterPosition();
-                ClientMain.getClient().showProjectInfo(mProjects.get(i));
-            }
-        };
-
-        return viewHolderProject;
+        ViewHolderSubscription viewHolderSubscription = new ViewHolderSubscription(view);
+        viewHolderSubscription.setFragmentManager(mFragmentManager);
+        return viewHolderSubscription;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderProject viewHolderProject, int i) {
-        viewHolderProject.onBind(mProjects.get(i), mUserName);
+    public void onBindViewHolder(@NonNull ViewHolderSubscription viewHolderSubscription, int i) {
+        viewHolderSubscription.onBind(mProjects.get(i));
     }
 
     @Override
     public int getItemCount() {
         return mProjects.size();
-    }
-
-    public void setUserName(String userName) {
-        mUserName = userName;
     }
 }

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         mViewNavigationProjects = navView.findViewById(R.id.navigation_projects);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_search_project, R.id.navigation_dashboard, R.id.navigation_projects, R.id.navigation_user)
+                R.id.navigation_search_project, R.id.navigation_subscriptions, R.id.navigation_projects, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);

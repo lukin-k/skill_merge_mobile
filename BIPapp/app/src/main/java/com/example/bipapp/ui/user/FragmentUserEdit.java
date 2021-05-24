@@ -197,12 +197,14 @@ public class FragmentUserEdit extends Fragment {
                             .setPositiveButton(getResources().getString(R.string.title_source_gallery),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            //TODO save enterd data
                                             onPickPhoto();
                                         }
                                     })
                             .setNegativeButton(getResources().getString(R.string.title_source_camera),
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            //TODO save enterd data
                                             onLaunchCamera();
                                         }
                                     }).create().show();
@@ -230,6 +232,7 @@ public class FragmentUserEdit extends Fragment {
     }
 
     private void setUserInfo() {
+        //TODO check saved data
         User user = mClient.getUser();
         View view = getView();
 

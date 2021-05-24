@@ -3,6 +3,7 @@ package com.example.bipapp.ui.search_project;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,12 +65,14 @@ public class FragmentSearch extends Fragment implements IFragmentHost {
             @Override
             public void onClick(View v) {
                 EditText editSearch = view.findViewById(R.id.edit_search);
+                EditText editSearchUserName = view.findViewById(R.id.edit_search_username);
 
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("search_string", editSearch.getText().toString());
                     jsonObject.put("tag", mAdapterRecyclerProjectTags.getSelectedTag());
                     jsonObject.put("skills", getSelectedSkills());
+                    jsonObject.put("participant", editSearchUserName.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -19,7 +19,6 @@ import com.example.bipapp.models.User;
 public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     private final ImageView mImagePhoto;
     private final TextView mTextFullname;
-//    private final TextView mTextAge;
     private final Button mButtonPositive;
     private final Button mButtonNegative;
     private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
@@ -38,7 +37,6 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
 
         mImagePhoto = itemView.findViewById(R.id.image_photo);
         mTextFullname = itemView.findViewById(R.id.text_fullname);
-//        mTextAge = itemView.findViewById(R.id.text_age);
 
         mButtonPositive = itemView.findViewById(R.id.button_positive);
         mButtonPositive.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +69,6 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
         mUser = user;
         mImagePhoto.setImageBitmap(mUser.getPhoto());
         mTextFullname.setText(mUser.getFullName());
-//        mTextAge.setText("" + mUser.getAge());
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
 

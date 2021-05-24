@@ -1,4 +1,4 @@
-package com.example.bipapp.ui.projects;
+package com.example.bipapp.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,25 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bipapp.R;
-import com.example.bipapp.adapters.AdapterRecyclerParticipants;
-import com.example.bipapp.adapters.AdapterRecyclerVolunteers;
-import com.example.bipapp.models.Project;
-import com.example.bipapp.models.User;
 
-import java.util.ArrayList;
+public class FragmentRecyclerAll extends Fragment {
+    private RecyclerView.Adapter mAdapterRecycler;
 
-public class FragmentRecyclerMiniUsers extends Fragment {
-    private AdapterRecyclerParticipants mAdapterRecycler;
-
-    public void setAdapterRecycler(AdapterRecyclerParticipants adapterRecycler) {
+    public void setAdapterRecycler(RecyclerView.Adapter adapterRecycler) {
         mAdapterRecycler = adapterRecycler;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recycler_mini_users, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recycler_all, container, false);
 
-        RecyclerView mRecycler = rootView.findViewById(R.id.recycler_mini_users);
+        RecyclerView mRecycler = rootView.findViewById(R.id.recycler_all);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager);
         mRecycler.setAdapter(mAdapterRecycler);

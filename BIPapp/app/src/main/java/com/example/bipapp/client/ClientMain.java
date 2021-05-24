@@ -2,6 +2,7 @@ package com.example.bipapp.client;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import com.example.bipapp.api.API;
 import com.example.bipapp.api.EStatusCode;
@@ -59,7 +60,6 @@ public class ClientMain extends Client {
                     saveAllSkills(jsonObject.getJSONArray("data"));
                     return;
                 case GET_USER_INFO:
-//                    Log.v(TAG, "GET_USER_INFO " + jsonObject.toString());
                     mUser = new User(jsonObject.getJSONObject("data"));
                     mClientMainCallback.showUserInfo();
                     return;
@@ -74,6 +74,7 @@ public class ClientMain extends Client {
                     getMyProjects();
                     return;
                 case SEARCH_PROJECTS:
+//                    Log.v("ClientMain", "SEARCH_PROJECTS " + jsonObject.toString());
                     saveFindProjects(jsonObject.getJSONArray("data"));
                     mClientMainCallback.showSearchResult();
                     return;
@@ -86,6 +87,32 @@ public class ClientMain extends Client {
                 case UPDATE_PROJECT:
                     Project project = new Project(jsonObject.getJSONObject("data"));
                     showProjectInfo(project);
+                    return;
+                case GET_SUBSCRIBERS:
+//                    Log.v("ClientMain", "SEARCH_PROJECTS " + jsonObject.getJSONObject("data").getJSONArray("subscribers"));
+//                    Log.v("ClientMain", "SEARCH_PROJECTS " + jsonObject.getJSONObject("data").getJSONArray("subscriptions"));
+                    JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("subscribers");
+                    for (int i = 0; i < jsonArray.length(); ++i) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("subscriber");
+                        JSONObject jsonObject3 = jsonObject1.getJSONObject("project");
+                        String s = "";
+                        s += jsonObject3.getString("project_name")+ " ";
+                        s += jsonObject2.getString("username") + " ";
+                        s += jsonObject2.getString("fullname") + " ";
+                        Log.v("ClientMain", "GET_SUBSCRIBERS " + s);
+                    }
+//
+                    jsonArray = jsonObject.getJSONObject("data").getJSONArray("subscriptions");
+                    for (int i = 0; i < jsonArray.length(); ++i) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String s = "";
+                        s += jsonObject1.getString("project_id") + " ";
+                        s += jsonObject1.getString("project_name");
+                        Log.v("ClientMain", "GET_SUBSCRIBERS " + s);
+                    }
+                    cscsc
+
                     return;
             }
         } else {
@@ -246,6 +273,10 @@ public class ClientMain extends Client {
 
     public void deleteParticipant(String projectId, String userName) {
         mOutPackets.add(API.deleteParticipant(projectId, userName));
+    }
+
+    public void getSubscribers() {
+        mOutPackets.add(API.getSubscribers());
     }
 
     public void leaveProject(String projectId) {

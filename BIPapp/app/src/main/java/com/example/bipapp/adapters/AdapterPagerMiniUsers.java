@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.bipapp.R;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
-import com.example.bipapp.ui.projects.FragmentRecyclerMiniUsers;
+import com.example.bipapp.ui.FragmentRecyclerAll;
 
 import java.util.ArrayList;
 
@@ -27,19 +27,19 @@ public class AdapterPagerMiniUsers extends FragmentPagerAdapter {
     private void createFragments(Resources resources, Project project) {
         boolean isInitiator = ClientMain.getClient().getUser().getUserName().equals(project.getInitiator().getUserName());
 
-        FragmentRecyclerMiniUsers fragmentRecyclerMiniUsers = new FragmentRecyclerMiniUsers();
+        FragmentRecyclerAll fragmentRecyclerAll = new FragmentRecyclerAll();
         AdapterRecyclerParticipants adapterRecyclerParticipants = new AdapterRecyclerParticipants(isInitiator, project.getId());
         adapterRecyclerParticipants.setUsers(project.getParticipants());
-        fragmentRecyclerMiniUsers.setAdapterRecycler(adapterRecyclerParticipants);
-        mFragments.add(fragmentRecyclerMiniUsers);
+        fragmentRecyclerAll.setAdapterRecycler(adapterRecyclerParticipants);
+        mFragments.add(fragmentRecyclerAll);
         mFragmentTitles.add(resources.getString(R.string.title_participants));
 
         if (isInitiator) {
-            fragmentRecyclerMiniUsers = new FragmentRecyclerMiniUsers();
+            fragmentRecyclerAll = new FragmentRecyclerAll();
             AdapterRecyclerVolunteers adapterRecyclerVolunteers = new AdapterRecyclerVolunteers(isInitiator, project.getId());
             adapterRecyclerVolunteers.setUsers(project.getVolunteer());
-            fragmentRecyclerMiniUsers.setAdapterRecycler(adapterRecyclerVolunteers);
-            mFragments.add(fragmentRecyclerMiniUsers);
+            fragmentRecyclerAll.setAdapterRecycler(adapterRecyclerVolunteers);
+            mFragments.add(fragmentRecyclerAll);
             mFragmentTitles.add(resources.getString(R.string.title_volunteer));
         }
     }
