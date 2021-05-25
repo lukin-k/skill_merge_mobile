@@ -8,34 +8,33 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.bipapp.R;
 import com.example.bipapp.models.Project;
+import com.example.bipapp.models.User;
 import com.example.bipapp.ui.FragmentRecyclerAll;
 
 import java.util.ArrayList;
 
-public class AdapterPagerSubscriptions extends FragmentPagerAdapter {
+public class AdapterPagerSubscribers extends FragmentPagerAdapter {
     private final ArrayList<Fragment> mFragments;
     private final ArrayList<String> mFragmentTitles;
-    private ArrayList<Project> mSubscriptions;
     private AdapterRecyclerSubscriptions mAdapterRecyclerSubscriptions;
+    private AdapterRecyclerSubscribers mAdapterRecyclerSubscribers;
 
-    public AdapterPagerSubscriptions(FragmentManager fragmentManager, Resources resources) {
+    public AdapterPagerSubscribers(FragmentManager fragmentManager, Resources resources) {
         super(fragmentManager);
         mFragments = new ArrayList<>();
         mFragmentTitles = new ArrayList<>();
-        mSubscriptions = new ArrayList<>();
-        createFragments(fragmentManager, resources);
+        createFragments(resources);
     }
 
-    private void createFragments(FragmentManager fragmentManager, Resources resources) {
+    private void createFragments(Resources resources) {
         FragmentRecyclerAll fragmentRecyclerAll = new FragmentRecyclerAll();
-
-        //TODO fragmentRecyclerAll.setAdapterRecycler(adapterRecyclerSubscribers);
+        mAdapterRecyclerSubscribers = new AdapterRecyclerSubscribers();
+        fragmentRecyclerAll.setAdapterRecycler(mAdapterRecyclerSubscribers);
         mFragments.add(fragmentRecyclerAll);
         mFragmentTitles.add(resources.getString(R.string.title_subscribers));
 
         fragmentRecyclerAll = new FragmentRecyclerAll();
         mAdapterRecyclerSubscriptions = new AdapterRecyclerSubscriptions();
-        mAdapterRecyclerSubscriptions.setFragmentManager(fragmentManager);
         fragmentRecyclerAll.setAdapterRecycler(mAdapterRecyclerSubscriptions);
         mFragments.add(fragmentRecyclerAll);
         mFragmentTitles.add(resources.getString(R.string.title_subscriptions));
@@ -57,9 +56,13 @@ public class AdapterPagerSubscriptions extends FragmentPagerAdapter {
         return mFragmentTitles.get(position);
     }
 
-    public void setSubscriptions(ArrayList<Project> projects) {
-        mAdapterRecyclerSubscriptions.setProjects(mSubscriptions);
+    public void setSubscriptions(ArrayList<Project> subscriptions) {
+        mAdapterRecyclerSubscriptions.setProjects(subscriptions);
         mAdapterRecyclerSubscriptions.notifyDataSetChanged();
     }
 
+    public void setSubscribers(ArrayList<Project> subscribersProjects, ArrayList<User> subscribers) {
+        mAdapterRecyclerSubscribers.setSubscribers(subscribersProjects, subscribers);
+        mAdapterRecyclerSubscribers.notifyDataSetChanged();
+    }
 }

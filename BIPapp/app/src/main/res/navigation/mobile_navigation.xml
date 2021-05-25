@@ -13,9 +13,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_subscriptions"
-        android:name="com.example.bipapp.ui.subscriptions.FragmentSubscriptions"
-        tools:layout="@layout/fragment_subscriptions">
+        android:id="@+id/navigation_subscribers"
+        android:name="com.example.bipapp.ui.subscribers.FragmentSubscribers"
+        tools:layout="@layout/fragment_subscribers">
     </fragment>
 
     <fragment

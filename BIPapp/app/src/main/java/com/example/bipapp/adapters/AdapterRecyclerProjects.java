@@ -2,7 +2,6 @@ package com.example.bipapp.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.bipapp.R;
 
 
+import com.example.bipapp.adapters.view_holders.ViewHolderProject;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
 

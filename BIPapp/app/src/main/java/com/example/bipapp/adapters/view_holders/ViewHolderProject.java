@@ -1,4 +1,4 @@
-package com.example.bipapp.adapters;
+package com.example.bipapp.adapters.view_holders;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bipapp.R;
+import com.example.bipapp.adapters.AdapterRecyclerSkillsNonSelected;
 import com.example.bipapp.models.Project;
 import com.example.bipapp.models.User;
 

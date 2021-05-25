@@ -1,4 +1,4 @@
-package com.example.bipapp.adapters;
+package com.example.bipapp.adapters.view_holders;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;

@@ -21,9 +21,13 @@ import com.example.bipapp.api.API;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.client.IClientMainCallback;
 import com.example.bipapp.models.Project;
+import com.example.bipapp.models.User;
 import com.example.bipapp.ui.IFragmentHost;
 import com.example.bipapp.ui.projects.FragmentProjects;
+import com.example.bipapp.ui.subscribers.FragmentSubscribers;
 import com.example.bipapp.ui.user.FragmentUser;
+
+import java.util.ArrayList;
 
 
 //TODO add subscribersFragment
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         mViewNavigationProjects = navView.findViewById(R.id.navigation_projects);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_search_project, R.id.navigation_subscriptions, R.id.navigation_projects, R.id.navigation_user)
+                R.id.navigation_search_project, R.id.navigation_subscribers, R.id.navigation_projects, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
@@ -143,6 +147,19 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         Fragment fragment = getNowFragment();
         if (fragment instanceof FragmentProjects) {
             ((FragmentProjects) fragment).showProjectUpdate(project);
+        }
+    }
+
+    @Override
+    public void showSubscribers(ArrayList<Project> subscribersProjects, ArrayList<User> subscribers, ArrayList<Project> subscriptions) {
+        Fragment fragment = getNowFragment();
+        if (fragment instanceof FragmentSubscribers) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ((FragmentSubscribers) fragment).showSubscribers(subscribersProjects, subscribers, subscriptions);
+                }
+            });
         }
     }
 

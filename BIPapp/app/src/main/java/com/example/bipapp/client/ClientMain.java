@@ -89,30 +89,28 @@ public class ClientMain extends Client {
                     showProjectInfo(project);
                     return;
                 case GET_SUBSCRIBERS:
-//                    Log.v("ClientMain", "SEARCH_PROJECTS " + jsonObject.getJSONObject("data").getJSONArray("subscribers"));
-//                    Log.v("ClientMain", "SEARCH_PROJECTS " + jsonObject.getJSONObject("data").getJSONArray("subscriptions"));
-                    JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("subscribers");
-                    for (int i = 0; i < jsonArray.length(); ++i) {
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        JSONObject jsonObject2 = jsonObject1.getJSONObject("subscriber");
-                        JSONObject jsonObject3 = jsonObject1.getJSONObject("project");
-                        String s = "";
-                        s += jsonObject3.getString("project_name")+ " ";
-                        s += jsonObject2.getString("username") + " ";
-                        s += jsonObject2.getString("fullname") + " ";
-                        Log.v("ClientMain", "GET_SUBSCRIBERS " + s);
+                    JSONArray jsonArraySubscribers = jsonObject.getJSONObject("data").getJSONArray("subscribers");
+                    ArrayList<Project> subscribersProjects = new ArrayList<>();
+                    ArrayList<User> subscribers = new ArrayList<>();
+                    for (int i = 0; i < jsonArraySubscribers.length(); ++i) {
+                        JSONObject jsonObjectSubscribers = jsonArraySubscribers.getJSONObject(i);
+                        subscribersProjects.add(new Project(jsonObjectSubscribers.getJSONObject("project")));
+                        subscribers.add(new User(jsonObjectSubscribers.getJSONObject("subscriber")));
+//                        Log.e("GET_SUBSCRIBERS", subscribersProjects.get(subscribersProjects.size()-1).getName() + " " + subscribers.get(subscribers.size()-1).getFullName());
                     }
-//
-                    jsonArray = jsonObject.getJSONObject("data").getJSONArray("subscriptions");
-                    for (int i = 0; i < jsonArray.length(); ++i) {
-                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        String s = "";
-                        s += jsonObject1.getString("project_id") + " ";
-                        s += jsonObject1.getString("project_name");
-                        Log.v("ClientMain", "GET_SUBSCRIBERS " + s);
-                    }
-                    //TODO show subscribers
 
+                    JSONArray jsonArraySubscriptions = jsonObject.getJSONObject("data").getJSONArray("subscriptions");
+                    ArrayList<Project> subscriptions = new ArrayList<>();
+                    for (int i = 0; i < jsonArraySubscriptions.length(); ++i) {
+                        subscriptions.add(new Project(jsonArraySubscriptions.getJSONObject(i)));
+                    }
+
+                    mClientMainCallback.showSubscribers(subscribersProjects, subscribers, subscriptions);
+                    return;
+                case UNSUBSCRIBE_SUBSCRIPTION:
+                case ACCEPT_SUBSCRIBER:
+                case DELETE_SUBSCRIBER:
+                    getSubscribers();
                     return;
             }
         } else {
@@ -320,5 +318,23 @@ public class ClientMain extends Client {
 
     public void showProjectUpdate(Project project) {
         mClientMainCallback.showProjectUpdate(project);
+    }
+
+    public void unsubscribeSubscription(String projectId) {
+        Packet packet = API.unsubscribeProject(projectId);
+        packet.setTypePacket(ETypePacket.UNSUBSCRIBE_SUBSCRIPTION);
+        mOutPackets.add(packet);
+    }
+
+    public void acceptSubscriber(String projectId, String userName) {
+        Packet packet = API.acceptVolunteer(projectId, userName);
+        packet.setTypePacket(ETypePacket.ACCEPT_SUBSCRIBER);
+        mOutPackets.add(packet);
+    }
+
+    public void deleteSubscriber(String projectId, String userName) {
+        Packet packet = API.deleteVolunteer(projectId, userName);
+        packet.setTypePacket(ETypePacket.DELETE_SUBSCRIBER);
+        mOutPackets.add(packet);
     }
 }

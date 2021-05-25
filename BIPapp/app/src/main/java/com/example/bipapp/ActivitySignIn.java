@@ -36,7 +36,8 @@ public class ActivitySignIn extends AppCompatActivity implements IClientSignCall
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClient.signUp(editLogin.getText().toString(), editPassword.getText().toString());
+                //TODO set email
+                mClient.signUp(editLogin.getText().toString(), editPassword.getText().toString(), "lol@kek.tit");
             }
         });
 

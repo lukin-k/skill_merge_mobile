@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_subscriptions"
+        android:id="@+id/navigation_subscribers"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_subscriptions" />
+        android:title="@string/title_subscribers" />
 
     <item
         android:id="@+id/navigation_search_project"

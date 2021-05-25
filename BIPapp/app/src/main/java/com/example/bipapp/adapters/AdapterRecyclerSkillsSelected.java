@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bipapp.R;
+import com.example.bipapp.adapters.view_holders.ViewHolderSkill;
 import com.example.bipapp.models.Skill;
 
 import java.util.ArrayList;

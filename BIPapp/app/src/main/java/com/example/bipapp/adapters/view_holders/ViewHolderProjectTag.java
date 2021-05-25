@@ -1,4 +1,4 @@
-package com.example.bipapp.adapters;
+package com.example.bipapp.adapters.view_holders;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -33,7 +33,7 @@ public abstract class ViewHolderProjectTag extends RecyclerView.ViewHolder {
     }
 
     @SuppressLint("ResourceAsColor")
-    protected void changeColor(boolean isSelected) {
+    public void changeColor(boolean isSelected) {
         int color = itemView.getResources().getColor(R.color.project_tag_not_selected);
         int textColor = itemView.getResources().getColor(R.color.deep_pipe_green);
         if (isSelected) {

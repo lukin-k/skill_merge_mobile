@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 public class API {
     private final static String TAG = "API";
     private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
+//    private final static String SERVER_URL = "https://skillmerge.herokuapp.com/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
 
@@ -95,7 +96,7 @@ public class API {
         return packet;
     }
 
-    public static Packet signUp(String login, String password) {
+    public static Packet signUp(String login, String password, String email) {
         Packet packet = sign(login, password);
 
         if (packet.getTypePacket() == ETypePacket.BAD) {
@@ -104,7 +105,8 @@ public class API {
 
         try {
             packet.setUrl(new URL(SERVER_URL + ACTION_CREATE_USER));
-        } catch (MalformedURLException e) {
+            packet.getJsonObject().put("email", email);
+        } catch (MalformedURLException | JSONException e) {
             packet.setTypePacket(ETypePacket.BAD);
         }
         packet.setTypePacket(ETypePacket.SIGN_UP);
@@ -378,6 +380,7 @@ public class API {
     }
 
     private static HttpURLConnection createConnection(URL url) throws IOException {
+        //TODO set https
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setDoOutput(true);

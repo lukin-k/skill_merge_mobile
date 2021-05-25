@@ -70,8 +70,6 @@
     <string name="title_project_update">Project update</string>
     <string name="button_project_update">Update</string>
     <string name="title_subscriptions">Subscriptions</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_subscribers">Subscribers</string>
 
 </resources>

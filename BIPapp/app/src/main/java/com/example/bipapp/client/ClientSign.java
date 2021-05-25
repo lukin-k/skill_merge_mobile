@@ -48,8 +48,8 @@ public class ClientSign extends Client {
         }
     }
 
-    public void signUp(String login, String password) {
-        mOutPackets.add(API.signUp(login, password));
+    public void signUp(String login, String password, String email) {
+        mOutPackets.add(API.signUp(login, password, email));
     }
 
     public void signIn(String login, String password) {
