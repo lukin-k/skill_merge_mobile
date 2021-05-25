@@ -17,7 +17,7 @@ import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
 import com.example.bipapp.models.User;
 
-public class ViewHolderSubscriber extends RecyclerView.ViewHolder{
+public class ViewHolderSubscriber extends RecyclerView.ViewHolder {
     private final TextView mTextProjectName;
     private final TextView mTextProjectTag;
 
@@ -37,7 +37,7 @@ public class ViewHolderSubscriber extends RecyclerView.ViewHolder{
                 showDialogUserData();
             }
         });
-        
+
         mTextProjectName = itemView.findViewById(R.id.text_project_name);
         mTextProjectTag = itemView.findViewById(R.id.text_project_tag);
 
@@ -62,7 +62,7 @@ public class ViewHolderSubscriber extends RecyclerView.ViewHolder{
             }
         });
         buttonNegative.setVisibility(View.VISIBLE);
-            buttonNegative.setText(itemView.getContext().getResources().getString(R.string.button_delete));
+        buttonNegative.setText(itemView.getContext().getResources().getString(R.string.button_delete));
 
         RecyclerView recyclerSkills = itemView.findViewById(R.id.recycler_skills);
         LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -70,7 +70,7 @@ public class ViewHolderSubscriber extends RecyclerView.ViewHolder{
         mAdapterRecyclerSkills = new AdapterRecyclerSkillsNonSelected();
         recyclerSkills.setAdapter(mAdapterRecyclerSkills);
     }
-    
+
     public void onBind(Project project, User user) {
         mProjectId = project.getId();
         mTextProjectName.setText(project.getName());
@@ -82,7 +82,7 @@ public class ViewHolderSubscriber extends RecyclerView.ViewHolder{
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
     }
-    
+
     private void showDialogUserData() {
         Context context = itemView.getContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

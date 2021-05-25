@@ -2,7 +2,6 @@ package com.example.bipapp.client;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import com.example.bipapp.api.API;
 import com.example.bipapp.api.EStatusCode;
@@ -74,7 +73,6 @@ public class ClientMain extends Client {
                     getMyProjects();
                     return;
                 case SEARCH_PROJECTS:
-//                    Log.v("ClientMain", "SEARCH_PROJECTS " + jsonObject.toString());
                     saveFindProjects(jsonObject.getJSONArray("data"));
                     mClientMainCallback.showSearchResult();
                     return;

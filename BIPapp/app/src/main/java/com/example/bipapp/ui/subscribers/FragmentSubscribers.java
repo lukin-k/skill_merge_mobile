@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.example.bipapp.R;
-import com.example.bipapp.adapters.AdapterPagerMiniUsers;
 import com.example.bipapp.adapters.AdapterPagerSubscribers;
 import com.example.bipapp.client.ClientMain;
 import com.example.bipapp.models.Project;
@@ -40,14 +39,7 @@ public class FragmentSubscribers extends Fragment implements IFragmentHost {
         mClient.getSubscribers();
     }
 
-    public void showSubscribers(ArrayList<Project> subscribersProjects, ArrayList<User> subscribers, ArrayList<Project> subscriptions){
-        View view = getView();
-//        mAdapterPagerSubscribers = new AdapterPagerSubscribers(getChildFragmentManager(), getResources(), subscribersProjects, subscribers);
-//        ViewPager viewPager = view.findViewById(R.id.pager_subscribers);
-//        AdapterPagerMiniUsers adapterPager = new AdapterPagerMiniUsers(getChildFragmentManager(), getResources(), subscribersProjects.get(0));
-//        ViewPager viewPager = view.findViewById(R.id.pager_mini_users);
-//        viewPager.setAdapter(adapterPager);
-//        viewPager.setAdapter(mAdapterPagerSubscribers);
+    public void showSubscribers(ArrayList<Project> subscribersProjects, ArrayList<User> subscribers, ArrayList<Project> subscriptions) {
         mAdapterPagerSubscribers.notifyDataSetChanged();
         mAdapterPagerSubscribers.setSubscribers(subscribersProjects, subscribers);
         mAdapterPagerSubscribers.setSubscriptions(subscriptions);

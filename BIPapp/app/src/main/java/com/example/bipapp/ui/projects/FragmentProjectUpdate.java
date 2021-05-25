@@ -34,8 +34,7 @@ public class FragmentProjectUpdate extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mClient = ClientMain.getClient();
         View view = inflater.inflate(R.layout.fragment_project_update, container, false);
 

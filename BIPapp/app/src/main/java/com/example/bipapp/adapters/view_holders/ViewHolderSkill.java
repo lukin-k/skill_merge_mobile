@@ -29,7 +29,6 @@ public abstract class ViewHolderSkill extends RecyclerView.ViewHolder {
 
     abstract public void onClickSkill();
 
-
     public void onBind(Skill skill, boolean isSelected) {
         mTextType.setText(skill.getType());
         String level = skill.getLevel();

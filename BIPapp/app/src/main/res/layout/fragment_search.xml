@@ -29,14 +29,12 @@
             android:text="@string/title_projects_search"
             android:textColor="@color/light_peach"
             android:textSize="30sp" />
-
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -116,8 +114,5 @@
                 android:textColor="@color/deep_pipe_green"
                 android:textSize="20sp" />
         </LinearLayout>
-
     </ScrollView>
-
-
 </LinearLayout>

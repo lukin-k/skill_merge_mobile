@@ -19,7 +19,6 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
     private final TextView mTextInitiatorFullname;
     private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
-
     public ViewHolderProject(@NonNull View itemView) {
         super(itemView);
 
@@ -44,7 +43,6 @@ public abstract class ViewHolderProject extends RecyclerView.ViewHolder {
     }
 
     abstract public void onClickProject();
-
 
     public void onBind(Project project, String userName) {
         mTextName.setText(project.getName());

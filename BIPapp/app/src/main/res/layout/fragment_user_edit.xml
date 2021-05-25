@@ -120,7 +120,6 @@
                 android:text="@string/button_save_edit_user"
                 android:textColor="@color/deep_pipe_green"
                 android:textSize="20sp" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

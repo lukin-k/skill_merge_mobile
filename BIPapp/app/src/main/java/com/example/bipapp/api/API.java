@@ -1,7 +1,6 @@
 package com.example.bipapp.api;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.bipapp.client.ETypePacket;
 import com.example.bipapp.client.Packet;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -23,9 +21,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 
 public class API {
-    private final static String TAG = "API";
-    private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
-    //    private final static String SERVER_URL = "https://skillmerge.herokuapp.com/core_backend/";
+    private final static String SERVER_URL = "https://skillmerge.herokuapp.com/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
 
@@ -373,7 +369,7 @@ public class API {
     }
 
     public static Packet sendPacket(Packet packet) throws IOException, JSONException {
-        HttpURLConnection connection = createConnection(packet.getUrl());
+        HttpsURLConnection connection = createConnection(packet.getUrl());
         addJsonToConnection(connection, packet.getJsonObject());
         JSONObject response = getResponseFromConnection(connection);
         connection.disconnect();
@@ -381,36 +377,29 @@ public class API {
         return new Packet(packet.getTypePacket(), null, response);
     }
 
-    private static HttpURLConnection createConnection(URL url) throws IOException {
-        //TODO set https
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    private static HttpsURLConnection createConnection(URL url) throws IOException {
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
-//        connection.setRequestProperty("X-CSRF-Token", "csrfTokenjygygauw334");
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + "UTF-8");
 
         return connection;
     }
 
-    private static void addJsonToConnection(HttpURLConnection connection, JSONObject jsonObject) throws IOException {
-//        Log.v(TAG, jsonObject.toString());
+    private static void addJsonToConnection(HttpsURLConnection connection, JSONObject jsonObject) throws IOException {
         OutputStream outputStream = connection.getOutputStream();
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         outputStreamWriter.write(jsonObject.toString());
-
-//        String token = "&csrfToken=" + "csrfTokeniowehfuehiwu75";
-//        outputStreamWriter.write(token);
 
         outputStreamWriter.flush();
         outputStreamWriter.close();
 
     }
 
-    private static JSONObject getResponseFromConnection(HttpURLConnection connection) throws IOException, JSONException {
+    private static JSONObject getResponseFromConnection(HttpsURLConnection connection) throws IOException, JSONException {
         connection.getResponseCode();
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {

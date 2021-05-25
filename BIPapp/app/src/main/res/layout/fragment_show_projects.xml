@@ -20,5 +20,4 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/description_fab_create_project"
         app:srcCompat="@drawable/ic_baseline_add_124" />
-
 </RelativeLayout>

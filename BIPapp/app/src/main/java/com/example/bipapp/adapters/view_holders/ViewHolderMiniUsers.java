@@ -2,7 +2,6 @@ package com.example.bipapp.adapters.view_holders;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -136,8 +135,4 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     public void setTextNegative(String text) {
         mButtonNegative.setText(text);
     }
-
-//    public void setIsInitiator(boolean isInitiator) {
-//        this.isInitiator = isInitiator;
-//    }
 }

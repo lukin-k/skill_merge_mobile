@@ -13,7 +13,7 @@ import com.example.bipapp.models.User;
 
 import java.util.ArrayList;
 
-public class AdapterRecyclerSubscribers extends RecyclerView.Adapter<ViewHolderSubscriber>{
+public class AdapterRecyclerSubscribers extends RecyclerView.Adapter<ViewHolderSubscriber> {
     private ArrayList<Project> mSubscribersProjects;
     private ArrayList<User> mSubscribers;
 
@@ -42,7 +42,7 @@ public class AdapterRecyclerSubscribers extends RecyclerView.Adapter<ViewHolderS
     }
 
     public void setSubscribers(ArrayList<Project> subscribersProjects, ArrayList<User> subscribers) {
-        mSubscribersProjects= subscribersProjects;
+        mSubscribersProjects = subscribersProjects;
         mSubscribers = subscribers;
     }
 }

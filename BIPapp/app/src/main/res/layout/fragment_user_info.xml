@@ -58,7 +58,6 @@
                     android:textSize="15sp"
                     tools:text="testnick_name_6666" />
             </LinearLayout>
-
         </LinearLayout>
 
         <ScrollView

@@ -27,7 +27,6 @@ public class FragmentProjectCreate extends Fragment {
     private AdapterRecyclerProjectTags mAdapterRecyclerProjectTags;
     private AdapterRecyclerSkillsSelected mAdapterRecyclerSkills;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -8,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -30,10 +29,8 @@ import com.example.bipapp.ui.user.FragmentUser;
 import java.util.ArrayList;
 
 
-//TODO clean code
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
     private ClientMain mClient;
-
     private View mViewNavigationProjects;
 
     @Override
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         ClientMain.createClient(this);
         mClient = ClientMain.getClient();
         if (mClient == null) {
-            Log.e("ClientMain", "No IClientMainCallback");
+            showMessage("Error", "No IClientMainCallback");
             finish();
         }
         mClient.getAllSkillsRequest();
@@ -56,12 +53,12 @@ public class MainActivity extends AppCompatActivity implements IClientMainCallba
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mViewNavigationProjects = navView.findViewById(R.id.navigation_projects);
 
+        //TODO maybe delete
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_search_project, R.id.navigation_subscribers, R.id.navigation_projects, R.id.navigation_user)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
-
     }
 
     @Override

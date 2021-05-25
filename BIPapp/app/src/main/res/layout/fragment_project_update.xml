@@ -30,7 +30,6 @@
             android:text="@string/title_project_update"
             android:textColor="@color/light_peach"
             android:textSize="30sp" />
-
     </LinearLayout>
 
     <ScrollView

@@ -21,8 +21,7 @@ public class FragmentUserInfo extends Fragment {
     private AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mClient = ClientMain.getClient();
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
         RecyclerView recyclerSkills = view.findViewById(R.id.recycler_skills);

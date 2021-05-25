@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,6 @@ public class FragmentUserEdit extends Fragment {
 
     public final static int PICK_PHOTO_CODE = 1046;
 
-    public final String APP_TAG = "BIPAPP";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     private File photoFile;
     private Bitmap mTmpUserPhoto;
@@ -101,14 +99,8 @@ public class FragmentUserEdit extends Fragment {
     }
 
     public File getPhotoFileUri(String fileName) {
-        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
-
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Log.d(APP_TAG, "failed to create directory");
-        }
-
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-        return file;
+        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "BIPAPP");
+        return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)

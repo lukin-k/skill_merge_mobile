@@ -2,7 +2,6 @@ package com.example.bipapp.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +36,11 @@ public class AdapterRecyclerParticipants extends RecyclerView.Adapter<ViewHolder
         ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view, isInitiator) {
             @Override
             protected void onClickPositive() {
-                Log.v("Participant", "Positive");
             }
 
             @Override
             protected void onClickNegative() {
-                if(isInitiator){
+                if (isInitiator) {
                     ClientMain.getClient().deleteParticipant(mProjectId, mUser.getUserName());
                 }
             }
