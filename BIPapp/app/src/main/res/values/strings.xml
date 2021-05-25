@@ -71,5 +71,9 @@
     <string name="button_project_update">Update</string>
     <string name="title_subscriptions">Subscriptions</string>
     <string name="title_subscribers">Subscribers</string>
+    <string name="hint_email">Enter email</string>
+
+    <string name="title_email">Email verification</string>
+    <string name="message_email">Check your email</string>
 
 </resources>

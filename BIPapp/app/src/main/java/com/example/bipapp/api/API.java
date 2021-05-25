@@ -19,11 +19,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import javax.net.ssl.HttpsURLConnection;
+
 
 public class API {
     private final static String TAG = "API";
     private final static String SERVER_URL = "http://192.168.31.145:8000/core_backend/";
-//    private final static String SERVER_URL = "https://skillmerge.herokuapp.com/core_backend/";
+    //    private final static String SERVER_URL = "https://skillmerge.herokuapp.com/core_backend/";
     private final static String ACTION_CREATE_USER = "create_user/";
     private final static String ACTION_LOGIN = "login/";
 
@@ -389,6 +391,7 @@ public class API {
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
 //        connection.setRequestProperty("X-CSRF-Token", "csrfTokenjygygauw334");
+//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + "UTF-8");
 
         return connection;
     }
@@ -398,6 +401,10 @@ public class API {
         OutputStream outputStream = connection.getOutputStream();
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         outputStreamWriter.write(jsonObject.toString());
+
+//        String token = "&csrfToken=" + "csrfTokeniowehfuehiwu75";
+//        outputStreamWriter.write(token);
+
         outputStreamWriter.flush();
         outputStreamWriter.close();
 

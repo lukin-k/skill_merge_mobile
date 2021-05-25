@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,8 +37,21 @@ public class ActivitySignIn extends AppCompatActivity implements IClientSignCall
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO set email
-                mClient.signUp(editLogin.getText().toString(), editPassword.getText().toString(), "lol@kek.tit");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySignIn.this);
+                LayoutInflater layoutInflater = ActivitySignIn.this.getLayoutInflater();
+                View view = layoutInflater.inflate(R.layout.dialog_email, null);
+                EditText editEmail = view.findViewById(R.id.edit_email);
+
+                builder.setTitle(getResources().getString(R.string.hint_email))
+                        .setView(view)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mClient.signUp(editLogin.getText().toString(), editPassword.getText().toString(), editEmail.getText().toString());
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
 
@@ -113,7 +127,16 @@ public class ActivitySignIn extends AppCompatActivity implements IClientSignCall
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((Button) findViewById(R.id.button_sign_in)).performClick();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySignIn.this);
+                builder.setTitle(getResources().getString(R.string.title_email))
+                        .setMessage(getResources().getString(R.string.message_email))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
     }

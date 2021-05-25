@@ -22,11 +22,12 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     private final TextView mTextFullname;
     private final Button mButtonPositive;
     private final Button mButtonNegative;
+    private final boolean isInitiator;
     private final AdapterRecyclerSkillsNonSelected mAdapterRecyclerSkills;
 
     protected User mUser;
 
-    public ViewHolderMiniUsers(@NonNull View itemView) {
+    public ViewHolderMiniUsers(@NonNull View itemView, boolean isInitiator) {
         super(itemView);
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +37,7 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
             }
         });
 
+        this.isInitiator = isInitiator;
         mImagePhoto = itemView.findViewById(R.id.image_photo);
         mTextFullname = itemView.findViewById(R.id.text_fullname);
 
@@ -73,10 +75,12 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
         mAdapterRecyclerSkills.setSkills(mUser.getSkills());
         mAdapterRecyclerSkills.notifyDataSetChanged();
 
-        if (ClientMain.getClient().getUser().getUserName().equals(user.getUserName())) {
-            mButtonNegative.setVisibility(View.GONE);
-        } else {
-            setVisibleNegative();
+        if (isInitiator) {
+            if (ClientMain.getClient().getUser().getUserName().equals(user.getUserName())) {
+                mButtonNegative.setVisibility(View.GONE);
+            } else {
+                setVisibleNegative();
+            }
         }
     }
 
@@ -132,4 +136,8 @@ public abstract class ViewHolderMiniUsers extends RecyclerView.ViewHolder {
     public void setTextNegative(String text) {
         mButtonNegative.setText(text);
     }
+
+//    public void setIsInitiator(boolean isInitiator) {
+//        this.isInitiator = isInitiator;
+//    }
 }

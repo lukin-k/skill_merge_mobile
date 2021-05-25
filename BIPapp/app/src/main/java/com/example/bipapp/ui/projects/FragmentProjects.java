@@ -52,6 +52,15 @@ public class FragmentProjects extends Fragment implements IFragmentHost {
     }
 
     public void showProjectInfo(Project project) {
+        List<Fragment> fragments = mFragmentManager.getFragments();
+        for (int i = fragments.size() - 1; i >= 0; --i) {
+            Fragment fragment = fragments.get(i);
+            if (fragment instanceof FragmentShowProjects) {
+                break;
+            }
+            mFragmentManager.beginTransaction().remove(fragment).commit();
+        }
+
         FragmentProjectInfo fragmentProjectInfo = new FragmentProjectInfo();
         fragmentProjectInfo.setProject(project);
 

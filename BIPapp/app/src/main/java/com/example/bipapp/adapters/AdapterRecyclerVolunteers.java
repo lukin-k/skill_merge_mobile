@@ -19,7 +19,7 @@ public class AdapterRecyclerVolunteers extends AdapterRecyclerParticipants {
     public ViewHolderMiniUsers onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_recycler_mini_user, viewGroup, false);
-        ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view) {
+        ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view, isInitiator) {
             @Override
             protected void onClickPositive() {
                 ClientMain.getClient().acceptVolunteer(mProjectId, mUser.getUserName());

@@ -102,6 +102,14 @@ public class FragmentSearch extends Fragment implements IFragmentHost {
             editSearch.setText("");
         }
 
+        EditText editSearchUserName = view.findViewById(R.id.edit_search_username);
+        try {
+            String username = lastSearch.getString("participant");
+            editSearchUserName.setText(username);
+        } catch (JSONException e) {
+            editSearchUserName.setText("");
+        }
+
         try {
             JSONArray jsonArray = lastSearch.getJSONArray("skills");
             ArrayList<Skill> skills = new ArrayList<>();

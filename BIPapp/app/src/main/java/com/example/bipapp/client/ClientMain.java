@@ -96,7 +96,6 @@ public class ClientMain extends Client {
                         JSONObject jsonObjectSubscribers = jsonArraySubscribers.getJSONObject(i);
                         subscribersProjects.add(new Project(jsonObjectSubscribers.getJSONObject("project")));
                         subscribers.add(new User(jsonObjectSubscribers.getJSONObject("subscriber")));
-//                        Log.e("GET_SUBSCRIBERS", subscribersProjects.get(subscribersProjects.size()-1).getName() + " " + subscribers.get(subscribers.size()-1).getFullName());
                     }
 
                     JSONArray jsonArraySubscriptions = jsonObject.getJSONObject("data").getJSONArray("subscriptions");

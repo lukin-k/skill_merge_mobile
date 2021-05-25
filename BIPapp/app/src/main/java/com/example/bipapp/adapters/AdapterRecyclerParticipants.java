@@ -34,7 +34,7 @@ public class AdapterRecyclerParticipants extends RecyclerView.Adapter<ViewHolder
     public ViewHolderMiniUsers onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_recycler_mini_user, viewGroup, false);
-        ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view) {
+        ViewHolderMiniUsers viewHolderMiniUsers = new ViewHolderMiniUsers(view, isInitiator) {
             @Override
             protected void onClickPositive() {
                 Log.v("Participant", "Positive");
@@ -42,7 +42,9 @@ public class AdapterRecyclerParticipants extends RecyclerView.Adapter<ViewHolder
 
             @Override
             protected void onClickNegative() {
-                ClientMain.getClient().deleteParticipant(mProjectId, mUser.getUserName());
+                if(isInitiator){
+                    ClientMain.getClient().deleteParticipant(mProjectId, mUser.getUserName());
+                }
             }
         };
         if (isInitiator) {

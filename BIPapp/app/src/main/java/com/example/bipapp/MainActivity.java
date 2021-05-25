@@ -30,7 +30,7 @@ import com.example.bipapp.ui.user.FragmentUser;
 import java.util.ArrayList;
 
 
-//TODO add subscribersFragment
+//TODO clean code
 public class MainActivity extends AppCompatActivity implements IClientMainCallback {
     private ClientMain mClient;
 
